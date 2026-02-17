@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* The "Vidaka Dark" Theme */
+  --background: #050d0a;
+  --foreground: #ffffff;
+
+  /* Brand Colors */
+  --accent: #2FE89B;        /* The specific Green from your slides */
+  --accent-glow: rgba(47, 232, 155, 0.15);
+  
+  /* Text Hierarchy */
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af; /* gray-400 */
+  --text-muted: #6b7280;     /* gray-500 */
+
+  /* Borders & Glass */
+  --border: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.03);
+  
+  /* Radius */
+  --radius-lg: 1rem;
+  --radius-md: 0.5rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    /* Smooth scrolling for the whole site */
+    scroll-behavior: smooth; 
+  }
+}
+
+@layer components {
+  /* Investor-Grade Card Style */
+  .ieg-card {
+    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm transition-all duration-500;
+  }
+  
+  .ieg-card:hover {
+    @apply border-[#2FE89B]/30 bg-white/[0.04] shadow-[0_0_30px_rgba(47,232,155,0.05)];
+  }
+
+  /* High-Performance Button */
+  .ieg-btn-primary {
+    @apply bg-[#2FE89B] text-[#050d0a] font-bold uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#25c482] hover:shadow-[0_0_20px_rgba(47,232,155,0.4)];
+  }
+
+  .ieg-btn-secondary {
+    @apply bg-transparent border border-white/20 text-white font-bold uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 hover:bg-white/10 hover:border-white/40;
+  }
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050d0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2FE89B;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #25c482;
+}
