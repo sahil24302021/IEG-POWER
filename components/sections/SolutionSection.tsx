@@ -1,78 +1,94 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Battery, Zap, Leaf, Package, CircleDollarSign, ShieldCheck, ArrowRight } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const FEATURES = [
-  { icon: Battery, title: 'No Fossil Fuel', desc: 'Operates entirely without petrol, diesel, gas, or any combustible fuel source.' },
-  { icon: Zap, title: 'No Grid Required', desc: 'Complete independence from external power grids — works anywhere, anytime.' },
-  { icon: Leaf, title: 'Zero Pollution', desc: 'Zero emissions, zero noise pollution. Clean energy from the ground up.' },
-  { icon: Package, title: '100% Portable', desc: 'Compact modular design that can be installed in any vehicle or structure.' },
-  { icon: CircleDollarSign, title: 'Negligible Cost', desc: '₹0 fuel cost per kWh. Only nominal maintenance required.' },
-  { icon: ShieldCheck, title: 'Always Reliable', desc: '24/7 continuous output. No weather dependence, no downtime.' },
+gsap.registerPlugin(ScrollTrigger);
+
+const LOOP_STEPS = [
+  { num: '01', title: 'Battery activates motor', desc: 'Initial power from a standard battery activates the BLDC motor, beginning the cycle.' },
+  { num: '02', title: 'Motor drives generator', desc: 'BLDC Motor drives the patented IEG MB Generator, producing more energy than consumed.' },
+  { num: '03', title: 'Surplus recharges battery', desc: 'Excess energy routes through battery charger back to source — closing the regeneration loop.' },
+  { num: '04', title: 'Continuous output delivered', desc: 'System delivers stable 240V/50Hz AC power continuously. Zero fuel. Zero grid dependency.' },
 ];
 
 export default function SolutionSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    gsap.from(ref.current.querySelectorAll('.sol-reveal'), {
+      y: 35, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power4.out',
+      scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+    });
+  }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-forest overflow-hidden">
-      {/* Ambient */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest-light/10 rounded-full blur-[200px]" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-ieg-orange/5 rounded-full blur-[150px]" />
-
+    <section ref={ref} className="section-green relative overflow-hidden" style={{ padding: '100px 0' }}>
       <div className="ieg-container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16 max-w-2xl mx-auto"
-        >
-          <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.25em] uppercase text-white/60 font-heading mb-4">
-            <span className="w-8 h-px bg-white/30" />
-            The Solution
-            <span className="w-8 h-px bg-white/30" />
-          </span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-[2.75rem] text-white leading-tight mb-4">
-            IEG Vidaka is{' '}
-            <span className="text-ieg-orange">the Answer</span>
-          </h2>
-          <p className="text-white/50 text-sm md:text-base">
-            A patented internal energy generation system that eliminates dependency on fuel, grid, and charging infrastructure.
-          </p>
-        </motion.div>
+        <div className="grid lg:grid-cols-[3fr_2fr] gap-10 items-end mb-14">
+          <div className="sol-reveal">
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,0.4)', display: 'block', marginBottom: '16px' }}>
+              The Solution
+            </span>
+            <h2 style={{
+              fontFamily: 'var(--font-outfit)', fontWeight: 600,
+              fontSize: 'clamp(28px, 3.5vw, 44px)', lineHeight: 1.15,
+              letterSpacing: '-0.02em', color: 'white',
+            }}>
+              Self-sustaining electricity.{' '}
+              <span style={{ fontWeight: 300, opacity: 0.5, fontStyle: 'italic' }}>Permanently.</span>
+            </h2>
+          </div>
+          <div className="sol-reveal">
+            <p style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '15px', lineHeight: 1.7, color: 'rgba(255,255,255,0.55)' }}>
+              IEG technology creates a closed-loop energy system. Once activated,
+              the internal regeneration cycle produces more energy than it consumes.
+            </p>
+            <Link href="/technology" className="inline-flex items-center gap-2 mt-5" style={{
+              fontFamily: 'var(--font-outfit)', fontWeight: 500, fontSize: '14px',
+              color: 'white', borderBottom: '1px solid rgba(255,255,255,0.25)', paddingBottom: '4px',
+            }}>
+              Deep Dive Into The Science
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Link>
+          </div>
+        </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {FEATURES.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
-              className="bg-white/[0.06] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 hover:bg-white/[0.1] hover:border-white/[0.15] transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mb-4">
-                <f.icon className="w-5 h-5 text-white/80" />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {LOOP_STEPS.map((step) => (
+            <div key={step.num} className="sol-reveal" style={{
+              display: 'grid', gridTemplateColumns: '36px 1fr', gap: '20px',
+              padding: '24px 0', borderTop: '1px solid rgba(255,255,255,0.08)', alignItems: 'baseline',
+            }}>
+              <span style={{ fontFamily: 'var(--font-outfit)', fontWeight: 600, fontSize: '13px', color: 'rgba(255,255,255,0.2)' }}>
+                {step.num}
+              </span>
+              <div>
+                <h3 style={{ fontFamily: 'var(--font-outfit)', fontWeight: 500, fontSize: '17px', color: 'white', marginBottom: '6px' }}>
+                  {step.title}
+                </h3>
+                <p style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '14px', lineHeight: 1.7, color: 'rgba(255,255,255,0.4)', maxWidth: '440px' }}>
+                  {step.desc}
+                </p>
               </div>
-              <h3 className="text-white font-heading font-bold text-sm mb-2">{f.title}</h3>
-              <p className="text-white/40 text-xs leading-relaxed">{f.desc}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-12"
-        >
-          <Link href="/technology" className="btn-orange">
-            See How It Works <ArrowRight className="w-4 h-4" />
-          </Link>
-        </motion.div>
+        <div className="sol-reveal flex items-center gap-3 mt-6">
+          <div style={{ height: '1px', flex: '1', maxWidth: '140px', background: 'rgba(255,255,255,0.08)' }} />
+          <span style={{
+            fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.1em',
+            color: 'rgba(255,255,255,0.3)', padding: '6px 14px',
+            border: '1px solid rgba(255,255,255,0.08)', borderRadius: '4px',
+          }}>
+            ↻ SELF-REGENERATING LOOP
+          </span>
+          <div style={{ height: '1px', flex: '1', maxWidth: '140px', background: 'rgba(255,255,255,0.08)' }} />
+        </div>
       </div>
     </section>
   );

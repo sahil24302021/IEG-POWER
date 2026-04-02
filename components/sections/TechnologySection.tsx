@@ -1,118 +1,95 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Zap, RefreshCcw, BatteryCharging, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const STEPS = [
-  { num: '01', icon: Zap, title: 'Magnetic Flux Stabilization', desc: 'A patented arrangement of magnetic elements creates a self-stabilizing flux field, generating initial torque without external input.' },
-  { num: '02', icon: RefreshCcw, title: 'The Regenerative Loop', desc: 'BLDC Motor drives the IEG MB Generator, which produces excess energy fed back through the Battery Charger — creating a continuous closed loop.' },
-  { num: '03', icon: BatteryCharging, title: 'Continuous Output', desc: 'The system delivers stable 240V / 50Hz AC output continuously — enough to power appliances, vehicles, and industrial equipment.' },
+  { num: '01', title: 'Magnetic Flux Stabilization', desc: 'A patented arrangement of magnetic elements creates a self-stabilizing flux field, generating initial torque without external input.' },
+  { num: '02', title: 'The Regenerative Loop', desc: 'BLDC Motor drives the IEG MB Generator, which produces excess energy fed back through the Battery Charger — a continuous closed loop.' },
+  { num: '03', title: 'Continuous Output', desc: 'The system delivers stable 240V / 50Hz AC output continuously — enough to power appliances, vehicles, and industrial equipment.' },
 ];
 
+function EnergyFlowDiagram() {
+  return (
+    <div className="relative w-full rounded-lg overflow-hidden" style={{ background: 'white', border: '1px solid rgba(8,12,8,0.08)', aspectRatio: '4/3' }}>
+      <svg viewBox="0 0 500 380" className="w-full h-full" style={{ padding: '20px' }}>
+        <rect x="30" y="140" width="100" height="60" rx="8" fill="none" stroke="#F59E0B" strokeWidth="1.5" />
+        <text x="80" y="166" textAnchor="middle" fill="#F59E0B" fontSize="11" fontWeight="600">BATTERY</text>
+        <text x="80" y="182" textAnchor="middle" fill="#F59E0B" fontSize="9" opacity="0.5">12V–60V</text>
+        <rect x="200" y="30" width="100" height="60" rx="8" fill="none" stroke="#1A6B3C" strokeWidth="1.5" />
+        <text x="250" y="56" textAnchor="middle" fill="#1A6B3C" fontSize="11" fontWeight="600">BLDC MOTOR</text>
+        <text x="250" y="72" textAnchor="middle" fill="#1A6B3C" fontSize="9" opacity="0.5">Torque Drive</text>
+        <rect x="370" y="140" width="100" height="60" rx="8" fill="#1A6B3C" fillOpacity="0.06" stroke="#1A6B3C" strokeWidth="1.5" />
+        <text x="420" y="163" textAnchor="middle" fill="#1A6B3C" fontSize="11" fontWeight="600">IEG MB</text>
+        <text x="420" y="178" textAnchor="middle" fill="#1A6B3C" fontSize="10" fontWeight="600">GENERATOR</text>
+        <rect x="200" y="280" width="100" height="60" rx="8" fill="none" stroke="#F59E0B" strokeWidth="1.5" />
+        <text x="250" y="305" textAnchor="middle" fill="#F59E0B" fontSize="10" fontWeight="600">BATTERY</text>
+        <text x="250" y="322" textAnchor="middle" fill="#F59E0B" fontSize="10" fontWeight="600">CHARGER</text>
+        <path d="M130 155 L200 75" fill="none" stroke="#1A6B3C" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+        <polygon points="200,75 192,82 197,82" fill="#1A6B3C" opacity="0.6" />
+        <path d="M300 75 L370 155" fill="none" stroke="#1A6B3C" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+        <polygon points="370,155 363,148 368,148" fill="#1A6B3C" opacity="0.6" />
+        <path d="M420 200 L300 290" fill="none" stroke="#1A6B3C" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+        <polygon points="300,290 307,283 302,283" fill="#1A6B3C" opacity="0.6" />
+        <path d="M200 310 L80 200" fill="none" stroke="#F59E0B" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+        <polygon points="80,200 87,193 82,193" fill="#F59E0B" opacity="0.6" />
+        <circle r="3.5" fill="#1A6B3C" opacity="0.8"><animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#f1" /></animateMotion></circle>
+        <circle r="3.5" fill="#1A6B3C" opacity="0.8"><animateMotion dur="2.5s" repeatCount="indefinite" begin="0.6s"><mpath href="#f2" /></animateMotion></circle>
+        <circle r="3.5" fill="#1A6B3C" opacity="0.8"><animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s"><mpath href="#f3" /></animateMotion></circle>
+        <circle r="3" fill="#F59E0B" opacity="0.9"><animateMotion dur="2.5s" repeatCount="indefinite" begin="1.8s"><mpath href="#f4" /></animateMotion></circle>
+        <path id="f1" d="M130 155 L200 75" fill="none" stroke="none" />
+        <path id="f2" d="M300 75 L370 155" fill="none" stroke="none" />
+        <path id="f3" d="M420 200 L300 290" fill="none" stroke="none" />
+        <path id="f4" d="M200 310 L80 200" fill="none" stroke="none" />
+      </svg>
+    </div>
+  );
+}
+
 export default function TechnologySection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    gsap.from(ref.current.querySelectorAll('.tech-reveal'), {
+      y: 40, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power4.out',
+      scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+    });
+  }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-cream overflow-hidden">
+    <section ref={ref} className="section-light relative overflow-hidden" style={{ padding: '100px 0' }}>
       <div className="ieg-container relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.25em] uppercase text-forest font-heading mb-4">
-              <span className="w-8 h-px bg-forest/50" />
-              Core Technology
-            </span>
-            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-[2.75rem] text-carbon leading-tight">
-              How{' '}
-              <span className="text-forest">IEG</span>{' '}
-              Works
-            </h2>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.3 }}
-          >
-            <Link href="/technology" className="btn-outline-light text-sm">
-              Deep Dive <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
+        <div className="tech-reveal mb-12">
+          <span className="section-label-dark" style={{ display: 'block', marginBottom: '16px' }}>Core IP & Research</span>
+          <h2 className="display-lg" style={{ color: '#080C08' }}>
+            The Science of <span style={{ color: 'var(--green-deep)' }}>Self-Regeneration</span>
+          </h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left — Diagram placeholder */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.2, duration: 0.7 }}
-            className="glass-card-light p-8 md:p-10"
-          >
-            <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-carbon/[0.02] to-forest/[0.04] flex items-center justify-center relative">
-              {/* Simplified energy flow diagram */}
-              <svg viewBox="0 0 400 300" className="w-full h-full max-w-[400px]">
-                <defs>
-                  <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-                    <polygon points="0 0, 8 3, 0 6" fill="#1A6B3C" opacity="0.6" />
-                  </marker>
-                </defs>
-
-                {/* Nodes */}
-                <rect x="10" y="110" width="90" height="60" rx="12" fill="#1A6B3C" opacity="0.08" stroke="#1A6B3C" strokeWidth="1.5" />
-                <text x="55" y="145" textAnchor="middle" fill="#1A6B3C" fontSize="11" fontFamily="var(--font-heading)" fontWeight="700">BATTERY</text>
-
-                <rect x="155" y="30" width="90" height="60" rx="12" fill="#F4A123" opacity="0.08" stroke="#F4A123" strokeWidth="1.5" />
-                <text x="200" y="65" textAnchor="middle" fill="#F4A123" fontSize="11" fontFamily="var(--font-heading)" fontWeight="700">BLDC MOTOR</text>
-
-                <rect x="300" y="110" width="90" height="60" rx="12" fill="#1A6B3C" opacity="0.08" stroke="#1A6B3C" strokeWidth="1.5" />
-                <text x="345" y="138" textAnchor="middle" fill="#1A6B3C" fontSize="11" fontFamily="var(--font-heading)" fontWeight="700">IEG MB</text>
-                <text x="345" y="155" textAnchor="middle" fill="#1A6B3C" fontSize="9" fontFamily="var(--font-heading)" fontWeight="600">GENERATOR</text>
-
-                <rect x="155" y="210" width="90" height="60" rx="12" fill="#F4A123" opacity="0.08" stroke="#F4A123" strokeWidth="1.5" />
-                <text x="200" y="238" textAnchor="middle" fill="#F4A123" fontSize="9" fontFamily="var(--font-heading)" fontWeight="700">BATTERY</text>
-                <text x="200" y="252" textAnchor="middle" fill="#F4A123" fontSize="9" fontFamily="var(--font-heading)" fontWeight="700">CHARGER</text>
-
-                {/* Arrows */}
-                <line x1="100" y1="120" x2="155" y2="75" stroke="#1A6B3C" strokeWidth="1.5" markerEnd="url(#arrowGreen)" strokeDasharray="4 3" />
-                <line x1="245" y1="75" x2="300" y2="120" stroke="#1A6B3C" strokeWidth="1.5" markerEnd="url(#arrowGreen)" strokeDasharray="4 3" />
-                <line x1="345" y1="170" x2="245" y2="220" stroke="#1A6B3C" strokeWidth="1.5" markerEnd="url(#arrowGreen)" strokeDasharray="4 3" />
-                <line x1="155" y1="240" x2="55" y2="170" stroke="#1A6B3C" strokeWidth="1.5" markerEnd="url(#arrowGreen)" strokeDasharray="4 3" />
-
-                {/* Load output */}
-                <text x="370" y="200" fill="#1A6B3C" fontSize="8" fontFamily="var(--font-mono)" fontWeight="600" opacity="0.5">→ LOAD</text>
-                <text x="370" y="212" fill="#1A6B3C" fontSize="7" fontFamily="var(--font-mono)" opacity="0.4">240V/50Hz</text>
-              </svg>
-            </div>
-          </motion.div>
-
-          {/* Right — Steps */}
-          <div className="space-y-6">
-            {STEPS.map((step, i) => (
-              <motion.div
-                key={step.num}
-                initial={{ opacity: 0, x: 30 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.3 + i * 0.15, duration: 0.6 }}
-                className="flex gap-5"
-              >
-                <div className="shrink-0">
-                  <span className="text-2xl font-heading font-extrabold text-ieg-orange/30">{step.num}</span>
-                </div>
+          <div className="tech-reveal"><EnergyFlowDiagram /></div>
+          <div>
+            {STEPS.map((step) => (
+              <div key={step.num} className="tech-reveal" style={{
+                display: 'grid', gridTemplateColumns: '32px 1fr', gap: '16px',
+                padding: '24px 0', borderTop: '1px solid rgba(8,12,8,0.06)', alignItems: 'baseline',
+              }}>
+                <span style={{ fontFamily: 'var(--font-outfit)', fontWeight: 600, fontSize: '22px', color: 'rgba(26,107,60,0.12)' }}>
+                  {step.num}
+                </span>
                 <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-lg bg-forest/10 flex items-center justify-center">
-                      <step.icon className="w-4 h-4 text-forest" />
-                    </div>
-                    <h3 className="font-heading font-bold text-carbon text-base">{step.title}</h3>
-                  </div>
-                  <p className="text-carbon/50 text-sm leading-relaxed">{step.desc}</p>
+                  <h3 style={{ fontFamily: 'var(--font-outfit)', fontWeight: 600, fontSize: '17px', color: '#080C08', marginBottom: '6px' }}>
+                    {step.title}
+                  </h3>
+                  <p style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '14px', lineHeight: 1.7, color: 'rgba(8,12,8,0.5)' }}>
+                    {step.desc}
+                  </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

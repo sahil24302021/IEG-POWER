@@ -1,89 +1,309 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ShieldCheck, Award, GraduationCap, FileCheck } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ProofSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    gsap.from(ref.current.querySelectorAll('.proof-reveal'), {
+      y: 80,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.12,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: ref.current,
+        start: 'top 80%',
+        toggleActions: 'play none none none',
+      },
+    });
+  }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-carbon-light overflow-hidden">
-      <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-forest/[0.03] rounded-full blur-[250px]" />
-
-      <div className="ieg-container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-16"
-        >
-          <span className="section-label justify-center mb-4">Protected by Law</span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-white">
-            Patented & Validated
+    <section
+      ref={ref}
+      style={{
+        background: 'var(--surface)',
+        padding: '80px 0',
+      }}
+    >
+      <div className="ieg-container">
+        {/* Header */}
+        <div className="proof-reveal mb-12">
+          <span className="section-label" style={{ display: 'block', marginBottom: '14px' }}>
+            Intellectual Property
+          </span>
+          <h2 className="display-lg">
+            Protected{' '}
+            <span style={{ fontWeight: 300, fontStyle: 'italic', color: 'var(--text-2)' }}>
+              by law.
+            </span>
           </h2>
-        </motion.div>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {/* Patent Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
-            className="glass-card p-8"
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 rounded-2xl bg-forest/15 flex items-center justify-center">
-                <ShieldCheck className="w-7 h-7 text-forest-light" />
-              </div>
-              <div>
-                <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-forest-light">Granted 2022</span>
-                <h3 className="text-white font-heading font-bold text-lg">Indian Patent No. 391051</h3>
+        {/* Split layout */}
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          {/* Left — Patent certificate image */}
+          <div className="proof-reveal">
+            <div
+              className="patent-tilt"
+              style={{
+                position: 'relative',
+                background: 'var(--surface-2)',
+                border: '1px solid var(--border)',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                aspectRatio: '3/4',
+              }}
+            >
+              <Image
+                src="/assets/pdf_page10_img1.png"
+                alt="Patent Certificate No. 391051 — Government of India"
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ padding: '16px' }}
+              />
+              {/* Overlay badge */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '20px',
+                  left: '20px',
+                  background: 'rgba(6,10,6,0.9)',
+                  backdropFilter: 'blur(12px)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '8px',
+                  padding: '12px 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                }}
+              >
+                <span style={{ fontSize: '18px' }}>🛡️</span>
+                <div>
+                  <span style={{
+                    fontFamily: 'var(--font-outfit)',
+                    fontWeight: 600,
+                    fontSize: '13px',
+                    color: 'var(--text-1)',
+                    display: 'block',
+                  }}>
+                    Patent No. 391051
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '10px',
+                    color: 'var(--text-3)',
+                    letterSpacing: '0.05em',
+                  }}>
+                    Government of India
+                  </span>
+                </div>
               </div>
             </div>
-            <p className="text-ieg-muted text-sm leading-relaxed mb-6">
-              &ldquo;Internal Energy Generating System&rdquo; — A complete closed-loop energy regeneration architecture
-              granted by the Government of India, Controller General of Patents, Designs and Trade Marks.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <div className="flex items-center gap-2 text-[10px] text-ieg-muted font-mono">
-                <FileCheck className="w-3.5 h-3.5 text-forest-light" />
-                Filed: Dec 13, 2011
-              </div>
-              <div className="flex items-center gap-2 text-[10px] text-ieg-muted font-mono">
-                <Award className="w-3.5 h-3.5 text-ieg-orange" />
-                20-Year Protection
-              </div>
-            </div>
-          </motion.div>
+          </div>
 
-          {/* Validation Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.35 }}
-            className="glass-card p-8"
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 rounded-2xl bg-ieg-orange/10 flex items-center justify-center">
-                <GraduationCap className="w-7 h-7 text-ieg-orange" />
+          {/* Right — Details */}
+          <div className="proof-reveal">
+            {/* Primary patent */}
+            <div style={{ marginBottom: '48px' }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '24px',
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '8px',
+                  background: 'rgba(34,197,94,0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '18px',
+                }}>
+                  🛡️
+                </div>
+                <div>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '10px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase' as const,
+                    color: 'var(--green)',
+                    display: 'block',
+                  }}>
+                    Granted 2022
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-outfit)',
+                    fontWeight: 600,
+                    fontSize: '17px',
+                    color: 'var(--text-1)',
+                  }}>
+                    Internal Energy Generating System
+                  </span>
+                </div>
               </div>
-              <div>
-                <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-ieg-orange">Academic Validation</span>
-                <h3 className="text-white font-heading font-bold text-lg">IIM Nagpur Validated</h3>
+
+              {/* Details */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {[
+                  ['Patent No.', '391051'],
+                  ['Filed', 'December 13, 2011'],
+                  ['Protection', '20 years'],
+                  ['Authority', 'Controller General of Patents, India'],
+                  ['Inventor', 'Ajay Choudhary'],
+                ].map(([k, v]) => (
+                  <div key={k} style={{
+                    display: 'flex',
+                    gap: '16px',
+                    paddingBottom: '12px',
+                    borderBottom: '1px solid var(--border)',
+                  }}>
+                    <span style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '11px',
+                      color: 'var(--text-3)',
+                      letterSpacing: '0.06em',
+                      width: '100px',
+                      flexShrink: 0,
+                    }}>
+                      {k}
+                    </span>
+                    <span style={{
+                      fontFamily: 'var(--font-dm-sans)',
+                      fontSize: '14px',
+                      color: 'var(--text-1)',
+                    }}>
+                      {v}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
-            <p className="text-ieg-muted text-sm leading-relaxed mb-6">
-              IEG technology has been reviewed and validated by the Indian Institute of Management, Nagpur —
-              confirming the technical viability and commercial potential of the internal energy generation system.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <div className="flex items-center gap-2 text-[10px] text-ieg-muted font-mono">
-                <Award className="w-3.5 h-3.5 text-forest-light" />
-                Technical & Commercial Viability
+
+            {/* Secondary patent */}
+            <div
+              style={{
+                background: 'var(--surface-2)',
+                border: '1px solid var(--border)',
+                borderRadius: '12px',
+                padding: '24px',
+                marginBottom: '32px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                <span style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase' as const,
+                  color: 'var(--amber)',
+                }}>
+                  📄 2nd Patent — Granted 2025
+                </span>
               </div>
+              <span style={{
+                fontFamily: 'var(--font-outfit)',
+                fontWeight: 600,
+                fontSize: '15px',
+                color: 'var(--text-1)',
+                display: 'block',
+                marginBottom: '8px',
+              }}>
+                Regeneration of Internal Energy
+              </span>
+              <p style={{
+                fontFamily: 'var(--font-dm-sans)',
+                fontSize: '13px',
+                lineHeight: 1.7,
+                color: 'var(--text-2)',
+              }}>
+                Advanced regeneration protocol patent, extending the core IP to cover
+                next-generation energy recovery methods.
+              </p>
             </div>
-          </motion.div>
+
+            {/* IIM Validation */}
+            <div
+              style={{
+                background: 'var(--surface-2)',
+                border: '1px solid var(--border)',
+                borderRadius: '12px',
+                padding: '24px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+                <span style={{ fontSize: '18px' }}>🎓</span>
+                <div>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '10px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase' as const,
+                    color: 'var(--amber)',
+                    display: 'block',
+                  }}>
+                    Validated
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-outfit)',
+                    fontWeight: 600,
+                    fontSize: '15px',
+                    color: 'var(--text-1)',
+                  }}>
+                    IIM Nagpur
+                  </span>
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {['Technical viability confirmed', 'Commercial potential validated', 'Market readiness assessed'].map((t) => (
+                  <div key={t} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '18px',
+                      height: '18px',
+                      borderRadius: '50%',
+                      background: 'rgba(34,197,94,0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}>
+                      <span style={{ color: 'var(--green)', fontSize: '10px' }}>✓</span>
+                    </div>
+                    <span style={{
+                      fontFamily: 'var(--font-dm-sans)',
+                      fontSize: '14px',
+                      color: 'var(--text-1)',
+                    }}>
+                      {t}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p style={{
+                fontFamily: 'var(--font-dm-sans)',
+                fontSize: '12px',
+                fontStyle: 'italic',
+                color: 'var(--text-3)',
+                marginTop: '16px',
+                paddingTop: '12px',
+                borderTop: '1px solid var(--border)',
+              }}>
+                Presented to Dr. APJ Abdul Kalam, 11th President of India, in 2003.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

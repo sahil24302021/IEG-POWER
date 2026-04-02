@@ -1,44 +1,61 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Flame, Grid3X3, CloudRain } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PROBLEMS = [
-  { num: '01', icon: Flame, title: 'Fossil Fuel Scarcity', desc: 'Global reserves depleting rapidly. Prices volatile. Energy insecurity growing for developing nations.', color: 'text-red-400' },
-  { num: '02', icon: Grid3X3, title: 'Grid Dependency', desc: 'Billions still lack reliable grid access. Rural electrification remains decades away.', color: 'text-orange-400' },
-  { num: '03', icon: CloudRain, title: 'Environmental Cost', desc: 'Carbon emissions accelerating climate change. Existing clean energy alternatives remain inefficient.', color: 'text-amber-400' },
+  { stat: '₹110', unit: '/litre', title: 'Fuel costs keep climbing', desc: 'Petrol prices have risen 40% in the last decade. Entire economies are hostage to fossil fuel markets.' },
+  { stat: '240M', unit: '+', title: 'Without reliable power', desc: 'Millions of Indian households lack consistent electricity. Rural electrification targets are decades behind.' },
+  { stat: '2.9', unit: 'Gt', title: 'Annual CO₂ emissions', desc: 'India\'s energy sector is the third-largest emitter globally. The environmental cost compounds daily.' },
 ];
 
 export default function ProblemSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    gsap.from(ref.current.querySelectorAll('.problem-reveal'), {
+      y: 40, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power4.out',
+      scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+    });
+  }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-cream overflow-hidden">
-      <div className="ieg-container relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} className="mb-16">
-          <span className="section-label-dark mb-4">The Challenge</span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl text-carbon leading-tight">
-            The World Runs on a <span className="text-red-500">Broken</span> Energy System
+    <section ref={ref} className="section-light relative" style={{ padding: '100px 0' }}>
+      <div className="ieg-container">
+        <div className="problem-reveal mb-14">
+          <span className="section-label-dark" style={{ display: 'block', marginBottom: '16px' }}>The Problem</span>
+          <h2 className="display-lg" style={{ color: '#080C08', maxWidth: '480px' }}>
+            The world runs on a <span style={{ color: 'var(--coral)' }}>broken</span> energy system.
           </h2>
-        </motion.div>
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
-          {PROBLEMS.map((p, i) => (
-            <motion.div key={p.num} initial={{ opacity: 0, y: 25 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 + i * 0.12, duration: 0.6 }}
-              className="relative bg-white rounded-2xl p-7 border border-black/[0.04] shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 overflow-hidden">
-              <span className="absolute top-4 right-4 text-6xl font-heading font-extrabold text-black/[0.03]">{p.num}</span>
-              <div className="relative z-10">
-                <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center mb-5">
-                  <p.icon className={`w-4 h-4 ${p.color}`} />
-                </div>
-                <h3 className="text-carbon font-heading font-bold text-lg mb-3">{p.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {PROBLEMS.map((p) => (
+            <div key={p.title} className="problem-reveal" style={{
+              display: 'grid', gridTemplateColumns: '140px 1fr', gap: '32px',
+              alignItems: 'baseline', padding: '32px 0', borderTop: '1px solid rgba(8,12,8,0.08)',
+            }}>
+              <div>
+                <span style={{ fontFamily: 'var(--font-outfit)', fontWeight: 600, fontSize: '36px', lineHeight: 1, letterSpacing: '-0.02em', color: 'var(--coral)' }}>
+                  {p.stat}
+                </span>
+                <span style={{ fontFamily: 'var(--font-outfit)', fontWeight: 300, fontSize: '18px', color: 'rgba(239,68,68,0.4)' }}>
+                  {p.unit}
+                </span>
               </div>
-            </motion.div>
+              <div>
+                <h3 style={{ fontFamily: 'var(--font-outfit)', fontWeight: 600, fontSize: '18px', color: '#080C08', marginBottom: '6px' }}>
+                  {p.title}
+                </h3>
+                <p style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '15px', lineHeight: 1.7, color: 'rgba(8,12,8,0.5)', maxWidth: '440px' }}>
+                  {p.desc}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

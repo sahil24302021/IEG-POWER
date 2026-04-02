@@ -1,73 +1,70 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { Globe, FileText, Zap, ArrowRight } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const HIGHLIGHTS = [
-  { icon: Globe, title: '₹34.8B Market', desc: 'India EV market growing 26% CAGR through 2029', color: 'text-forest-light' },
-  { icon: FileText, title: '20-Year Patent', desc: 'Exclusive IP protection through 2031', color: 'text-ieg-orange' },
-  { icon: Zap, title: 'Working Prototypes', desc: '600W to 5KVA systems tested and running', color: 'text-forest-light' },
-];
+gsap.registerPlugin(ScrollTrigger);
 
 export default function InvestorCTA() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    gsap.from(ref.current.querySelectorAll('.inv-reveal'), {
+      y: 40, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power4.out',
+      scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+    });
+  }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-carbon overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest/[0.04] rounded-full blur-[200px]" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-ieg-orange/[0.03] rounded-full blur-[150px]" />
-      </div>
+    <section ref={ref} style={{ background: 'var(--darkest)', padding: '100px 0' }}>
+      <div className="ieg-container">
+        <div className="grid lg:grid-cols-[3fr_2fr] gap-12 items-start">
+          <div>
+            <span className="inv-reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>For Investors</span>
+            <h2 className="inv-reveal display-lg" style={{ marginBottom: '20px' }}>
+              Join the mission to make energy{' '}
+              <span className="text-green-glow">independent.</span>
+            </h2>
+            <p className="inv-reveal body-lg" style={{ maxWidth: '460px', marginBottom: '32px' }}>
+              A ₹34.8B addressable market growing at 26% CAGR. Patented IP with
+              20-year protection. Production-ready technology. Products already shipping.
+            </p>
+            <div className="inv-reveal flex flex-wrap gap-4">
+              <Link href="/investor" className="btn-primary">
+                Investor Brief
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+              <Link href="/contact" className="btn-secondary">Schedule a Meeting</Link>
+            </div>
+          </div>
 
-      <div className="ieg-container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-16"
-        >
-          <span className="section-label justify-center mb-4">Investors</span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-[2.75rem] text-white leading-tight mb-4">
-            Power the Future <span className="text-ieg-orange">with Us</span>
-          </h2>
-          <p className="text-ieg-muted text-sm md:text-base max-w-xl mx-auto">
-            Join the mission to bring fuel-free, grid-independent energy to 1.4 billion people.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-5 mb-12">
-          {HIGHLIGHTS.map((h, i) => (
-            <motion.div
-              key={h.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 + i * 0.1 }}
-              className="glass-card p-7 text-center"
-            >
-              <div className="w-12 h-12 rounded-xl bg-white/[0.04] flex items-center justify-center mx-auto mb-4">
-                <h.icon className={`w-5 h-5 ${h.color}`} />
+          <div className="inv-reveal" style={{ display: 'flex', flexDirection: 'column' }}>
+            {[
+              { value: '₹34.8B', label: 'MARKET SIZE', sublabel: 'India Electric Vehicle Market 2024' },
+              { value: '26%', label: 'CAGR', sublabel: 'Projected growth rate (MORDOR Intelligence)' },
+              { value: '20yr', label: 'PATENT PROTECTION', sublabel: 'Exclusive rights until 2031' },
+            ].map((m, i) => (
+              <div key={m.label} style={{ padding: '28px 0', borderTop: '1px solid var(--border)' }}>
+                <span style={{
+                  fontFamily: 'var(--font-outfit)', fontWeight: 600,
+                  fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1,
+                  letterSpacing: '-0.02em',
+                  color: i === 0 ? 'var(--green)' : i === 1 ? 'var(--amber)' : 'var(--text-1)',
+                  display: 'block', marginBottom: '8px',
+                }}>
+                  {m.value}
+                </span>
+                <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>{m.label}</span>
+                <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
+                  {m.sublabel}
+                </span>
               </div>
-              <h3 className="text-white font-heading font-bold text-lg mb-2">{h.title}</h3>
-              <p className="text-ieg-muted text-xs">{h.desc}</p>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6 }}
-          className="flex flex-wrap justify-center gap-4"
-        >
-          <Link href="/investor" className="btn-primary">
-            Investor Brief <ArrowRight className="w-4 h-4" />
-          </Link>
-          <Link href="/contact" className="btn-ghost">
-            Schedule a Meeting
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

@@ -2,128 +2,217 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, MapPin, Phone, ArrowRight, ArrowUpRight } from 'lucide-react';
-import { BRAND, NAV_LINKS } from '@/lib/constants';
+import { NAV_LINKS, BRAND } from '@/lib/constants';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="relative overflow-hidden">
-      {/* CTA Band */}
-      <div className="bg-forest relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-ieg-lime rounded-full blur-[150px]" />
-        </div>
-        <div className="ieg-container py-16 md:py-20 relative z-10">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div>
-              <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-3">
-                Ready to power the future?
-              </h3>
-              <p className="text-white/60 text-lg font-light">
-                Connect with us for partnerships, investments, or inquiries.
-              </p>
-            </div>
-            <Link href="/contact" className="btn-orange shrink-0">
-              <Mail className="w-4 h-4" />
-              Get in Touch
-              <ArrowRight className="w-4 h-4" />
+    <footer style={{ background: 'var(--black)', borderTop: '1px solid var(--border)' }}>
+      <div className="ieg-container" style={{ padding: '80px 0 40px' }}>
+        {/* Top — Brand + Newsletter */}
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-16 mb-16">
+          <div>
+            <Link href="/" className="flex items-center gap-3 mb-6">
+              <div className="relative w-8 h-8">
+                <Image src="/logo.png" alt="IEG" fill sizes="32px" className="object-contain" />
+              </div>
+              <span style={{
+                fontFamily: 'var(--font-outfit)',
+                fontWeight: 600,
+                fontSize: '16px',
+                color: 'var(--text-1)',
+              }}>
+                IEG Vidaka Powers
+              </span>
             </Link>
+            <p style={{
+              fontFamily: 'var(--font-dm-sans)',
+              fontSize: '14px',
+              lineHeight: 1.7,
+              color: 'var(--text-3)',
+              maxWidth: '400px',
+              marginBottom: '24px',
+            }}>
+              Patented internal energy generation technology. Clean, continuous electricity
+              without fuel. Thirty years of R&D. Two government patents. One mission.
+            </p>
+
+            {/* Contact details */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '12px',
+                color: 'var(--text-2)',
+              }}>
+                {BRAND.phone}
+              </span>
+              <span style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '12px',
+                color: 'var(--text-2)',
+              }}>
+                {BRAND.email}
+              </span>
+              <span style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '12px',
+                color: 'var(--text-3)',
+              }}>
+                {BRAND.hq}
+              </span>
+            </div>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <span style={{
+              fontFamily: 'var(--font-outfit)',
+              fontWeight: 600,
+              fontSize: '16px',
+              color: 'var(--text-1)',
+              display: 'block',
+              marginBottom: '8px',
+            }}>
+              Stay updated
+            </span>
+            <p style={{
+              fontFamily: 'var(--font-dm-sans)',
+              fontSize: '13px',
+              color: 'var(--text-3)',
+              marginBottom: '16px',
+            }}>
+              Get product launches, investor updates, and technology news.
+            </p>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              style={{ display: 'flex', gap: '8px' }}
+            >
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="newsletter-input"
+                style={{ flex: 1 }}
+              />
+              <button
+                type="submit"
+                className="btn-primary"
+                style={{ fontSize: '13px', padding: '12px 20px', flexShrink: 0 }}
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
-      </div>
 
-      {/* Main Footer */}
-      <div className="bg-carbon text-ieg-text/80">
-        <div className="ieg-container py-16 md:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-            {/* Brand */}
-            <div className="lg:col-span-1 space-y-5">
-              <Link href="/" className="flex items-center gap-3">
-                <div className="relative w-10 h-10 shrink-0">
-                  <Image src="/logo.png" alt="IEG" fill sizes="40px" className="object-contain" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white font-heading font-bold text-sm tracking-wide leading-none">IEG VIDAKA</span>
-                  <span className="text-[9px] text-ieg-muted font-heading uppercase tracking-[0.2em] leading-none mt-0.5">Powers Ltd</span>
-                </div>
-              </Link>
-              <p className="text-ieg-muted text-sm leading-relaxed">{BRAND.vision}</p>
-              <div className="trust-badge">
-                <span>{BRAND.patent}</span>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <div>
-              <h4 className="text-white font-heading font-bold uppercase tracking-widest text-xs mb-6">Explore</h4>
-              <ul className="space-y-3">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-ieg-muted hover:text-forest-light text-sm transition-colors inline-flex items-center gap-1 group">
-                      {link.name}
-                      <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Headquarters */}
-            <div>
-              <h4 className="text-white font-heading font-bold uppercase tracking-widest text-xs mb-6">Headquarters</h4>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3 text-ieg-muted text-sm">
-                  <MapPin className="w-4 h-4 text-forest-light mt-0.5 shrink-0" />
-                  <span>{BRAND.hq}</span>
+        {/* Navigation links */}
+        <div
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 pt-8"
+          style={{ borderTop: '1px solid var(--border)' }}
+        >
+          <div>
+            <span className="mono-label" style={{ display: 'block', marginBottom: '16px', fontSize: '10px' }}>
+              Navigation
+            </span>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {NAV_LINKS.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    style={{
+                      fontFamily: 'var(--font-dm-sans)',
+                      fontSize: '14px',
+                      color: 'var(--text-3)',
+                      textDecoration: 'none',
+                      transition: 'color 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.color = 'var(--text-1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.color = 'var(--text-3)';
+                    }}
+                  >
+                    {link.name}
+                  </Link>
                 </li>
-                <li className="flex items-center gap-3 text-ieg-muted text-sm">
-                  <Phone className="w-4 h-4 text-forest-light shrink-0" />
-                  <span>{BRAND.phone}</span>
-                </li>
-                <li className="flex items-center gap-3 text-ieg-muted text-sm">
-                  <Mail className="w-4 h-4 text-forest-light shrink-0" />
-                  <span>{BRAND.email}</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Manufacturing + Newsletter */}
-            <div>
-              <h4 className="text-white font-heading font-bold uppercase tracking-widest text-xs mb-6">Manufacturing</h4>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3 text-ieg-muted text-sm">
-                  <MapPin className="w-4 h-4 text-ieg-orange mt-0.5 shrink-0" />
-                  <span>{BRAND.factory}</span>
-                </li>
-              </ul>
-              <div className="mt-8">
-                <h4 className="text-white font-heading font-bold uppercase tracking-widest text-xs mb-4">Stay Updated</h4>
-                <div className="flex gap-2">
-                  <input
-                    type="email"
-                    placeholder="Your email"
-                    className="flex-1 bg-white/[0.04] border border-white/[0.08] rounded-lg px-4 py-2.5 text-sm text-white placeholder-ieg-muted/50 focus:outline-none focus:border-forest-light/50 transition-colors"
-                  />
-                  <button className="bg-forest hover:bg-forest-light text-white px-4 py-2.5 rounded-lg text-sm font-bold transition-colors">
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
+              ))}
+            </ul>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="border-t border-white/[0.04] mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-ieg-muted/50 text-xs font-heading">
-              © {currentYear} {BRAND.name}. All rights reserved. {BRAND.patent}.
-            </p>
-            <div className="flex gap-6 text-ieg-muted/50 text-xs font-heading uppercase tracking-wider">
-              <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="#" className="hover:text-white transition-colors">Terms of Use</Link>
-            </div>
+          <div>
+            <span className="mono-label" style={{ display: 'block', marginBottom: '16px', fontSize: '10px' }}>
+              Products
+            </span>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {['E-Rickshaw Charger', 'E-Scooty Charger', 'Power Generator', 'Electric Chula', 'Battery Charger'].map((p) => (
+                <li key={p}>
+                  <span style={{
+                    fontFamily: 'var(--font-dm-sans)',
+                    fontSize: '14px',
+                    color: 'var(--text-3)',
+                  }}>
+                    {p}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <div>
+            <span className="mono-label" style={{ display: 'block', marginBottom: '16px', fontSize: '10px' }}>
+              Legal
+            </span>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <li><span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '14px', color: 'var(--text-3)' }}>Privacy Policy</span></li>
+              <li><span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '14px', color: 'var(--text-3)' }}>Terms of Use</span></li>
+              <li><span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '14px', color: 'var(--text-3)' }}>{BRAND.patent}</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <span className="mono-label" style={{ display: 'block', marginBottom: '16px', fontSize: '10px' }}>
+              Locations
+            </span>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <li>
+                <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
+                  <span style={{ display: 'block', color: 'var(--text-2)', fontSize: '14px' }}>Head Office</span>
+                  {BRAND.hq}
+                </span>
+              </li>
+              <li>
+                <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
+                  <span style={{ display: 'block', color: 'var(--text-2)', fontSize: '14px' }}>Factory</span>
+                  {BRAND.factory}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          className="flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{
+            paddingTop: '24px',
+            borderTop: '1px solid var(--border)',
+          }}
+        >
+          <p style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            color: 'var(--text-3)',
+            letterSpacing: '0.05em',
+          }}>
+            © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            color: 'var(--text-3)',
+            letterSpacing: '0.05em',
+          }}>
+            CIN: U31909MH2024PLC423498
+          </p>
         </div>
       </div>
     </footer>

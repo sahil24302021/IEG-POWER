@@ -1,98 +1,262 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { TrendingDown, Wifi, Leaf } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const ADVANTAGES = [
-  { badge: '₹0/KWH', icon: TrendingDown, title: 'Zero Fuel Cost', desc: 'Eliminate recurring OPEX permanently. No diesel, no electricity bills, no dependency.', color: 'bg-forest-light/10 text-forest-light border-forest-light/20' },
-  { badge: '24/7 UPTIME', icon: Wifi, title: 'Grid Independence', desc: 'Sovereign infrastructure that works anywhere — rural, urban, off-grid, on-grid.', color: 'bg-ieg-orange/10 text-ieg-orange border-ieg-orange/20' },
-  { badge: 'ZERO EMISSIONS', icon: Leaf, title: 'Risk Mitigation', desc: 'Future-proof your assets against carbon taxes, fuel volatility, and regulatory shifts.', color: 'bg-forest-light/10 text-forest-light border-forest-light/20' },
-];
+gsap.registerPlugin(ScrollTrigger);
 
-const TABLE_DATA = [
-  { vehicle: '2-Wheeler', stdRange: '100km', stdCost: '₹0.90/km', iegRange: '200km', iegCost: '₹0.12/km', saving: '87%' },
-  { vehicle: '4-Wheeler', stdRange: '250km', stdCost: '₹1.60/km', iegRange: '500km', iegCost: '₹0.42/km', saving: '74%' },
-  { vehicle: 'E-Rickshaw', stdRange: '100km', stdCost: '₹0.45/km', iegRange: '200km', iegCost: '₹0.27/km', saving: '40%' },
+const DATA = [
+  {
+    vehicle: '2-Wheeler',
+    evRange: '100km',
+    evCost: '₹0.90/km',
+    evBar: 90,
+    iegRange: '200km',
+    iegCost: '₹0.12/km',
+    iegBar: 12,
+    saving: '87%',
+  },
+  {
+    vehicle: '4-Wheeler',
+    evRange: '250km',
+    evCost: '₹1.60/km',
+    evBar: 100,
+    iegRange: '500km',
+    iegCost: '₹0.42/km',
+    iegBar: 26,
+    saving: '74%',
+  },
+  {
+    vehicle: 'E-Rickshaw',
+    evRange: '100km',
+    evCost: '₹0.45/km',
+    evBar: 45,
+    iegRange: '200km',
+    iegCost: '₹0.27/km',
+    iegBar: 27,
+    saving: '40%',
+  },
 ];
 
 export default function ComparisonSection() {
-  const ref = useRef(null);
-  const tableRef = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-  const tableInView = useInView(tableRef, { once: true, margin: '-50px' });
+  const ref = useRef<HTMLElement>(null);
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    gsap.from(ref.current.querySelectorAll('.comp-reveal'), {
+      y: 60,
+      opacity: 0,
+      duration: 0.9,
+      stagger: 0.12,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: ref.current,
+        start: 'top 75%',
+        toggleActions: 'play none none none',
+      },
+    });
+
+    ScrollTrigger.create({
+      trigger: ref.current,
+      start: 'top 70%',
+      onEnter: () => setAnimated(true),
+      once: true,
+    });
+  }, []);
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-cream overflow-hidden">
-      <div className="ieg-container relative z-10">
+    <section
+      ref={ref}
+      style={{
+        background: 'var(--black)',
+        padding: '80px 0',
+        borderTop: '1px solid var(--border)',
+      }}
+    >
+      <div className="ieg-container">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="mb-16"
-        >
-          <span className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.25em] uppercase text-forest font-heading mb-4">
-            <span className="w-8 h-px bg-forest/50" />
-            The Advantage
+        <div className="comp-reveal mb-10">
+          <span className="section-label" style={{ display: 'block', marginBottom: '14px' }}>
+            Cost Comparison
           </span>
-          <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-[2.75rem] text-carbon leading-tight">
-            Why Switch to IEG?
+          <h2 className="display-lg" style={{ maxWidth: '500px' }}>
+            Why{' '}
+            <span style={{ color: 'var(--green)' }}>switch</span>?
           </h2>
-        </motion.div>
+          <p className="body-md" style={{ maxWidth: '420px', marginTop: '12px' }}>
+            A fundamental shift in energy economics. Side-by-side, the numbers make the case.
+          </p>
+        </div>
 
-        {/* Advantage Cards */}
-        <div className="grid md:grid-cols-3 gap-5 mb-20">
-          {ADVANTAGES.map((a, i) => (
-            <motion.div
-              key={a.title}
-              initial={{ opacity: 0, y: 25 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 + i * 0.15, duration: 0.6 }}
-              className="glass-card-light p-7"
+        {/* Table — CSS Grid, not <table> */}
+        <div
+          className="comp-reveal"
+          style={{
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
+            borderRadius: '12px',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Header row */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '140px 1fr 1fr 100px',
+              gap: '16px',
+              padding: '16px 24px',
+              borderBottom: '1px solid var(--border)',
+              alignItems: 'center',
+            }}
+          >
+            <span className="mono-label" style={{ fontSize: '10px' }}>Vehicle</span>
+            <span className="mono-label" style={{ fontSize: '10px' }}>Standard EV</span>
+            <span className="mono-label" style={{ fontSize: '10px' }}>IEG Powered</span>
+            <span className="mono-label" style={{ fontSize: '10px', textAlign: 'right' }}>Savings</span>
+          </div>
+
+          {/* Data rows */}
+          {DATA.map((row, i) => (
+            <div
+              key={row.vehicle}
+              className="comp-reveal"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '140px 1fr 1fr 100px',
+                gap: '16px',
+                padding: '24px',
+                borderBottom: i < DATA.length - 1 ? '1px solid var(--border)' : 'none',
+                alignItems: 'center',
+                transition: 'background 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.01)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = 'transparent';
+              }}
             >
-              <span className={`inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-md border mb-5 ${a.color}`}>
-                {a.badge}
+              {/* Vehicle name */}
+              <span style={{
+                fontFamily: 'var(--font-outfit)',
+                fontWeight: 500,
+                fontSize: '16px',
+                color: 'var(--text-1)',
+              }}>
+                {row.vehicle}
               </span>
-              <h3 className="text-carbon font-heading font-bold text-lg mb-2">{a.title}</h3>
-              <p className="text-carbon/50 text-sm leading-relaxed">{a.desc}</p>
-            </motion.div>
+
+              {/* Standard EV */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '8px' }}>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '13px',
+                    color: 'var(--text-2)',
+                  }}>
+                    {row.evRange}
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    color: 'var(--text-3)',
+                  }}>
+                    · {row.evCost}
+                  </span>
+                </div>
+                <div style={{
+                  width: '100%',
+                  height: '6px',
+                  borderRadius: '3px',
+                  background: 'rgba(255,255,255,0.05)',
+                  overflow: 'hidden',
+                }}>
+                  <div
+                    className="comparison-bar bar-ev"
+                    style={{
+                      width: animated ? `${row.evBar}%` : '0%',
+                      transitionDelay: `${i * 150}ms`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* IEG Powered */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '8px' }}>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '13px',
+                    color: 'var(--green)',
+                  }}>
+                    {row.iegRange}
+                  </span>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    color: 'var(--text-3)',
+                  }}>
+                    · {row.iegCost}
+                  </span>
+                </div>
+                <div style={{
+                  width: '100%',
+                  height: '6px',
+                  borderRadius: '3px',
+                  background: 'rgba(255,255,255,0.05)',
+                  overflow: 'hidden',
+                }}>
+                  <div
+                    className="comparison-bar bar-ieg"
+                    style={{
+                      width: animated ? `${row.iegBar}%` : '0%',
+                      transitionDelay: `${i * 150 + 200}ms`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Savings */}
+              <div style={{ textAlign: 'right' }}>
+                <span style={{
+                  fontFamily: 'var(--font-outfit)',
+                  fontWeight: 600,
+                  fontSize: '20px',
+                  color: 'var(--amber)',
+                  opacity: animated ? 1 : 0,
+                  transform: animated ? 'scale(1)' : 'scale(0.8)',
+                  transition: `all 0.4s cubic-bezier(0.23, 1, 0.32, 1) ${i * 150 + 600}ms`,
+                  display: 'inline-block',
+                }}>
+                  {row.saving}
+                </span>
+                <span style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '9px',
+                  letterSpacing: '0.1em',
+                  display: 'block',
+                  color: 'var(--text-3)',
+                  marginTop: '2px',
+                }}>
+                  LESS
+                </span>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Comparison Table */}
-        <div ref={tableRef}>
-          <h3 className="font-heading font-bold text-xl text-carbon mb-8">Running Cost Comparison</h3>
-          <div className="glass-card-light overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-6 gap-4 px-6 py-4 bg-carbon/[0.02] border-b border-carbon/[0.05]">
-              <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-carbon/40">Vehicle</span>
-              <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-carbon/40">Std Range</span>
-              <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-carbon/40">Std Cost</span>
-              <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-carbon/40">IEG Range</span>
-              <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-carbon/40">IEG Cost</span>
-              <span className="text-[10px] font-heading font-bold uppercase tracking-wider text-carbon/40">Savings</span>
-            </div>
-
-            {/* Table Rows — 100ms stagger */}
-            {TABLE_DATA.map((row, i) => (
-              <motion.div
-                key={row.vehicle}
-                initial={{ opacity: 0, x: -30 }}
-                animate={tableInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.5, ease: 'easeOut' }}
-                className="grid grid-cols-6 gap-4 px-6 py-5 border-b border-carbon/[0.04] last:border-b-0 hover:bg-forest/[0.02] transition-colors"
-              >
-                <span className="font-heading font-bold text-sm text-carbon">{row.vehicle}</span>
-                <span className="text-sm text-carbon/50 font-mono">{row.stdRange}</span>
-                <span className="text-sm text-[#E8614D] font-mono font-semibold">{row.stdCost}</span>
-                <span className="text-sm text-carbon/70 font-mono">{row.iegRange}</span>
-                <span className="text-sm text-forest font-mono font-bold">{row.iegCost}</span>
-                <span className="inline-flex items-center justify-center w-fit text-xs font-mono font-bold text-forest bg-forest/10 px-3 py-1 rounded-full">{row.saving}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        <p className="comp-reveal" style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '10px',
+          color: 'var(--text-3)',
+          marginTop: '16px',
+          letterSpacing: '0.05em',
+        }}>
+          * Based on IEG internal testing data. Standard EV costs include grid electricity at ₹9/kWh.
+        </p>
       </div>
     </section>
   );

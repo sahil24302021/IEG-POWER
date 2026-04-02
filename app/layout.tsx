@@ -1,46 +1,43 @@
 import type { Metadata } from "next";
+import { Outfit, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import LenisProvider from "@/components/layout/LenisProvider";
 
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-outfit',
+  display: 'swap',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
-  title: "IEG Vidaka Powers Ltd — Generate Electricity Without Fuel",
-  description:
-    "Patented internal energy generation technology (Patent No. 391051). Continuous clean electricity without fuel, grid, or charging. E-Rickshaw, E-Scooty, Generator solutions.",
-  keywords: [
-    "IEG technology",
-    "internal energy generation",
-    "fuel-free electricity",
-    "electric vehicle charger India",
-    "clean energy patent",
-    "Vidaka Powers",
-    "self-charging generator",
-    "grid-independent power",
-  ],
-  openGraph: {
-    title: "IEG Vidaka — The Future of Energy Generation",
-    description:
-      "Patented fuel-free electricity. Zero emissions. 87% cost reduction.",
-    type: "website",
-    locale: "en_IN",
-    url: "https://iegvidaka.com",
-  },
+  title: "IEG Vidaka Powers — Generate Electricity Without Fuel",
+  description: "Patented internal energy generation technology (Patent No. 391051). Continuous clean electricity without fuel, grid, or charging. 30+ years of R&D. IIM Nagpur validated.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className="font-body bg-carbon text-ieg-text antialiased overflow-x-hidden">
+    <html lang="en" className={`${outfit.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
+      <body className="noise-overlay" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
         <LenisProvider>
           <ScrollProgress />
           <Navbar />
