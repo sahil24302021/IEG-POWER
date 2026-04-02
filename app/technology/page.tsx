@@ -1,118 +1,182 @@
 'use client';
 
-import Navbar from '@/components/Navbar';
+import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FileText, Cpu, Zap, ShieldCheck } from 'lucide-react';
+import { Zap, RotateCcw, BatteryCharging, ArrowRight, FileText, ShieldCheck } from 'lucide-react';
+
+const techSteps = [
+  { num: '01', title: 'Magnetic Flux Stabilization', desc: 'A patented magnetic arrangement induces electron flow with minimal mechanical resistance. Unlike conventional generators, IEG uses no combustion — just precision-engineered magnetic fields.', icon: Zap },
+  { num: '02', title: 'The Regenerative Loop', desc: 'Latent back-EMF is captured via our patented circuit. Instead of being lost as heat, it is phase-corrected and fed back into the exciter field, creating a self-sustaining resonance.', icon: RotateCcw },
+  { num: '03', title: 'Continuous Output', desc: 'The magnetic field becomes self-sustaining. The system delivers clean AC/DC power indefinitely, independent of any external fuel or energy source.', icon: BatteryCharging },
+];
 
 export default function TechnologyPage() {
   return (
-    <main className="bg-[#050d0a] min-h-screen text-white selection:bg-[#2FE89B] selection:text-[#050d0a]">
-      <div className="pt-32 pb-20 container mx-auto px-6 md:px-12">
-        
-        {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mb-24"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <span className="h-px w-8 bg-[#2FE89B]/50"></span>
-            <span className="text-xs font-bold tracking-[0.25em] text-[#2FE89B] uppercase">
-              Core IP & Research
-            </span>
+    <main className="overflow-hidden">
+      {/* Hero */}
+      <section className="relative pt-32 pb-20 bg-carbon overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-forest/[0.04] rounded-full blur-[200px]" />
+        </div>
+        <div className="ieg-container relative z-10 max-w-3xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="section-label mb-6 block">Core IP & Research</span>
+            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-[1.08]">
+              The Science of <span className="text-forest-light">Self-Regeneration</span>
+            </h1>
+            <p className="text-lg text-white/40 font-body leading-relaxed max-w-2xl">
+              IEG technology is an advanced <span className="text-white font-semibold">internal energy regeneration system</span> that minimizes entropy and recycles output power through a patented closed-loop architecture.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-24 bg-carbon-light">
+        <div className="ieg-container">
+          <div className="text-center mb-16">
+            <span className="section-label justify-center mb-4">System Architecture</span>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mt-4">How IEG Technology Works</h2>
           </div>
-          <h1 className="text-5xl md:text-7xl font-semibold mb-8 tracking-tight">
-            The Science of <span className="text-[#2FE89B]">Self-Regeneration</span>
-          </h1>
-          <p className="text-xl text-gray-400 font-light leading-relaxed max-w-2xl">
-            IEG technology is not a perpetual motion machine. It is an advanced 
-            <span className="text-white font-medium"> internal energy regeneration system </span>
-            that minimizes entropy and recycles output power through a patented closed-loop architecture.
-          </p>
-        </motion.div>
 
-        {/* Patents Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
-          {/* Patent 1 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="p-10 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-[#2FE89B]/50 transition-colors group"
-          >
-            <div className="flex justify-between items-start mb-8">
-              <FileText className="w-10 h-10 text-[#2FE89B]" />
-              <span className="px-4 py-1 rounded-full bg-[#2FE89B]/10 text-[#2FE89B] text-xs font-bold tracking-widest border border-[#2FE89B]/20">
-                GRANTED 2022
-              </span>
-            </div>
-            <h3 className="text-3xl font-bold mb-2">Patent No. 391051</h3>
-            <p className="text-gray-400 text-sm uppercase tracking-wider mb-6">Internal Energy Generation</p>
-            <p className="text-gray-300 font-light leading-relaxed">
-              The foundational patent covering the method of autonomous power generation without external fuel dependency. 
-              Effective from 2011, this IP secures the core architecture of the IEG generator.
-            </p>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="glass-card p-8 mb-20">
+            <Image src="/assets/images/ieg-diagram.jpg" alt="IEG System Architecture" width={1200} height={500} className="w-full h-auto object-contain rounded-lg" />
           </motion.div>
 
-          {/* Patent 2 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="p-10 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-[#2FE89B]/50 transition-colors group"
-          >
-            <div className="flex justify-between items-start mb-8">
-              <ShieldCheck className="w-10 h-10 text-[#2FE89B]" />
-              <span className="px-4 py-1 rounded-full bg-white/5 text-gray-400 text-xs font-bold tracking-widest border border-white/10">
-                GRANTED 2025
-              </span>
+          <div className="grid md:grid-cols-3 gap-6">
+            {techSteps.map((step, i) => (
+              <motion.div key={step.num} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
+                className="glass-card p-8">
+                <div className="w-12 h-12 rounded-xl bg-forest/10 flex items-center justify-center mb-6">
+                  <step.icon className="w-5 h-5 text-forest-light" />
+                </div>
+                <span className="font-mono text-sm text-ieg-orange font-bold mb-2 block">{step.num}</span>
+                <h3 className="font-heading font-bold text-lg text-white mb-3">{step.title}</h3>
+                <p className="text-ieg-muted text-sm leading-relaxed">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Patents */}
+      <section className="py-24 bg-carbon">
+        <div className="ieg-container">
+          <div className="text-center mb-16">
+            <span className="section-label justify-center mb-4">Intellectual Property</span>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mt-4">Protected by Law</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="glass-card overflow-hidden">
+              <div className="relative h-64 overflow-hidden">
+                <Image src="/assets/images/patent-cert.jpg" alt="Patent Certificate" fill className="object-cover object-top" />
+                <div className="absolute inset-0 bg-gradient-to-t from-carbon to-transparent" />
+                <div className="absolute bottom-4 left-6">
+                  <div className="flex items-center gap-2 mb-1">
+                    <FileText className="w-4 h-4 text-forest-light" />
+                    <span className="text-xs font-heading text-forest-light uppercase tracking-wider font-bold">Granted 2022</span>
+                  </div>
+                  <h3 className="font-heading font-bold text-xl text-white">Patent No. 391051</h3>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-ieg-muted text-sm leading-relaxed">The foundational patent covering the method of autonomous power generation without external fuel dependency. Effective from 2011.</p>
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
+              className="glass-card overflow-hidden">
+              <div className="relative h-64 bg-gradient-to-br from-forest/20 to-forest/5 flex flex-col items-center justify-center">
+                <ShieldCheck className="w-16 h-16 text-forest-light mb-4" />
+                <span className="text-sm font-heading text-white/40 uppercase tracking-wider">Granted 2025</span>
+              </div>
+              <div className="p-6">
+                <h3 className="font-heading font-bold text-xl text-white mb-2">Regeneration Protocol</h3>
+                <span className="text-xs font-heading text-forest-light uppercase tracking-wider mb-3 block">Internal Energy Regeneration</span>
+                <p className="text-ieg-muted text-sm leading-relaxed">Advanced protocol maximizing efficiency by capturing and recirculating latent energy for continuous operation.</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Generator Specs */}
+      <section className="py-24 bg-carbon-light">
+        <div className="ieg-container">
+          <div className="text-center mb-16">
+            <span className="section-label justify-center mb-4">Specifications</span>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mt-4">Generator Models</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="glass-card p-8">
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="font-heading font-bold text-2xl text-white">IEG 1000</h3>
+                <span className="px-3 py-1 bg-forest/10 text-forest-light text-xs font-bold rounded-full">1 KVA</span>
+              </div>
+              <div className="space-y-3">
+                {[['Rating', '1 KVA / 0.9 KWe'], ['Output (1Φ)', '2.3A / 220-240V'], ['Harmonics', '4-5%'], ['Runtime', '18 hrs/day'], ['Noise', '68-72 DB']].map(([l, v]) => (
+                  <div key={l} className="flex justify-between items-center py-2 border-b border-white/[0.04] last:border-0">
+                    <span className="text-sm text-ieg-muted font-heading">{l}</span>
+                    <span className="font-mono text-sm font-semibold text-white">{v}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <h3 className="text-3xl font-bold mb-2">Regeneration Protocol</h3>
-            <p className="text-gray-400 text-sm uppercase tracking-wider mb-6">Internal Energy Regeneration</p>
-            <p className="text-gray-300 font-light leading-relaxed">
-              The advanced protocol that maximizes system efficiency by capturing and recirculating latent energy. 
-              This breakthrough allows for continuous operation cycles required for mobility and industrial use.
-            </p>
-          </motion.div>
+
+            <div className="glass-card p-8 border-forest-light/20 relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-forest text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg tracking-wider">RECOMMENDED</div>
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="font-heading font-bold text-2xl text-white">IEG 2000</h3>
+                <span className="px-3 py-1 bg-forest/10 text-forest-light text-xs font-bold rounded-full">2 KVA</span>
+              </div>
+              <div className="space-y-3">
+                {[['Rating', '2 KVA / 1.8 KWe'], ['Output (1Φ)', '4.6A / 220-240V'], ['Output (3Φ)', '3.0A / 415V'], ['Harmonics', '4-5%'], ['Runtime', '18 hrs/day']].map(([l, v]) => (
+                  <div key={l} className="flex justify-between items-center py-2 border-b border-white/[0.04] last:border-0">
+                    <span className="text-sm text-ieg-muted font-heading">{l}</span>
+                    <span className="font-mono text-sm font-semibold text-white">{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Prototypes */}
+          <div className="mt-20 text-center">
+            <span className="section-label justify-center mb-4">Proven Hardware</span>
+            <h3 className="font-heading font-bold text-2xl text-white mb-2">Working Prototypes</h3>
+            <p className="text-ieg-muted text-sm mb-10 max-w-lg mx-auto">From 600W compact units to 5KVA industrial generators — built, tested, and running.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              { src: '/assets/pdf_page17_img2.png', name: 'IEG 600W Solar', desc: 'Compact residential unit' },
+              { src: '/assets/pdf_page17_img1.png', name: 'IEG 3KVA Fuel-less', desc: 'Industrial / commercial unit', featured: true },
+              { src: '/assets/pdf_page17_img3.png', name: 'IEG 5KVA', desc: 'Heavy-duty power unit' },
+            ].map((proto, i) => (
+              <motion.div key={proto.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className={`glass-card overflow-hidden group ${proto.featured ? 'border-forest-light/20' : ''}`}>
+                <div className="aspect-square bg-gradient-to-b from-white/[0.02] to-transparent p-6 flex items-center justify-center overflow-hidden">
+                  <Image src={proto.src} alt={proto.name} width={300} height={300} className="object-contain transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <div className="px-6 py-4 border-t border-white/[0.04]">
+                  <p className="font-heading font-bold text-sm text-white">{proto.name}</p>
+                  <p className="text-xs text-ieg-muted mt-0.5">{proto.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link href="/contact" className="btn-primary">
+              Request Technical Briefing <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
-
-        {/* The "How It Works" Deep Dive */}
-        <div className="border-t border-white/10 pt-24">
-           <h2 className="text-3xl md:text-5xl font-semibold mb-16">System Architecture</h2>
-           
-           <div className="space-y-24">
-             {/* Step 1 */}
-             <div className="flex flex-col md:flex-row gap-12 items-center">
-               <div className="w-full md:w-1/2">
-                 <div className="text-[#2FE89B] font-mono text-xl mb-4">01.</div>
-                 <h3 className="text-3xl font-bold mb-6">Magnetic Flux Stabilization</h3>
-                 <p className="text-gray-400 text-lg font-light leading-relaxed">
-                   Unlike conventional generators that rely on combustion to rotate a stator, IEG uses a 
-                   patented magnetic arrangement to induce electron flow with minimal mechanical resistance.
-                 </p>
-               </div>
-               <div className="w-full md:w-1/2 h-64 bg-gradient-to-r from-[#2FE89B]/20 to-transparent rounded-2xl border border-[#2FE89B]/30 flex items-center justify-center">
-                 <span className="text-[#2FE89B] tracking-widest uppercase text-sm">[Diagram: Flux Architecture]</span>
-               </div>
-             </div>
-
-             {/* Step 2 */}
-             <div className="flex flex-col md:flex-row-reverse gap-12 items-center">
-               <div className="w-full md:w-1/2">
-                 <div className="text-[#2FE89B] font-mono text-xl mb-4">02.</div>
-                 <h3 className="text-3xl font-bold mb-6">The Regenerative Loop</h3>
-                 <p className="text-gray-400 text-lg font-light leading-relaxed">
-                   A portion of the output energy is conditioned and fed back into the system's exciter field. 
-                   This creates a self-sustaining resonance that maintains the magnetic field without draining a battery.
-                 </p>
-               </div>
-               <div className="w-full md:w-1/2 h-64 bg-gradient-to-l from-[#2FE89B]/20 to-transparent rounded-2xl border border-[#2FE89B]/30 flex items-center justify-center">
-                 <span className="text-[#2FE89B] tracking-widest uppercase text-sm">[Diagram: Feedback Loop]</span>
-               </div>
-             </div>
-           </div>
-        </div>
-
-      </div>
+      </section>
     </main>
   );
 }

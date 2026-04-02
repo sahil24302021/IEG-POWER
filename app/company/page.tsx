@@ -1,119 +1,150 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Flag, Award, Zap, Building2, User, TrendingUp, Settings, Monitor, Briefcase, Users } from 'lucide-react';
+import { ArrowRight, MapPin, Users, Clock, Award } from 'lucide-react';
+import { BRAND, EXECUTIVE_BOARD, OPERATIONAL_DIRECTORS, JOURNEY_MILESTONES } from '@/lib/constants';
 
 export default function CompanyPage() {
-  
-  // 1. The Historical Timeline
-  const timeline = [
-    { year: '1993', title: 'Inception', desc: 'Ajay Choudhary begins fundamental research on internal energy generation systems.', icon: <Zap /> },
-    { year: '2003', title: 'The Breakthrough', desc: 'First successful prototype of a self-charging generator created.', icon: <Flag /> },
-    { year: '2004', title: 'Presidential Recognition', desc: 'Technology presented to Dr. A.P.J. Abdul Kalam, receiving commendation.', icon: <Award /> },
-    { year: '2011', title: 'Prototype Refinement', desc: 'Advanced iteration of the IEG system developed for mobility applications.', icon: <Zap /> },
-    { year: '2022', title: 'Patent Granted', desc: 'Patent No. 391051 officially granted, securing IP rights from 2011.', icon: <Award /> },
-    { year: '2024', title: 'Corporate Formalization', desc: 'Vidaka Powers Ltd established to commercialize the technology globally.', icon: <Building2 /> },
-  ];
-
-  // 2. The Board of Directors (Data from Content.pdf Page 26)
-  const team = [
-    { name: 'Mansukh Vaghasiya', role: 'Chairman', icon: <User /> },
-    { name: 'Rajesh Vaghasiya', role: 'Director Finance', icon: <TrendingUp /> },
-    { name: 'Vijay Gupta', role: 'Director Production (Electronics)', icon: <Settings /> },
-    { name: 'Nitin Vyas', role: 'Director Production (Mechanical)', icon: <Settings /> },
-    { name: 'Rajeshwar Nagle', role: 'Director IT', icon: <Monitor /> },
-    { name: 'Neena Nagle', role: 'Director Operations', icon: <Briefcase /> },
-  ];
-
   return (
-    <main className="bg-[#050d0a] min-h-screen text-white selection:bg-[#2FE89B] selection:text-[#050d0a]">
-      <div className="pt-32 pb-20 container mx-auto px-6 md:px-12">
-        
-        {/* --- SECTION 1: HEADER --- */}
-        <div className="max-w-4xl mb-24">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="h-px w-8 bg-[#2FE89B]/50"></span>
-            <span className="text-xs font-bold tracking-[0.25em] text-[#2FE89B] uppercase">
-              Our Legacy
-            </span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-semibold mb-8">The Vidaka Journey</h1>
-          <p className="text-xl text-gray-400 font-light leading-relaxed max-w-2xl">
-            From a garage experiment in 1993 to a patented deep-tech architecture in 2026. 
-            Three decades of relentless pursuit of the fuel-less future.
-          </p>
+    <main className="overflow-hidden">
+      {/* Hero */}
+      <section className="relative pt-32 pb-20 bg-carbon overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-[30%] w-[600px] h-[600px] bg-forest/[0.03] rounded-full blur-[200px]" />
         </div>
+        <div className="ieg-container relative z-10 max-w-3xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="section-label mb-6 block">About Us</span>
+            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-[1.08]">
+              30+ Years of <span className="text-forest-light">Deep-Tech</span> Research
+            </h1>
+            <p className="text-lg text-white/40 font-body leading-relaxed max-w-2xl">{BRAND.vision}</p>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* --- SECTION 2: TIMELINE --- */}
-        <div className="relative border-l border-white/10 ml-4 md:ml-12 space-y-16 mb-32">
-          {timeline.map((item, index) => (
-            <motion.div 
-              key={item.year}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="relative pl-12 md:pl-16"
-            >
-              {/* Dot */}
-              <div className="absolute -left-3 top-0 w-6 h-6 bg-[#050d0a] border border-[#2FE89B] rounded-full flex items-center justify-center">
-                <div className="w-2 h-2 bg-[#2FE89B] rounded-full" />
+      {/* Founder */}
+      <section className="py-24 bg-carbon-light">
+        <div className="ieg-container">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <span className="section-label mb-4 block">The Inventor</span>
+              <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mb-6">
+                Ajay Choudhary
+              </h2>
+              <div className="space-y-4 text-ieg-muted text-sm leading-relaxed">
+                <p>Managing Director, Patent Owner, and the inventor behind IEG technology. Mr. Choudhary began his research in <strong className="text-white">1993</strong>, driven by a vision of energy independence.</p>
+                <p>In <strong className="text-white">2003-04</strong>, he presented his breakthrough to <strong className="text-white">Dr. APJ Abdul Kalam</strong>, then President of India, who recognized the potential of internal energy generation.</p>
+                <p>After nearly two decades of refinement, the Indian Government granted <strong className="text-white">Patent No. 391051</strong> in 2022, validating a completely new category of energy technology.</p>
               </div>
-
-              {/* Content */}
-              <div className="group">
-                <span className="text-5xl font-bold text-white/5 group-hover:text-[#2FE89B]/20 transition-colors absolute -top-4 left-16 -z-10 select-none">
-                  {item.year}
-                </span>
-                <div className="flex items-center gap-4 mb-2">
-                   <div className="text-[#2FE89B]">{item.icon}</div>
-                   <h3 className="text-2xl font-bold text-white">{item.title}</h3>
-                </div>
-                <p className="text-gray-400 font-light leading-relaxed max-w-xl">
-                  {item.desc}
-                </p>
+              <div className="flex flex-wrap gap-3 mt-8">
+                <div className="trust-badge"><Award className="w-3.5 h-3.5" /> Patent Owner</div>
+                <div className="trust-badge"><Clock className="w-3.5 h-3.5" /> 30+ Years R&D</div>
               </div>
             </motion.div>
-          ))}
-        </div>
-
-        {/* --- SECTION 3: CORPORATE LEADERSHIP (Added) --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="border-t border-white/10 pt-24"
-        >
-          <div className="flex items-center gap-3 mb-12">
-            <Users className="w-6 h-6 text-[#2FE89B]" />
-            <h2 className="text-3xl md:text-4xl font-bold text-white">Board of Directors</h2>
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
+              className="glass-card p-10 text-center">
+              <div className="w-24 h-24 rounded-full bg-forest/10 mx-auto mb-6 flex items-center justify-center">
+                <Users className="w-10 h-10 text-forest-light" />
+              </div>
+              <h3 className="font-heading font-bold text-2xl text-white mb-2">Ajay Choudhary</h3>
+              <p className="text-forest-light text-sm font-heading font-semibold mb-4">Managing Director & Inventor</p>
+              <p className="text-ieg-muted text-sm italic">&ldquo;Energy should be generated from within — not extracted from the earth.&rdquo;</p>
+            </motion.div>
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {team.map((member, index) => (
-              <motion.div 
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="group p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#2FE89B]/30 hover:bg-white/[0.05] transition-all duration-300"
-              >
-                <div className="flex items-start justify-between mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-[#2FE89B]/10 flex items-center justify-center text-[#2FE89B] group-hover:scale-110 transition-transform">
-                    {member.icon}
-                  </div>
-                  <div className="h-1 w-8 bg-[#2FE89B]/20 group-hover:w-16 group-hover:bg-[#2FE89B] transition-all duration-500 rounded-full" />
+      {/* Timeline */}
+      <section className="py-24 bg-carbon">
+        <div className="ieg-container">
+          <div className="text-center mb-16">
+            <span className="section-label justify-center mb-4">Our Journey</span>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mt-4">The IEG Timeline</h2>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-1">
+            {JOURNEY_MILESTONES.map((m, i) => (
+              <motion.div key={m.year} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="flex gap-6 items-start group">
+                <div className="shrink-0 w-20 pt-6">
+                  <span className="font-mono font-bold text-lg text-forest-light">{m.year}</span>
                 </div>
-                
-                <h3 className="text-xl font-bold text-white mb-2">{member.name}</h3>
-                <p className="text-sm text-gray-400 uppercase tracking-widest font-medium border-l-2 border-[#2FE89B]/50 pl-3">
-                  {member.role}
-                </p>
+                <div className="relative flex-1 pb-8 border-l border-white/[0.06] pl-8">
+                  <div className="absolute left-0 top-6 -translate-x-1/2 w-3 h-3 rounded-full bg-carbon border-2 border-forest-light group-hover:bg-forest-light transition-colors" />
+                  <div className="glass-card p-5">
+                    <h3 className="font-heading font-bold text-white mb-1">{m.title}</h3>
+                    <p className="text-ieg-muted text-sm">{m.desc}</p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </section>
 
-      </div>
+      {/* Team */}
+      <section className="py-24 bg-carbon-light">
+        <div className="ieg-container">
+          <div className="text-center mb-16">
+            <span className="section-label justify-center mb-4">Leadership</span>
+            <h2 className="font-heading font-bold text-3xl md:text-4xl text-white mt-4">Executive Board</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto mb-16">
+            {EXECUTIVE_BOARD.map((member, i) => (
+              <motion.div key={member.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="glass-card p-7 text-center">
+                <div className="w-16 h-16 rounded-full bg-forest/10 mx-auto mb-4 flex items-center justify-center">
+                  <Users className="w-6 h-6 text-forest-light" />
+                </div>
+                <h3 className="font-heading font-bold text-white">{member.name}</h3>
+                <p className="text-forest-light text-xs font-heading font-semibold uppercase tracking-wider mt-1">{member.role}</p>
+                <p className="text-ieg-muted text-xs mt-2">{member.focus}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <h3 className="text-center font-heading font-bold text-xl text-white mb-8">Operational Directors</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {OPERATIONAL_DIRECTORS.map((d, i) => (
+              <motion.div key={d.name} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                className="glass-card p-4 text-center">
+                <p className="font-heading font-bold text-sm text-white">{d.name}</p>
+                <p className="text-[10px] text-ieg-muted mt-1">{d.role}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Locations */}
+      <section className="py-24 bg-carbon">
+        <div className="ieg-container">
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="glass-card p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <MapPin className="w-5 h-5 text-forest-light" />
+                <h3 className="font-heading font-bold text-white text-lg">Headquarters</h3>
+              </div>
+              <p className="text-ieg-muted text-sm">{BRAND.hq}</p>
+              <p className="text-ieg-muted text-sm mt-2">{BRAND.phone}</p>
+              <p className="text-ieg-muted text-sm">{BRAND.email}</p>
+            </div>
+            <div className="glass-card p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <MapPin className="w-5 h-5 text-ieg-orange" />
+                <h3 className="font-heading font-bold text-white text-lg">Manufacturing</h3>
+              </div>
+              <p className="text-ieg-muted text-sm">{BRAND.factory}</p>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link href="/contact" className="btn-primary">Get in Touch <ArrowRight className="w-4 h-4" /></Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
