@@ -99,7 +99,7 @@ export const PRODUCTS_READY = [
     category: 'Energy Storage',
     description: 'Models BC48 (600W) to BC360 (5000W). 96% efficiency across all models. 24 hours backup time. Portable, clean, zero carbon.',
     specs: { efficiency: '96%', backup: '24hr Backup', models: '600W to 5000W' },
-    image: '/assets/Battery-charger.png',
+    image: '/assets/Battery-Charger.png',
   },
   {
     id: 'chula',
