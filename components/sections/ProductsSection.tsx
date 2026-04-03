@@ -1,34 +1,36 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import { PRODUCTS_READY } from '@/lib/constants';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function ProductsSection() {
   const ref = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (!ref.current) return;
     
     // Heading reveal
-    gsap.from(ref.current.querySelectorAll('.prod-heading'), {
+    gsap.from('.prod-heading', {
       y: 40, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out',
       scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
     });
 
     // Cards — staggered scale + fade from bottom
-    gsap.from(ref.current.querySelectorAll('.prod-card'), {
+    gsap.from('.prod-card', {
       y: 80, opacity: 0, scale: 0.95, duration: 0.9, stagger: 0.15, ease: 'power4.out',
-      scrollTrigger: { trigger: ref.current.querySelector('.prod-grid'), start: 'top 85%', toggleActions: 'play none none none' },
+      scrollTrigger: { trigger: '.prod-grid', start: 'top 85%', toggleActions: 'play none none none' },
     });
 
     // Parallax scroll on cards
-    ref.current.querySelectorAll('.prod-card').forEach((card, i) => {
+    const cards = gsap.utils.toArray('.prod-card');
+    cards.forEach((card: any, i: number) => {
       gsap.to(card, {
         y: -15 * (i % 2 === 0 ? 1 : 1.5),
         ease: 'none',
@@ -40,7 +42,7 @@ export default function ProductsSection() {
         },
       });
     });
-  }, []);
+  }, { scope: ref });
 
   return (
     <section ref={ref} className="section-pad" style={{ background: 'var(--bg-primary)' }}>

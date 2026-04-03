@@ -1,22 +1,23 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function TechTeaser() {
   const ref = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (!ref.current) return;
-    gsap.from(ref.current.querySelectorAll('.tech-reveal'), {
+    gsap.from('.tech-reveal', {
       y: 50, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power4.out',
       scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
     });
-  }, []);
+  }, { scope: ref });
 
   return (
     <section ref={ref} className="section-pad" style={{ background: 'var(--bg-secondary)' }}>

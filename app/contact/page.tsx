@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ParticleField from '@/components/three/ParticleField';
+import GradientMesh from '@/components/ui/GradientMesh';
+import ParticleBg from '@/components/ui/ParticleBg';
 import { BRAND } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,12 +16,20 @@ export default function ContactPage() {
 
   useEffect(() => {
     if (!ref.current) return;
-    ref.current.querySelectorAll('.reveal').forEach((el) => {
-      gsap.from(el, {
-        y: 50, opacity: 0, duration: 0.8, ease: 'power4.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.contact-hero-label', { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', delay: 0.1 });
+      gsap.fromTo('.contact-hero-title', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power4.out', delay: 0.2 });
+
+      ref.current!.querySelectorAll('.reveal').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: 'power4.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+          }
+        );
       });
-    });
+    }, ref);
+    return () => ctx.revert();
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,13 +40,16 @@ export default function ContactPage() {
   return (
     <div ref={ref}>
       {/* HERO */}
-      <section className="relative" style={{ padding: '160px 0 60px', background: 'var(--bg-primary)' }}>
-        <ParticleField count={40} opacity={0.2} />
-        <div className="hero-glow" />
+      <section className="relative overflow-hidden" style={{ padding: '120px 0 60px' }}>
+        <GradientMesh />
+        <div className="grid-bg" />
+
         <div className="ieg-container relative z-10">
-          <span className="section-label reveal" style={{ display: 'block', marginBottom: '16px' }}>Contact</span>
-          <h1 className="display-hero reveal" style={{ maxWidth: '700px', marginBottom: '24px' }}>
-            Let&apos;s Build A <span className="text-orange">Cleaner Future</span> — Together
+          <span className="contact-hero-label section-label" style={{ display: 'block', marginBottom: '20px', opacity: 0 }}>
+            [ 08 — Contact ]
+          </span>
+          <h1 className="contact-hero-title display-hero" style={{ maxWidth: '700px', marginBottom: '28px', opacity: 0 }}>
+            Let&apos;s Build A <span className="gradient-text">Cleaner Future</span> — Together
           </h1>
         </div>
       </section>
@@ -50,48 +61,42 @@ export default function ContactPage() {
             {/* LEFT — Contact Details */}
             <div>
               <div className="reveal" style={{ marginBottom: '48px' }}>
-                <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '24px', color: 'var(--text-1)', marginBottom: '6px' }}>
+                <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '26px', color: 'var(--text-1)', marginBottom: '6px' }}>
                   Ajay Choudhary
                 </h2>
-                <p className="body-md" style={{ color: 'var(--orange)', marginBottom: '24px' }}>Founder & Managing Director</p>
+                <p className="body-md" style={{ color: 'var(--orange)', marginBottom: '28px' }}>Founder & Managing Director</p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div>
-                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Mobile</span>
-                    <a href={`tel:${BRAND.phone}`} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>
-                      {BRAND.phone}
-                    </a>
-                  </div>
-                  <div>
-                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Email</span>
-                    <a href={`mailto:${BRAND.founderEmail}`} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>
-                      {BRAND.founderEmail}
-                    </a>
-                  </div>
-                  <div>
-                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Company Email</span>
-                    <a href={`mailto:${BRAND.email}`} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>
-                      {BRAND.email}
-                    </a>
-                  </div>
-                  <div>
-                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Website</span>
-                    <span className="body-md" style={{ color: 'var(--text-1)' }}>{BRAND.website}</span>
-                  </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                  {[
+                    ['Mobile', BRAND.phone, `tel:${BRAND.phone}`],
+                    ['Email', BRAND.founderEmail, `mailto:${BRAND.founderEmail}`],
+                    ['Company Email', BRAND.email, `mailto:${BRAND.email}`],
+                    ['Website', BRAND.website, ''],
+                  ].map(([label, value, href]) => (
+                    <div key={label}>
+                      <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>{label}</span>
+                      {href ? (
+                        <a href={href} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>{value}</a>
+                      ) : (
+                        <span className="body-md" style={{ color: 'var(--text-1)' }}>{value}</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="reveal" style={{ marginBottom: '40px' }}>
-                <span className="mono-label" style={{ display: 'block', marginBottom: '12px', color: 'var(--orange)' }}>Locations</span>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div className="glass-card" style={{ padding: '16px 20px' }}>
-                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>HQ & R&D</span>
-                    <p className="body-sm" style={{ color: 'var(--text-2)' }}>{BRAND.hq}</p>
-                  </div>
-                  <div className="glass-card" style={{ padding: '16px 20px' }}>
-                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Manufacturing</span>
-                    <p className="body-sm" style={{ color: 'var(--text-2)' }}>{BRAND.factory}</p>
-                  </div>
+                <span className="mono-label" style={{ display: 'block', marginBottom: '14px', color: 'var(--orange)' }}>Locations</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {[
+                    ['HQ & R&D', BRAND.hq],
+                    ['Manufacturing', BRAND.factory],
+                  ].map(([label, value]) => (
+                    <div key={label} className="glass-card" style={{ padding: '18px 22px' }}>
+                      <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>{label}</span>
+                      <p className="body-sm" style={{ color: 'var(--text-2)' }}>{value}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -101,11 +106,12 @@ export default function ContactPage() {
                   <button
                     key={type}
                     onClick={() => setForm(f => ({ ...f, subject: type }))}
-                    className="glass-card text-left"
+                    className="glass-card text-left hover-lift"
                     style={{
-                      padding: '16px 20px',
+                      padding: '18px 22px',
                       border: form.subject === type ? '1px solid var(--orange)' : '1px solid var(--border)',
                       background: form.subject === type ? 'var(--orange-dim)' : 'var(--bg-card)',
+                      cursor: 'pointer',
                     }}
                   >
                     <span style={{
@@ -124,9 +130,9 @@ export default function ContactPage() {
             {/* RIGHT — Contact Form */}
             <div className="reveal">
               {submitted ? (
-                <div className="glass-card text-center" style={{ padding: '60px 40px' }}>
-                  <div style={{ fontSize: '48px', marginBottom: '20px' }}>✓</div>
-                  <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '24px', color: 'var(--text-1)', marginBottom: '12px' }}>
+                <div className="glass-card text-center" style={{ padding: '70px 40px' }}>
+                  <div style={{ fontSize: '56px', marginBottom: '24px', color: 'var(--green)' }}>✓</div>
+                  <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '26px', color: 'var(--text-1)', marginBottom: '14px' }}>
                     Message Sent
                   </h3>
                   <p className="body-md">
@@ -134,14 +140,14 @@ export default function ContactPage() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="glass-card" style={{ padding: '36px' }}>
-                  <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '20px', color: 'var(--text-1)', marginBottom: '28px' }}>
+                <form onSubmit={handleSubmit} className="glass-card" style={{ padding: '40px' }}>
+                  <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '22px', color: 'var(--text-1)', marginBottom: '32px' }}>
                     Send a Message
                   </h3>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                     <div>
-                      <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Full Name</label>
+                      <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Full Name</label>
                       <input
                         className="form-input"
                         type="text"
@@ -153,7 +159,7 @@ export default function ContactPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Email</label>
+                        <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Email</label>
                         <input
                           className="form-input"
                           type="email"
@@ -164,7 +170,7 @@ export default function ContactPage() {
                         />
                       </div>
                       <div>
-                        <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Phone</label>
+                        <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Phone</label>
                         <input
                           className="form-input"
                           type="tel"
@@ -175,7 +181,7 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Subject</label>
+                      <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Subject</label>
                       <select
                         className="form-input"
                         value={form.subject}
@@ -188,7 +194,7 @@ export default function ContactPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Message</label>
+                      <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Message</label>
                       <textarea
                         className="form-input"
                         rows={5}

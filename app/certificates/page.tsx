@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ParticleField from '@/components/three/ParticleField';
+import GradientMesh from '@/components/ui/GradientMesh';
+import ParticleBg from '@/components/ui/ParticleBg';
 import { CERTIFICATES } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,26 +16,38 @@ export default function CertificatesPage() {
 
   useEffect(() => {
     if (!ref.current) return;
-    ref.current.querySelectorAll('.reveal').forEach((el) => {
-      gsap.from(el, {
-        y: 50, opacity: 0, duration: 0.8, ease: 'power4.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.cert-hero-label', { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', delay: 0.1 });
+      gsap.fromTo('.cert-hero-title', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power4.out', delay: 0.2 });
+      gsap.fromTo('.cert-hero-sub', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.35 });
+
+      ref.current!.querySelectorAll('.cert-item').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0, scale: 0.97 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.8, delay: i * 0.1, ease: 'power4.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+          }
+        );
       });
-    });
+    }, ref);
+    return () => ctx.revert();
   }, []);
 
   return (
     <div ref={ref}>
       {/* HERO */}
-      <section className="relative" style={{ padding: '160px 0 100px', background: 'var(--bg-primary)' }}>
-        <ParticleField count={40} opacity={0.2} color="#1B7340" />
-        <div className="hero-glow" />
+      <section className="relative overflow-hidden" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
+        <GradientMesh />
+        <div className="grid-bg" />
+
         <div className="ieg-container relative z-10">
-          <span className="section-label reveal" style={{ display: 'block', marginBottom: '16px' }}>Credentials</span>
-          <h1 className="display-hero reveal" style={{ maxWidth: '700px', marginBottom: '24px' }}>
-            Verified. Patented. <span className="text-orange">Recognized.</span>
+          <span className="cert-hero-label section-label" style={{ display: 'block', marginBottom: '20px', opacity: 0 }}>
+            [ 07 — Credentials ]
+          </span>
+          <h1 className="cert-hero-title display-hero" style={{ maxWidth: '700px', marginBottom: '28px', opacity: 0 }}>
+            Verified. Patented. <span className="gradient-text">Recognized.</span>
           </h1>
-          <p className="body-xl reveal" style={{ maxWidth: '600px' }}>
+          <p className="cert-hero-sub body-xl" style={{ maxWidth: '600px', opacity: 0 }}>
             Government-granted patents, institutional recognition, and official incorporation — the proof that IEG technology is real.
           </p>
         </div>
@@ -43,16 +56,15 @@ export default function CertificatesPage() {
       {/* GALLERY */}
       <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
         <div className="ieg-container">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CERTIFICATES.map((cert) => (
               <div
                 key={cert.id}
-                className="reveal cert-frame"
+                className="cert-item cert-frame hover-lift"
                 style={{ cursor: 'pointer' }}
                 onClick={() => setLightbox(cert.image)}
               >
-                {/* Image */}
-                <div style={{ height: '220px', position: 'relative', background: 'rgba(255,255,255,0.02)' }}>
+                <div style={{ height: '240px', position: 'relative', background: 'rgba(255,255,255,0.02)' }}>
                   <Image
                     src={cert.image}
                     alt={cert.title}
@@ -62,25 +74,24 @@ export default function CertificatesPage() {
                   />
                 </div>
 
-                {/* Details */}
-                <div style={{ padding: '24px' }}>
+                <div style={{ padding: '26px' }}>
                   <h3 style={{
                     fontFamily: 'var(--font-syne)',
                     fontWeight: 700,
                     fontSize: '17px',
                     color: 'var(--text-1)',
-                    marginBottom: '4px',
+                    marginBottom: '6px',
                     lineHeight: 1.3,
                   }}>
                     {cert.title}
                   </h3>
-                  <p className="body-sm" style={{ marginBottom: '8px' }}>{cert.subtitle}</p>
+                  <p className="body-sm" style={{ marginBottom: '10px' }}>{cert.subtitle}</p>
                   <p style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '10px',
                     color: 'var(--text-3)',
                     letterSpacing: '0.03em',
-                    marginBottom: '8px',
+                    marginBottom: '10px',
                     lineHeight: 1.5,
                   }}>
                     {cert.details}
@@ -93,7 +104,7 @@ export default function CertificatesPage() {
                       color: 'var(--text-2)',
                       borderTop: '1px solid var(--border)',
                       paddingTop: '12px',
-                      marginTop: '8px',
+                      marginTop: '10px',
                     }}>
                       &ldquo;{cert.quote}&rdquo;
                     </p>
@@ -105,7 +116,7 @@ export default function CertificatesPage() {
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase' as const,
                     display: 'block',
-                    marginTop: '12px',
+                    marginTop: '14px',
                   }}>
                     {cert.authority}
                   </span>
@@ -124,8 +135,8 @@ export default function CertificatesPage() {
             position: 'fixed',
             inset: 0,
             zIndex: 60000,
-            background: 'rgba(8,12,16,0.95)',
-            backdropFilter: 'blur(20px)',
+            background: 'rgba(6,10,14,0.96)',
+            backdropFilter: 'blur(24px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -146,14 +157,15 @@ export default function CertificatesPage() {
             onClick={() => setLightbox(null)}
             style={{
               position: 'absolute',
-              top: '24px',
-              right: '24px',
+              top: '28px',
+              right: '28px',
               fontFamily: 'var(--font-syne)',
               fontWeight: 700,
-              fontSize: '18px',
+              fontSize: '20px',
               color: 'var(--text-2)',
               background: 'none',
               border: 'none',
+              cursor: 'pointer',
             }}
           >
             ✕

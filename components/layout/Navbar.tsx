@@ -6,16 +6,30 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { NAV_LINKS } from '@/lib/constants';
 import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const mobileNavRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const lastScrollY = useRef(0);
 
+  // Scroll behavior: glassmorphic on scroll, hide on scroll down, show on scroll up
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 50);
+      
+      if (currentY > 300) {
+        setVisible(currentY < lastScrollY.current || currentY < 100);
+      } else {
+        setVisible(true);
+      }
+      lastScrollY.current = currentY;
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -34,28 +48,31 @@ export default function Navbar() {
     }
   }, [mobileOpen]);
 
-  // Header entrance animation
-  useEffect(() => {
+  // Entrance animation
+  useGSAP(() => {
     if (headerRef.current) {
-      // Ensure visible immediately, then animate
-      gsap.set(headerRef.current, { opacity: 1, y: 0 });
-      gsap.fromTo(headerRef.current,
-        { y: -40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.2 }
-      );
+      gsap.from(headerRef.current, {
+        y: -40, 
+        opacity: 0, 
+        duration: 0.8, 
+        ease: 'power3.out', 
+        delay: pathname === '/' ? 1.8 : 0.2,
+        clearProps: 'all'
+      });
     }
   }, []);
 
   return (
     <>
       <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50" style={{
-        background: scrolled ? 'rgba(8,12,16,0.92)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(247,148,29,0.1)' : '1px solid transparent',
-        transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+        background: scrolled ? 'rgba(6,10,14,0.88)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.04)' : '1px solid transparent',
+        transition: 'background 0.5s cubic-bezier(0.23, 1, 0.32, 1), backdrop-filter 0.5s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
       }}>
-        <div className="ieg-container flex items-center justify-between" style={{ height: '68px' }}>
+        <div className="ieg-container flex items-center justify-between" style={{ height: '72px' }}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 relative z-50 group">
             <div className="relative w-8 h-8" style={{ transition: 'transform 0.3s ease' }}>
@@ -64,7 +81,7 @@ export default function Navbar() {
             <span style={{
               fontFamily: 'var(--font-syne)',
               fontWeight: 800,
-              fontSize: '16px',
+              fontSize: '17px',
               letterSpacing: '-0.02em',
               color: 'var(--text-1)',
             }}>
@@ -72,38 +89,29 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Nav — ALL page links */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-1">
             {NAV_LINKS.filter(l => l.name !== 'Home').map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
+                  className="nav-link-item"
                   style={{
                     fontFamily: 'var(--font-dm-sans)',
                     fontSize: '13px',
                     fontWeight: isActive ? 600 : 400,
-                    color: isActive ? 'var(--orange)' : 'var(--text-2)',
+                    color: isActive ? 'var(--text-1)' : 'var(--text-2)',
                     padding: '8px 14px',
-                    borderRadius: '6px',
+                    borderRadius: '8px',
                     textDecoration: 'none',
                     position: 'relative',
-                    transition: 'all 0.25s ease',
+                    transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
                     letterSpacing: '0.01em',
-                  }}
-                  className="hover:text-white"
-                  onMouseEnter={(e) => {
-                    if (!isActive) (e.target as HTMLElement).style.color = '#fff';
-                    (e.target as HTMLElement).style.background = 'rgba(255,255,255,0.04)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) (e.target as HTMLElement).style.color = 'var(--text-2)';
-                    (e.target as HTMLElement).style.background = 'transparent';
                   }}
                 >
                   {link.name}
-                  {/* Active indicator line */}
                   {isActive && (
                     <span style={{
                       position: 'absolute',
@@ -120,30 +128,11 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* CTA — "Contact Us" */}
+          {/* CTA */}
           <div className="hidden lg:block">
-            <Link href="/contact" style={{
-              fontFamily: 'var(--font-syne)',
-              fontWeight: 600,
+            <Link href="/contact" className="btn-orange" style={{
+              padding: '9px 22px',
               fontSize: '12px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '9px 20px',
-              borderRadius: '50px',
-              background: 'var(--orange)',
-              color: '#080C10',
-              textDecoration: 'none',
-              transition: 'all 0.3s ease',
-              letterSpacing: '0.02em',
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.transform = 'scale(1.03)';
-              (e.target as HTMLElement).style.boxShadow = '0 0 24px rgba(247,148,29,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.transform = 'scale(1)';
-              (e.target as HTMLElement).style.boxShadow = 'none';
             }}>
               Contact Us
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -177,7 +166,7 @@ export default function Navbar() {
       {/* Mobile Fullscreen Overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden flex flex-col justify-center" style={{
-          background: 'rgba(8,12,16,0.97)',
+          background: 'rgba(6,10,14,0.98)',
           backdropFilter: 'blur(40px)',
         }}>
           <nav ref={mobileNavRef} className="flex flex-col gap-1 px-8">
@@ -190,7 +179,7 @@ export default function Navbar() {
                 style={{
                   fontFamily: 'var(--font-syne)',
                   fontWeight: 700,
-                  fontSize: '26px',
+                  fontSize: '28px',
                   color: pathname === link.href ? 'var(--orange)' : 'var(--text-2)',
                   transition: 'color 0.2s ease',
                   textDecoration: 'none',
@@ -199,7 +188,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
+            <div className="mt-8 pt-8" style={{ borderTop: '1px solid var(--border)' }}>
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}

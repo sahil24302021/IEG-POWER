@@ -15,11 +15,11 @@ export default function Footer() {
 
   return (
     <footer style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border)' }}>
-      <div className="ieg-container" style={{ padding: '80px 0 0' }}>
+      <div className="ieg-container" style={{ padding: 'clamp(40px, 8vw, 80px) 0 0' }}>
         {/* Top Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12 mb-16">
           {/* Brand */}
-          <div className="lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
               <div className="relative w-8 h-8">
                 <Image src="/logo.png" alt="IEG" fill sizes="32px" className="object-contain" />
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
 
           {/* Pages */}
-          <div>
+          <div className="col-span-1">
             <span style={{
               fontFamily: 'var(--font-syne)',
               fontWeight: 700,
@@ -82,7 +82,7 @@ export default function Footer() {
           </div>
 
           {/* Products */}
-          <div>
+          <div className="col-span-1">
             <span style={{
               fontFamily: 'var(--font-syne)',
               fontWeight: 700,
@@ -109,7 +109,7 @@ export default function Footer() {
           </div>
 
           {/* Locations */}
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <span style={{
               fontFamily: 'var(--font-syne)',
               fontWeight: 700,

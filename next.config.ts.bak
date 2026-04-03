@@ -1,9 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Allow local asset images in <Image> components
+  images: {
+    unoptimized: false,
+  },
+
   async redirects() {
     return [
-      { source: '/company', destination: '/about', permanent: true },
+      { source: '/company',  destination: '/about',     permanent: true },
       { source: '/investor', destination: '/investors', permanent: true },
     ];
   },

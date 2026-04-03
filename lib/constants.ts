@@ -83,7 +83,7 @@ export const PRODUCTS_READY = [
     description: 'Self-powered charging system for e-rickshaws. Battery life extends 2-2.5x. No external charging required. Unlimited range for drivers.',
     specs: { batteryLife: '2-2.5x Extended', charging: 'Self-Powered', mileage: 'Unlimited' },
     badge: 'ISO 9001:2015 Certified',
-    image: '/assets/pdf_page22_img1.png',
+    image: '/assets/1-procudt.png',
   },
   {
     id: 'scooty',
@@ -91,7 +91,7 @@ export const PRODUCTS_READY = [
     category: 'Electric Mobility',
     description: 'Self-refilling battery charge whenever parked or ignition switched off. Prevents deep discharge and overcharging. Zero electricity bill for charging.',
     specs: { batteryLife: '2x Cycles', charging: 'Auto-Refill', savings: 'Zero Electricity Bill' },
-    image: '/assets/pdf_page21_img1.png',
+    image: '/assets/scotyy.png',
   },
   {
     id: 'battery-charger',
@@ -99,7 +99,7 @@ export const PRODUCTS_READY = [
     category: 'Energy Storage',
     description: 'Models BC48 (600W) to BC360 (5000W). 96% efficiency across all models. 24 hours backup time. Portable, clean, zero carbon.',
     specs: { efficiency: '96%', backup: '24hr Backup', models: '600W to 5000W' },
-    image: '/assets/pdf_page20_img1.png',
+    image: '/assets/Battery-charger.png',
   },
   {
     id: 'chula',
@@ -107,7 +107,7 @@ export const PRODUCTS_READY = [
     category: 'Home Appliance',
     description: 'Self-powered electric cooking stove. Rural electrification use case. No grid required. Clean cooking for every household.',
     specs: { power: 'Self-Sustained', fuel: 'None', use: 'Cooking' },
-    image: '/assets/pdf_page24_img3.png',
+    image: '/assets/IEG-Electric-Chullah.png'
   },
   {
     id: 'generator',
@@ -115,7 +115,7 @@ export const PRODUCTS_READY = [
     category: 'Power Generation',
     description: 'Fuelless power station. Models: 600W Solar, 3KVA, 5KVA. 18 hrs/day operation. Rural, urban backup, disaster relief.',
     specs: { models: '600W – 5KVA', runtime: '18 hrs/day', noise: '68-72 DB' },
-    image: '/assets/pdf_page17_img1.png',
+    image: '/assets/IEG-Generator.png',
   },
 ];
 
@@ -238,7 +238,7 @@ export const CERTIFICATES = [
     subtitle: 'Internal Energy Generating System',
     details: 'Patentee: Ajay Choudhary | Date of Grant: 03/03/2022 | Filed: 13/12/2011',
     authority: 'Intellectual Property India — Government of India',
-    image: '/assets/pdf_page10_img1.png',
+    image: '/assets/pdf_page5_img2.png',
   },
   {
     id: 'patent-2',
@@ -246,7 +246,7 @@ export const CERTIFICATES = [
     subtitle: 'A System for Regeneration of Internal Energy',
     details: 'Patentee: Ajay Choudhary | Date of Grant: 13/01/2025 | Filed: 08/06/2022',
     authority: 'Intellectual Property India — Government of India',
-    image: '/assets/pdf_page10_img1.png',
+    image: '/assets/patentno-557845.png',
   },
   {
     id: 'iim-nagpur',
@@ -255,7 +255,7 @@ export const CERTIFICATES = [
     details: 'Ref: IIMN/DIR SECTT/06/2024 | Date: 15-02-2024',
     authority: 'Dr. Bhimaraya Metri, Director, IIM Nagpur',
     quote: 'We truly appreciate the technology and wish you the best of luck in taking it forward to the nation.',
-    image: '/assets/pdf_page28_img1.png',
+    image: '/assets/pdf_page5_img1.png',
   },
   {
     id: 'kalam',
@@ -263,7 +263,7 @@ export const CERTIFICATES = [
     subtitle: 'Dr. APJ Abdul Kalam Recognition',
     details: 'Communication from President\'s office, 2004-2005',
     authority: 'Office of the President of India',
-    image: '/assets/pdf_page25_img1.png',
+    image: '/assets/pdf_page4_img1.png',
   },
   {
     id: 'incorporation',
@@ -271,7 +271,7 @@ export const CERTIFICATES = [
     subtitle: 'IEG Vidaka Powers Limited',
     details: 'CIN: U35106MH2024PLC418794 | Date: February 8, 2024',
     authority: 'Ministry of Corporate Affairs, Government of India',
-    image: '/assets/pdf_page9_img1.png',
+    image: '/assets/pdf_page7_img1.png',
   },
 ];
 
@@ -293,10 +293,10 @@ export const RECOGNITIONS = [
 
 // ---- VALUE PROPOSITIONS ----
 export const VALUE_PROPS = [
-  { icon: '🌿', title: 'No Pollution', desc: 'Zero emissions, zero carbon footprint' },
-  { icon: '🌍', title: 'Low Carbon', desc: 'Promotes green revolution with carbon credits' },
-  { icon: '🛡️', title: 'No Harm to Nature', desc: 'Safe for environment and mother nature' },
-  { icon: '💰', title: 'Very Low Cost', desc: 'Negligible infrastructure and maintenance' },
+  { icon: 'leaf', title: 'No Pollution', desc: 'Zero emissions, zero carbon footprint' },
+  { icon: 'globe', title: 'Low Carbon', desc: 'Promotes green revolution with carbon credits' },
+  { icon: 'shield', title: 'No Harm to Nature', desc: 'Safe for environment and mother nature' },
+  { icon: 'coin', title: 'Very Low Cost', desc: 'Negligible infrastructure and maintenance' },
 ];
 
 // ---- MARKET DATA ----

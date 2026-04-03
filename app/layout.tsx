@@ -31,7 +31,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "IEG — The Power Within | Patented Clean Energy Technology",
-  description: "IEG Vidaka Powers: Patented self-sustaining energy systems (Patent No. 391051 & 557845). Zero fuel, zero grid, zero emissions. 30+ years of R&D. The Tesla of Indian clean energy.",
+  description: "IEG Vidaka Powers: Patented self-sustaining energy systems (Patent No. 391051 & 557845). Zero fuel, zero grid, zero emissions. 30+ years of R&D.",
   keywords: "IEG, Internal Energy Generate, clean energy, patent 391051, self-sustaining power, electric vehicle charger, IEG Vidaka",
 };
 
@@ -40,7 +40,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
-      <body className="noise-overlay" style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+      {/*
+        FIX: Removed inline `style={{ fontFamily: ... }}` from <body> — it caused a React
+        hydration mismatch because the server renders `fontFamily: "var(...)"` with double quotes
+        while the client renders single quotes. Font family is now set in globals.css body rule.
+        suppressHydrationWarning is added as an extra safeguard.
+      */}
+      <body className="noise-overlay" suppressHydrationWarning>
         <LoadingScreen />
         <CustomCursor />
         <LenisProvider>

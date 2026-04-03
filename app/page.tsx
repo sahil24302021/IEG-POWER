@@ -14,9 +14,6 @@ export default function Home() {
       {/* HERO — Deep Space Black, Three.js Energy Orb */}
       <HeroSection />
 
-      {/* MARQUEE — Patent numbers, key claims, orange ticker */}
-      <MarqueeTicker />
-
       {/* WHY IEG — 4 icon cards: No Charging, Zero Carbon, Unlimited Range, 4.5× */}
       <WhyIEGSection />
 
