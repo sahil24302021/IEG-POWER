@@ -1,59 +1,67 @@
 // ============================================================
 // IEG Vidaka Powers — Content Constants
 // All data sourced from content.pdf and presentation.pptx
+// NO LOREM IPSUM — every value is real company data
 // ============================================================
 
 // ---- BRAND ----
 export const BRAND = {
   name: 'IEG Vidaka Powers',
   shortName: 'IEG',
+  fullName: 'IEG — Internal Energy Generate',
   tagline: 'The Power Within',
+  tagline2: 'Empowering the Future',
+  mission: 'Provide clean, renewable, self-sustaining energy with zero external power dependency.',
   vision: 'Making the globe more ecologically sustainable for future generations',
   email: 'connect@iegvidaka.com',
+  founderEmail: 'ajaykumarchoudhary07@gmail.com',
   phone: '+91 77395 44789',
   website: 'www.iegvidaka.com',
   hq: 'Dahisar East, Mumbai, Maharashtra, India',
   factory: 'Vapi, Gujarat, India',
-  patent: 'Patent No. 391051',
-  patent2: 'Regeneration of Internal Energy — Granted 2025',
+  cin: 'U35106MH2024PLC418794',
+  incorporatedDate: 'February 8, 2024',
+  patent1: { number: '391051', title: 'Internal Energy Generating System', filed: '13/12/2011', granted: '03/03/2022', patentee: 'Ajay Choudhary' },
+  patent2: { number: '557845', title: 'A System for Regeneration of Internal Energy', filed: '08/06/2022', granted: '13/01/2025', patentee: 'Ajay Choudhary' },
 };
 
 // ---- NAVIGATION ----
 export const NAV_LINKS = [
+  { name: 'Home', href: '/' },
   { name: 'Technology', href: '/technology' },
   { name: 'Products', href: '/products' },
-  { name: 'Company', href: '/company' },
-  { name: 'Investors', href: '/investor' },
+  { name: 'About', href: '/about' },
+  { name: 'Investors', href: '/investors' },
+  { name: 'Subsidiaries', href: '/subsidiaries' },
+  { name: 'Certificates', href: '/certificates' },
   { name: 'Contact', href: '/contact' },
+];
+
+// ---- WHY IEG (Homepage cards) ----
+export const WHY_IEG = [
+  { icon: '⚡', title: 'No External Charging', desc: 'Generates electricity internally. No grid, no fuel dependency.' },
+  { icon: '🌱', title: 'Zero Carbon Footprint', desc: 'Clean energy with negligible environmental impact.' },
+  { icon: '∞', title: 'Unlimited Range', desc: 'For EVs: no range anxiety, no charging stops.' },
+  { icon: '4.5×', title: 'More Efficient', desc: '4.5x more power output vs conventional solar systems.' },
+];
+
+// ---- STATS (Homepage counters) ----
+export const STATS = [
+  { value: 1993, label: 'Year Research Began', suffix: '' },
+  { value: 2, label: 'Patents Granted', suffix: '' },
+  { value: 5, label: 'Business Verticals', suffix: '' },
+  { value: 120, label: 'Days to First Delivery', suffix: '' },
 ];
 
 // ---- TIMELINE / JOURNEY ----
 export const JOURNEY_MILESTONES = [
-  { year: '1993', title: 'Research Begins', desc: 'Ajay Choudhary starts research on Internal Energy Generation.' },
-  { year: '2003', title: 'Breakthrough', desc: 'First self-charging generator created. Presented to Dr. Abdul Kalam.' },
-  { year: '2011', title: 'Prototype Built', desc: 'Working IEG prototype developed and tested successfully.' },
-  { year: '2022', title: 'Patent Granted', desc: 'Indian Patent No. 391051 officially granted (effective from 2011).' },
-  { year: '2024', title: 'Company Formed', desc: 'IEG Vidaka Powers Ltd. formally incorporated.' },
-  { year: '2025', title: '2nd Patent', desc: 'Regeneration of Internal Energy patent granted.' },
-];
-
-// ---- PROBLEMS ----
-export const PROBLEMS = [
-  {
-    number: '01',
-    title: 'Fossil Fuel Scarcity',
-    description: 'Energy systems rely heavily on finite fuels, exposing economies to price shocks, scarcity, and geopolitical instability.',
-  },
-  {
-    number: '02',
-    title: 'Grid Dependency',
-    description: 'Electric mobility and modern appliances remain tied to centralized grids that are unreliable, expensive, and inaccessible in many regions.',
-  },
-  {
-    number: '03',
-    title: 'Environmental Cost',
-    description: 'Conventional power generation produces massive carbon emissions with exorbitant production & maintenance costs.',
-  },
+  { year: '1993', title: 'Research Begins', desc: 'Ajay Choudhary starts independent research into internal energy generation systems.' },
+  { year: '2003', title: 'Breakthrough', desc: 'First self-charging generator created.' },
+  { year: '2004', title: 'Presidential Recognition', desc: 'Meets Dr. APJ Abdul Kalam, presents the invention. Receives personal recognition from the President of India.' },
+  { year: '2011', title: 'Patent Filed', desc: 'Working IEG prototype developed and tested. Patent application No. 391051 filed with the Indian Patent Office.' },
+  { year: '2022', title: 'Patent Granted', desc: 'Indian Patent No. 391051 officially granted by the Controller General of Patents. 20-year protection secured.' },
+  { year: '2024', title: 'Company Incorporated', desc: 'IEG Vidaka Powers Ltd. formally incorporated on February 8, 2024. Production facility established in Vapi, Gujarat.' },
+  { year: '2025', title: '2nd Patent Granted', desc: 'Patent No. 557845 — A System for Regeneration of Internal Energy — officially granted January 13, 2025.' },
 ];
 
 // ---- SOLUTION HIGHLIGHTS ----
@@ -72,52 +80,53 @@ export const PRODUCTS_READY = [
     id: 'rickshaw',
     name: 'IEG E-Rickshaw Charger',
     category: 'Electric Mobility',
-    description: 'Self-powered charging system for e-rickshaws. Battery life extends 2-2.5x. No external charging required.',
+    description: 'Self-powered charging system for e-rickshaws. Battery life extends 2-2.5x. No external charging required. Unlimited range for drivers.',
     specs: { batteryLife: '2-2.5x Extended', charging: 'Self-Powered', mileage: 'Unlimited' },
+    badge: 'ISO 9001:2015 Certified',
     image: '/assets/pdf_page22_img1.png',
   },
   {
     id: 'scooty',
     name: 'IEG E-Scooty Charger',
     category: 'Electric Mobility',
-    description: 'Self-refilling battery charge whenever parked or ignition switched off. Prevents deep discharge and overcharging.',
+    description: 'Self-refilling battery charge whenever parked or ignition switched off. Prevents deep discharge and overcharging. Zero electricity bill for charging.',
     specs: { batteryLife: '2x Cycles', charging: 'Auto-Refill', savings: 'Zero Electricity Bill' },
     image: '/assets/pdf_page21_img1.png',
   },
   {
+    id: 'battery-charger',
+    name: 'IEG Vidaka Battery Charger',
+    category: 'Energy Storage',
+    description: 'Models BC48 (600W) to BC360 (5000W). 96% efficiency across all models. 24 hours backup time. Portable, clean, zero carbon.',
+    specs: { efficiency: '96%', backup: '24hr Backup', models: '600W to 5000W' },
+    image: '/assets/pdf_page20_img1.png',
+  },
+  {
     id: 'chula',
-    name: 'IEG Electric Chula',
+    name: 'IEG Electric Chullah',
     category: 'Home Appliance',
-    description: 'Clean electric cooking stove powered by IEG technology. No gas, no grid, no compromises.',
+    description: 'Self-powered electric cooking stove. Rural electrification use case. No grid required. Clean cooking for every household.',
     specs: { power: 'Self-Sustained', fuel: 'None', use: 'Cooking' },
     image: '/assets/pdf_page24_img3.png',
   },
   {
     id: 'generator',
-    name: 'IEG Power Generator',
+    name: 'IEG Generator',
     category: 'Power Generation',
-    description: 'Fuel-less power station. Start generating electricity with a flip of a switch. Silent, clean, portable.',
-    specs: { models: '1KVA / 2KVA', runtime: '18 hrs/day', noise: '68-72 DB' },
+    description: 'Fuelless power station. Models: 600W Solar, 3KVA, 5KVA. 18 hrs/day operation. Rural, urban backup, disaster relief.',
+    specs: { models: '600W – 5KVA', runtime: '18 hrs/day', noise: '68-72 DB' },
     image: '/assets/pdf_page17_img1.png',
-  },
-  {
-    id: 'battery-charger',
-    name: 'IEG Battery Charger',
-    category: 'Energy Storage',
-    description: 'Self-power battery charging system. Enhances backup time 3-4x with 96% efficiency.',
-    specs: { efficiency: '96%', backup: '3-4x Enhanced', models: '600W to 5000W' },
-    image: '/assets/pdf_page20_img1.png',
   },
 ];
 
 export const PRODUCTS_UPCOMING = [
-  'IEG 36V Cycle Charger',
-  'IEG E-Bike Charger 96V',
-  'IEG Mobile Battery Charger',
-  'IEG Ceiling Fan',
-  'IEG Laptop Charger',
-  'IEG Air Conditioner',
-  'IEG Four-Wheeler Charger',
+  { name: 'IEG Vidaka 36V Cycle Charger', category: 'Mobility' },
+  { name: 'IEG Vidaka E-bike Charger 96V', category: 'Mobility' },
+  { name: 'IEG Vidaka Mobile Battery Charger', category: 'Consumer Electronics' },
+  { name: 'IEG Vidaka Ceiling Fan', category: 'Home Appliance' },
+  { name: 'IEG Vidaka Laptop Charger', category: 'Consumer Electronics' },
+  { name: 'IEG Vidaka Air Conditioner', category: 'Home Appliance' },
+  { name: 'IEG Four-Wheeler Charger', category: 'Mobility' },
 ];
 
 // ---- COMPARISON DATA ----
@@ -125,11 +134,13 @@ export const COMPARISON_TWO_WHEELER = {
   headers: ['Feature', 'Petrol Scooty', 'Electric Scooty', 'IEG Scooty'],
   rows: [
     ['Power Source', 'Fossil Fuel', 'Electric Battery', '∞ Internal Energy'],
-    ['Charging', 'Petrol Pumps', 'Electric Outlets', 'No Charging Needed'],
-    ['Carbon Footprint', '23,000 gm CO₂/liter', 'Grid-dependent', 'Zero Emissions'],
+    ['Charging Infra', 'Petrol Pumps', 'Electric Outlets', 'No Charging Needed'],
+    ['Environmental Impact', '23,000 gm CO₂/liter', 'Grid-dependent', 'Zero Emissions'],
+    ['Carbon Credit', 'None', 'Partial', 'Full Eligibility'],
     ['Range', 'Limited by fuel', 'Limited by battery', '∞ Unlimited'],
+    ['Charging Time', '5 min fill', '4-6 hours', 'No Charging'],
     ['Running Cost', 'High (fuel prices)', '₹5,040/year', '₹0/year'],
-    ['Grid Dependence', 'Petroleum supply', 'Grid availability', 'Total Independence'],
+    ['Grid Independence', 'Petroleum supply', 'Grid availability', 'Total Independence'],
   ],
 };
 
@@ -149,52 +160,143 @@ export const COMPARISON_RUNNING_COST = {
 };
 
 // ---- TEAM ----
-export const EXECUTIVE_BOARD = [
-  { name: 'Mansukh Vaghasiya', role: 'Chairman', focus: 'Corporate Governance & Strategy' },
+export const TEAM_MEMBERS = [
   { name: 'Ajay Choudhary', role: 'Managing Director', focus: 'Inventor & Patent Owner' },
+  { name: 'Mansukh Vaghasiya', role: 'Chairman', focus: 'Corporate Governance & Strategy' },
   { name: 'Rajesh Vaghasiya', role: 'Director Finance', focus: 'Capital Structure & Financial Control' },
-];
-
-export const OPERATIONAL_DIRECTORS = [
-  { name: 'Neena Nagle', role: 'Director Operations' },
-  { name: 'Vijay Gupta', role: 'Director Production (Electronics)' },
-  { name: 'Nitin Vyas', role: 'Director Production (Mechanical)' },
-  { name: 'Rajeshwar Nagle', role: 'Director IT' },
-  { name: 'Vinay Salodkar', role: 'Director Marketing (Technical)' },
-  { name: 'Nilesh Vyas', role: 'Director Marketing' },
-  { name: 'Devashish Saraf', role: 'Director Business Development' },
-  { name: 'Ambarish Salodkar', role: 'Data Analyst' },
-  { name: 'Manshuk Radadiya', role: 'Director Marketing (Power Sector)' },
+  { name: 'Nitin Vyas', role: 'Director Production', focus: 'Mechanical Engineering' },
+  { name: 'Vijay Gupta', role: 'Director Production', focus: 'Electronics' },
+  { name: 'Vinay Salodkar', role: 'Director Marketing', focus: 'Technical' },
+  { name: 'Rajeshwar Nagle', role: 'Director IT', focus: 'Technology Infrastructure' },
+  { name: 'Neena Nagle', role: 'Director Operations', focus: 'Operations Management' },
+  { name: 'Nilesh Vyas', role: 'Director Marketing', focus: 'Market Development' },
+  { name: 'Manshuk Radadiya', role: 'Director Marketing', focus: 'Power Sector' },
+  { name: 'Devashish Saraf', role: 'Director Business Development', focus: 'Strategic Partnerships' },
+  { name: 'Ambarish Salodkar', role: 'Data Analyst', focus: 'Business Intelligence' },
 ];
 
 // ---- ROADMAP ----
 export const ROADMAP_STEPS = [
-  { day: 'Day 0', title: 'MoU Signing', desc: 'Formal agreement signed with strategic investor.' },
-  { day: 'Day 30', title: 'DPR + SPV Formation', desc: 'Detailed Project Report delivered. Private Limited subsidiary incorporated.' },
-  { day: 'Day 60', title: 'HQ Acquisition', desc: 'Corporate office secured in Mumbai CBD for brand visibility.' },
-  { day: 'Day 120', title: 'Sample Deployment', desc: 'Product samples distributed to identified buyers for testing.' },
-  { day: 'Day 180', title: 'Manufacturing Live', desc: 'Large-scale facility operational in Vapi, Gujarat.' },
+  { day: 'Day 0–30', title: 'MoU Signing & DPR', desc: 'Formal MoU signed. Detailed Project Report delivered within 30 days.' },
+  { day: 'Day 30–60', title: 'SPV Formation', desc: 'Private Limited subsidiary incorporated. Corporate office secured in Mumbai CBD.' },
+  { day: 'Within 120 days', title: 'Product Delivery', desc: 'Products delivered within 120 days of order confirmation. Samples deployed for testing.' },
+  { day: 'Within 180 days', title: 'Manufacturing Live', desc: 'Large-scale manufacturing facility operational in Vapi, Gujarat.' },
+  { day: '12 months', title: 'Full Commissioning', desc: 'Complete commissioning within 12 months of 100% funding. Full-scale operations begin.' },
 ];
 
-// ---- INVESTOR / SUBSIDIARY MODEL ----
+// ---- SUBSIDIARY MODEL ----
+export const SUBSIDIARIES = [
+  {
+    number: '01',
+    name: 'Electric Vehicles',
+    segment: 'EV Charging Solutions',
+    products: ['2-Wheeler Chargers', '3-Wheeler Chargers', '4-Wheeler Chargers', 'Heavy Commercial EV Chargers'],
+    desc: 'Self-charging, grid-independent, fast-charging, high-efficiency modules for all electric vehicle segments.',
+  },
+  {
+    number: '02',
+    name: 'Home Appliances',
+    segment: 'Domestic Power',
+    products: ['IEG Electric Chullah', 'Portable IEG Generator (up to 5kW)'],
+    desc: 'Rural electrification, urban backup, and disaster relief solutions. Clean cooking and reliable home power.',
+  },
+  {
+    number: '03',
+    name: 'Consumer Electronics',
+    segment: 'Personal Devices',
+    products: ['Mobile Chargers', 'Laptop Chargers', 'IEG-Powered Air Conditioners', 'Ceiling Fans'],
+    desc: 'Portable, eco-friendly, self-powered consumer electronics that eliminate electricity bills.',
+  },
+  {
+    number: '04',
+    name: 'Commercial Power',
+    segment: 'Industrial Solutions',
+    products: ['Industrial Electric Generator Units', 'Utility-Scale Solar Energy Plants'],
+    desc: 'Large-scale power generation for commercial and industrial applications.',
+  },
+  {
+    number: '05',
+    name: 'Motor Efficiency',
+    segment: 'Retrofit Technology',
+    products: ['Motor Retrofit Technology', 'Pumps', 'HVAC Systems', 'Industrial Motors'],
+    desc: 'Energy savings and reduced operational costs through IEG motor retrofit technology.',
+  },
+];
+
 export const SUBSIDIARY_STRUCTURE = {
   parentShare: 55,
   investorShare: 45,
-  subsidiaries: [
-    { name: 'Subsidiary 1', segment: 'Electric Vehicles', products: ['2-Wheeler Chargers', '3-Wheeler Chargers', '4-Wheeler Chargers', 'Heavy Commercial EVs'] },
-    { name: 'Subsidiary 2', segment: 'Home Appliances', products: ['Electric Stove (Chullah)', 'Portable Generator up to 5kW'] },
-    { name: 'Subsidiary 3', segment: 'Consumer Electronics', products: ['Mobile Chargers', 'Laptop Chargers', 'Air Conditioners'] },
-    { name: 'Subsidiary 4', segment: 'Commercial Power', products: ['Industrial Generators', 'Solar Energy Plants'] },
-    { name: 'Subsidiary 5', segment: 'Motor Efficiency', products: ['Retrofitting Motors', 'Pumps', 'HVAC', 'Industrial Motors'] },
-  ],
+  loanPercent: 20,
+  investorFund: 80,
 };
+
+// ---- CERTIFICATES ----
+export const CERTIFICATES = [
+  {
+    id: 'patent-1',
+    title: 'Patent Certificate — No. 391051',
+    subtitle: 'Internal Energy Generating System',
+    details: 'Patentee: Ajay Choudhary | Date of Grant: 03/03/2022 | Filed: 13/12/2011',
+    authority: 'Intellectual Property India — Government of India',
+    image: '/assets/pdf_page10_img1.png',
+  },
+  {
+    id: 'patent-2',
+    title: 'Patent Certificate — No. 557845',
+    subtitle: 'A System for Regeneration of Internal Energy',
+    details: 'Patentee: Ajay Choudhary | Date of Grant: 13/01/2025 | Filed: 08/06/2022',
+    authority: 'Intellectual Property India — Government of India',
+    image: '/assets/pdf_page10_img1.png',
+  },
+  {
+    id: 'iim-nagpur',
+    title: 'Appreciation Letter — IIM Nagpur',
+    subtitle: 'Director\'s Appreciation',
+    details: 'Ref: IIMN/DIR SECTT/06/2024 | Date: 15-02-2024',
+    authority: 'Dr. Bhimaraya Metri, Director, IIM Nagpur',
+    quote: 'We truly appreciate the technology and wish you the best of luck in taking it forward to the nation.',
+    image: '/assets/pdf_page28_img1.png',
+  },
+  {
+    id: 'kalam',
+    title: 'Presidential Secretariat Letter',
+    subtitle: 'Dr. APJ Abdul Kalam Recognition',
+    details: 'Communication from President\'s office, 2004-2005',
+    authority: 'Office of the President of India',
+    image: '/assets/pdf_page25_img1.png',
+  },
+  {
+    id: 'incorporation',
+    title: 'Certificate of Incorporation',
+    subtitle: 'IEG Vidaka Powers Limited',
+    details: 'CIN: U35106MH2024PLC418794 | Date: February 8, 2024',
+    authority: 'Ministry of Corporate Affairs, Government of India',
+    image: '/assets/pdf_page9_img1.png',
+  },
+];
+
+// ---- RECOGNITIONS (Homepage) ----
+export const RECOGNITIONS = [
+  {
+    name: 'Dr. APJ Abdul Kalam',
+    title: 'Former President of India',
+    year: '2004-05',
+    quote: 'Personal recognition of the IEG technology during a presentation at the Presidential Secretariat.',
+  },
+  {
+    name: 'Dr. Bhimaraya Metri',
+    title: 'Director, IIM Nagpur',
+    year: '2024',
+    quote: 'We truly appreciate the technology and wish you the best of luck in taking it forward to the nation.',
+  },
+];
 
 // ---- VALUE PROPOSITIONS ----
 export const VALUE_PROPS = [
-  { icon: 'leaf', title: 'No Pollution', desc: 'Zero emissions, zero carbon footprint' },
-  { icon: 'cloud', title: 'Low Carbon', desc: 'Promotes green revolution with carbon credits' },
-  { icon: 'shield', title: 'No Harm', desc: 'Safe for environment and mother nature' },
-  { icon: 'coins', title: 'Very Low Cost', desc: 'Negligible infrastructure and maintenance' },
+  { icon: '🌿', title: 'No Pollution', desc: 'Zero emissions, zero carbon footprint' },
+  { icon: '🌍', title: 'Low Carbon', desc: 'Promotes green revolution with carbon credits' },
+  { icon: '🛡️', title: 'No Harm to Nature', desc: 'Safe for environment and mother nature' },
+  { icon: '💰', title: 'Very Low Cost', desc: 'Negligible infrastructure and maintenance' },
 ];
 
 // ---- MARKET DATA ----
@@ -231,3 +333,6 @@ export const GENERATOR_SPECS = {
     },
   ],
 };
+
+// ---- MARQUEE TICKER ----
+export const MARQUEE_TEXT = 'PATENT NO. 391051  ·  ZERO CARBON FOOTPRINT  ·  GRID INDEPENDENT  ·  PATENT NO. 557845  ·  RECOGNIZED BY DR. APJ ABDUL KALAM  ·  IIM NAGPUR APPRECIATED  ·  ';

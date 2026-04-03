@@ -1,49 +1,41 @@
 import HeroSection from '@/components/sections/HeroSection';
-import StatsSection from '@/components/sections/StatsSection';
-import ProblemSection from '@/components/sections/ProblemSection';
-import SolutionSection from '@/components/sections/SolutionSection';
-import TechnologySection from '@/components/sections/TechnologySection';
+import MarqueeTicker from '@/components/sections/MarqueeTicker';
+import WhyIEGSection from '@/components/sections/WhyIEGSection';
+import TechTeaser from '@/components/sections/TechTeaser';
+import StatsCounterSection from '@/components/sections/StatsCounterSection';
 import ProductsSection from '@/components/sections/ProductsSection';
-import ComparisonSection from '@/components/sections/ComparisonSection';
-import TimelineSection from '@/components/sections/TimelineSection';
-import ProofSection from '@/components/sections/ProofSection';
-import InvestorCTA from '@/components/sections/InvestorCTA';
+import SubsidiariesPreview from '@/components/sections/SubsidiariesPreview';
+import RecognitionSection from '@/components/sections/RecognitionSection';
 import CTABanner from '@/components/sections/CTABanner';
 
 export default function Home() {
   return (
     <main>
-      {/* HERO — var(--black) */}
+      {/* HERO — Deep Space Black, Three.js Energy Orb */}
       <HeroSection />
 
-      {/* STATS — var(--black), seamless continuation */}
-      <StatsSection />
+      {/* MARQUEE — Patent numbers, key claims, orange ticker */}
+      <MarqueeTicker />
 
-      {/* PROBLEM — var(--cream), sharp light break */}
-      <ProblemSection />
+      {/* WHY IEG — 4 icon cards: No Charging, Zero Carbon, Unlimited Range, 4.5× */}
+      <WhyIEGSection />
 
-      {/* SOLUTION — #1A6B3C, deep forest green */}
-      <SolutionSection />
+      {/* TECH TEASER — Split: animated IEG loop diagram + How It Works copy */}
+      <TechTeaser />
 
-      {/* TECHNOLOGY — var(--cream), back to light */}
-      <TechnologySection />
+      {/* STATS — 4 massive animated counters: 1993, 2, 5, 120 */}
+      <StatsCounterSection />
 
-      {/* PRODUCTS — var(--black), dark luxury */}
+      {/* PRODUCTS — 5 glass cards with 3D tilt hover */}
       <ProductsSection />
 
-      {/* COMPARISON — var(--black), seamless */}
-      <ComparisonSection />
+      {/* SUBSIDIARIES — "5 Companies. One Vision." overview */}
+      <SubsidiariesPreview />
 
-      {/* TIMELINE — var(--black), pinned horizontal */}
-      <TimelineSection />
+      {/* RECOGNITION — Dr. APJ Abdul Kalam + IIM Nagpur */}
+      <RecognitionSection />
 
-      {/* PATENT/PROOF — var(--surface) */}
-      <ProofSection />
-
-      {/* INVESTOR CTA — darkest dark */}
-      <InvestorCTA />
-
-      {/* CTA BANNER — green bookend */}
+      {/* CTA — "Ready to Power the Future?" */}
       <CTABanner />
     </main>
   );

@@ -1,166 +1,147 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-/**
- * ParticleField — Full-screen WebGL canvas background
- * 
- * Floating particles that drift slowly, responding to mouse.
- * Subtle, ambient — not decorative. Immersive background layer.
- */
-export default function ParticleField() {
+interface Props {
+  color?: string;
+  count?: number;
+  speed?: number;
+  opacity?: number;
+}
+
+export default function ParticleField({ color = '#F7941D', count = 80, speed = 0.3, opacity = 0.4 }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!mountRef.current) return;
+
     const container = mountRef.current;
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, W / H, 0.1, 1000);
-    camera.position.z = 30;
+    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.z = 5;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-    renderer.setSize(W, H);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // ── Particles ──
-    const count = 800;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
-    const velocities = new Float32Array(count * 3);
-    const sizes = new Float32Array(count);
-
-    for (let i = 0; i < count; i++) {
-      positions[i * 3]     = (Math.random() - 0.5) * 80;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
-
-      velocities[i * 3]     = (Math.random() - 0.5) * 0.01;
-      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.01;
-      velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.005;
-
-      sizes[i] = Math.random() * 1.5 + 0.5;
+    // Particles
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? Math.round(count * 0.4) : count;
+    const geo = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const velocities = new Float32Array(particleCount * 3);
+    
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 12;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 6;
+      velocities[i * 3] = (Math.random() - 0.5) * speed * 0.02;
+      velocities[i * 3 + 1] = (Math.random() - 0.5) * speed * 0.02;
+      velocities[i * 3 + 2] = (Math.random() - 0.5) * speed * 0.01;
     }
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-    const material = new THREE.PointsMaterial({
-      color: 0x22C55E,
-      size: 0.8,
+    const mat = new THREE.PointsMaterial({
+      color: new THREE.Color(color),
+      size: isMobile ? 0.03 : 0.025,
       transparent: true,
-      opacity: 0.15,
-      sizeAttenuation: true,
+      opacity,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
     });
 
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
 
-    // ── A few brighter amber particles ──
-    const amberCount = 60;
-    const amberGeo = new THREE.BufferGeometry();
-    const amberPos = new Float32Array(amberCount * 3);
-    for (let i = 0; i < amberCount; i++) {
-      amberPos[i * 3]     = (Math.random() - 0.5) * 60;
-      amberPos[i * 3 + 1] = (Math.random() - 0.5) * 60;
-      amberPos[i * 3 + 2] = (Math.random() - 0.5) * 30;
-    }
-    amberGeo.setAttribute('position', new THREE.BufferAttribute(amberPos, 3));
-    const amberMat = new THREE.PointsMaterial({
-      color: 0xF59E0B,
-      size: 0.6,
+    // Subtle connecting lines between close particles
+    const lineMat = new THREE.LineBasicMaterial({
+      color: new THREE.Color(color),
       transparent: true,
-      opacity: 0.1,
-      sizeAttenuation: true,
+      opacity: opacity * 0.2,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
     });
-    const amberParticles = new THREE.Points(amberGeo, amberMat);
-    scene.add(amberParticles);
 
-    // ── Thin connecting lines between close particles ──
-    // (Skip for performance — particles alone create the effect)
+    let lineGeo = new THREE.BufferGeometry();
+    const lines = new THREE.LineSegments(lineGeo, lineMat);
+    scene.add(lines);
 
-    // ── Mouse interaction ──
-    let mouseX = 0;
-    let mouseY = 0;
-    const onMouseMove = (e: MouseEvent) => {
-      mouseX = (e.clientX / W - 0.5) * 2;
-      mouseY = (e.clientY / H - 0.5) * 2;
-    };
-    window.addEventListener('mousemove', onMouseMove);
-
-    // ── Animate ──
-    let frame: number;
-    let t = 0;
-
+    let animId: number;
     const animate = () => {
-      frame = requestAnimationFrame(animate);
-      t += 0.003;
+      animId = requestAnimationFrame(animate);
 
-      // Drift particles
-      const pos = geometry.attributes.position as THREE.BufferAttribute;
-      for (let i = 0; i < count; i++) {
-        pos.array[i * 3]     += velocities[i * 3];
-        pos.array[i * 3 + 1] += velocities[i * 3 + 1];
-        pos.array[i * 3 + 2] += velocities[i * 3 + 2];
+      const pos = geo.attributes.position.array as Float32Array;
+      for (let i = 0; i < particleCount; i++) {
+        pos[i * 3] += velocities[i * 3];
+        pos[i * 3 + 1] += velocities[i * 3 + 1];
+        pos[i * 3 + 2] += velocities[i * 3 + 2];
 
         // Wrap around
-        if (Math.abs(pos.array[i * 3]) > 40) velocities[i * 3] *= -1;
-        if (Math.abs(pos.array[i * 3 + 1]) > 40) velocities[i * 3 + 1] *= -1;
-        if (Math.abs(pos.array[i * 3 + 2]) > 20) velocities[i * 3 + 2] *= -1;
+        if (Math.abs(pos[i * 3]) > 6) velocities[i * 3] *= -1;
+        if (Math.abs(pos[i * 3 + 1]) > 4) velocities[i * 3 + 1] *= -1;
+        if (Math.abs(pos[i * 3 + 2]) > 3) velocities[i * 3 + 2] *= -1;
       }
-      pos.needsUpdate = true;
+      geo.attributes.position.needsUpdate = true;
 
-      // Slow rotation + mouse influence
-      particles.rotation.y = t * 0.05 + mouseX * 0.05;
-      particles.rotation.x = mouseY * 0.03;
-      amberParticles.rotation.y = t * 0.03 - mouseX * 0.03;
+      // Update connecting lines (only nearby particles)
+      const linePositions: number[] = [];
+      const threshold = 1.8;
+      for (let i = 0; i < Math.min(particleCount, 40); i++) {
+        for (let j = i + 1; j < Math.min(particleCount, 40); j++) {
+          const dx = pos[i * 3] - pos[j * 3];
+          const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
+          const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+          if (dist < threshold) {
+            linePositions.push(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]);
+            linePositions.push(pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]);
+          }
+        }
+      }
+      lineGeo.dispose();
+      lineGeo = new THREE.BufferGeometry();
+      lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+      lines.geometry = lineGeo;
 
-      // Gentle camera sway
-      camera.position.x += (mouseX * 2 - camera.position.x) * 0.02;
-      camera.position.y += (-mouseY * 2 - camera.position.y) * 0.02;
-      camera.lookAt(0, 0, 0);
-
+      points.rotation.y += 0.0003;
       renderer.render(scene, camera);
     };
     animate();
 
-    // ── Resize ──
-    const onResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      camera.aspect = w / h;
+    const handleResize = () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      renderer.setSize(container.clientWidth, container.clientHeight);
     };
-    window.addEventListener('resize', onResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', onResize);
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', handleResize);
       renderer.dispose();
-      geometry.dispose();
-      material.dispose();
-      amberGeo.dispose();
-      amberMat.dispose();
+      geo.dispose();
+      mat.dispose();
+      lineMat.dispose();
+      lineGeo.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [color, count, speed, opacity]);
 
   return (
     <div
       ref={mountRef}
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0, opacity: 0.6 }}
+      style={{
+        position: 'absolute',
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+        overflow: 'hidden',
+      }}
     />
   );
 }

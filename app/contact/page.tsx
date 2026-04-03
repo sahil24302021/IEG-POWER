@@ -1,109 +1,214 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ParticleField from '@/components/three/ParticleField';
 import { BRAND } from '@/lib/constants';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: 'Investment', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.querySelectorAll('.reveal').forEach((el) => {
+      gsap.from(el, {
+        y: 50, opacity: 0, duration: 0.8, ease: 'power4.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+      });
+    });
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailto = `mailto:${BRAND.email}?subject=${encodeURIComponent(form.subject || 'Inquiry')}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\n${form.message}`)}`;
-    window.location.href = mailto;
-    setSent(true);
+    setSubmitted(true);
   };
 
-  const inputClass = "w-full text-sm bg-transparent rounded-lg px-4 py-3 text-white placeholder-gray-600 outline-none transition-all duration-200 focus:ring-1 focus:ring-green-500/30";
-
   return (
-    <main>
-      {/* Minimal header — no big hero */}
-      <section className="pt-32 pb-10 md:pt-40 md:pb-14">
-        <div className="container-main">
-          <p className="label mb-4">Contact</p>
-          <h1 className="heading-lg max-w-lg">Get in touch.</h1>
+    <div ref={ref}>
+      {/* HERO */}
+      <section className="relative" style={{ padding: '160px 0 60px', background: 'var(--bg-primary)' }}>
+        <ParticleField count={40} opacity={0.2} />
+        <div className="hero-glow" />
+        <div className="ieg-container relative z-10">
+          <span className="section-label reveal" style={{ display: 'block', marginBottom: '16px' }}>Contact</span>
+          <h1 className="display-hero reveal" style={{ maxWidth: '700px', marginBottom: '24px' }}>
+            Let&apos;s Build A <span className="text-orange">Cleaner Future</span> — Together
+          </h1>
         </div>
       </section>
 
-      {/* Form + sidebar */}
-      <section className="pb-24">
-        <div className="container-main">
-          <div className="grid lg:grid-cols-[3fr_2fr] gap-10">
-            {/* Form */}
+      {/* CONTACT CONTENT */}
+      <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="ieg-container">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16">
+            {/* LEFT — Contact Details */}
             <div>
-              {sent ? (
-                <div className="card p-10 text-center">
-                  <p className="text-4xl mb-4">✓</p>
-                  <p className="heading-md mb-2">Message sent</p>
-                  <p className="body-sm">We&apos;ll respond within 24 hours.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--text-muted)' }}>Name *</label>
-                      <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                        className={inputClass} style={{ border: '1px solid var(--border)' }} placeholder="Your name" />
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--text-muted)' }}>Email *</label>
-                      <input type="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})}
-                        className={inputClass} style={{ border: '1px solid var(--border)' }} placeholder="you@company.com" />
-                    </div>
-                  </div>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--text-muted)' }}>Phone</label>
-                      <input type="tel" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})}
-                        className={inputClass} style={{ border: '1px solid var(--border)' }} placeholder="+91 XXXXX XXXXX" />
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--text-muted)' }}>Subject</label>
-                      <select value={form.subject} onChange={e => setForm({...form, subject: e.target.value})}
-                        className={inputClass} style={{ border: '1px solid var(--border)', appearance: 'none' }}>
-                        <option value="" className="bg-neutral-900">Select topic</option>
-                        <option value="Investment" className="bg-neutral-900">Investment</option>
-                        <option value="Product Demo" className="bg-neutral-900">Product Demo</option>
-                        <option value="Partnership" className="bg-neutral-900">Partnership</option>
-                        <option value="Media" className="bg-neutral-900">Media</option>
-                        <option value="Other" className="bg-neutral-900">Other</option>
-                      </select>
-                    </div>
+              <div className="reveal" style={{ marginBottom: '48px' }}>
+                <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '24px', color: 'var(--text-1)', marginBottom: '6px' }}>
+                  Ajay Choudhary
+                </h2>
+                <p className="body-md" style={{ color: 'var(--orange)', marginBottom: '24px' }}>Founder & Managing Director</p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div>
+                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Mobile</span>
+                    <a href={`tel:${BRAND.phone}`} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>
+                      {BRAND.phone}
+                    </a>
                   </div>
                   <div>
-                    <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--text-muted)' }}>Message *</label>
-                    <textarea required rows={5} value={form.message} onChange={e => setForm({...form, message: e.target.value})}
-                      className={inputClass} style={{ border: '1px solid var(--border)', resize: 'none' }} placeholder="How can we help?" />
+                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Email</span>
+                    <a href={`mailto:${BRAND.founderEmail}`} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>
+                      {BRAND.founderEmail}
+                    </a>
                   </div>
-                  <button type="submit" className="btn-primary w-full justify-center">
-                    Send Message <ArrowRight className="w-4 h-4" />
+                  <div>
+                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Company Email</span>
+                    <a href={`mailto:${BRAND.email}`} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>
+                      {BRAND.email}
+                    </a>
+                  </div>
+                  <div>
+                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Website</span>
+                    <span className="body-md" style={{ color: 'var(--text-1)' }}>{BRAND.website}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="reveal" style={{ marginBottom: '40px' }}>
+                <span className="mono-label" style={{ display: 'block', marginBottom: '12px', color: 'var(--orange)' }}>Locations</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div className="glass-card" style={{ padding: '16px 20px' }}>
+                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>HQ & R&D</span>
+                    <p className="body-sm" style={{ color: 'var(--text-2)' }}>{BRAND.hq}</p>
+                  </div>
+                  <div className="glass-card" style={{ padding: '16px 20px' }}>
+                    <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>Manufacturing</span>
+                    <p className="body-sm" style={{ color: 'var(--text-2)' }}>{BRAND.factory}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Inquiry type cards */}
+              <div className="reveal grid gap-3">
+                {['Investor Inquiry', 'Product Demo', 'Partnership'].map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setForm(f => ({ ...f, subject: type }))}
+                    className="glass-card text-left"
+                    style={{
+                      padding: '16px 20px',
+                      border: form.subject === type ? '1px solid var(--orange)' : '1px solid var(--border)',
+                      background: form.subject === type ? 'var(--orange-dim)' : 'var(--bg-card)',
+                    }}
+                  >
+                    <span style={{
+                      fontFamily: 'var(--font-syne)',
+                      fontWeight: 600,
+                      fontSize: '15px',
+                      color: form.subject === type ? 'var(--orange)' : 'var(--text-2)',
+                    }}>
+                      {type}
+                    </span>
                   </button>
-                </form>
-              )}
+                ))}
+              </div>
             </div>
 
-            {/* Sidebar */}
-            <div className="space-y-4 lg:pt-6">
-              {[
-                { icon: Mail, title: 'Email', value: BRAND.email },
-                { icon: Phone, title: 'Phone', value: BRAND.phone },
-                { icon: MapPin, title: 'Headquarters', value: BRAND.hq },
-                { icon: MapPin, title: 'Manufacturing', value: BRAND.factory },
-              ].map((item) => (
-                <div key={item.title} className="card p-5">
-                  <div className="flex items-center gap-2.5 mb-1.5">
-                    <item.icon className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
-                    <p className="text-sm font-medium text-white">{item.title}</p>
-                  </div>
-                  <p className="text-sm pl-6" style={{ color: 'var(--text-muted)' }}>{item.value}</p>
+            {/* RIGHT — Contact Form */}
+            <div className="reveal">
+              {submitted ? (
+                <div className="glass-card text-center" style={{ padding: '60px 40px' }}>
+                  <div style={{ fontSize: '48px', marginBottom: '20px' }}>✓</div>
+                  <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '24px', color: 'var(--text-1)', marginBottom: '12px' }}>
+                    Message Sent
+                  </h3>
+                  <p className="body-md">
+                    Thank you for reaching out. Our team will respond within 24 hours.
+                  </p>
                 </div>
-              ))}
+              ) : (
+                <form onSubmit={handleSubmit} className="glass-card" style={{ padding: '36px' }}>
+                  <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '20px', color: 'var(--text-1)', marginBottom: '28px' }}>
+                    Send a Message
+                  </h3>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <div>
+                      <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Full Name</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        placeholder="Your name"
+                        required
+                        value={form.name}
+                        onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Email</label>
+                        <input
+                          className="form-input"
+                          type="email"
+                          placeholder="email@example.com"
+                          required
+                          value={form.email}
+                          onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                        />
+                      </div>
+                      <div>
+                        <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Phone</label>
+                        <input
+                          className="form-input"
+                          type="tel"
+                          placeholder="+91 XXXXX XXXXX"
+                          value={form.phone}
+                          onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Subject</label>
+                      <select
+                        className="form-input"
+                        value={form.subject}
+                        onChange={(e) => setForm(f => ({ ...f, subject: e.target.value }))}
+                      >
+                        <option>Investment</option>
+                        <option>Product Enquiry</option>
+                        <option>Partnership</option>
+                        <option>General</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="mono-label" style={{ display: 'block', marginBottom: '6px' }}>Message</label>
+                      <textarea
+                        className="form-input"
+                        rows={5}
+                        placeholder="Your message..."
+                        required
+                        value={form.message}
+                        onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))}
+                      />
+                    </div>
+                    <button type="submit" className="btn-orange w-full justify-center" style={{ marginTop: '8px' }}>
+                      Send Message
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

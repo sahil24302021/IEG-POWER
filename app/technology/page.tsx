@@ -1,157 +1,262 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ParticleField from '@/components/three/ParticleField';
+import { BRAND, COMPARISON_TWO_WHEELER, COMPARISON_RUNNING_COST, GENERATOR_SPECS } from '@/lib/constants';
 
-const techSteps = [
-  { num: '01', title: 'Magnetic Flux Stabilization', desc: 'Patented magnetic arrangement induces electron flow without combustion. Precision-engineered fields create initial torque.' },
-  { num: '02', title: 'The Regenerative Loop', desc: 'Back-EMF is captured and phase-corrected, then fed back into the exciter field — creating a self-sustaining resonance.' },
-  { num: '03', title: 'Continuous Output', desc: 'The system delivers clean AC/DC power indefinitely, independent of any external fuel or energy source. 240V / 50Hz.' },
-];
+gsap.registerPlugin(ScrollTrigger);
 
 export default function TechnologyPage() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.querySelectorAll('.reveal').forEach((el) => {
+      gsap.from(el, {
+        y: 50, opacity: 0, duration: 0.8, ease: 'power4.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+      });
+    });
+  }, []);
+
   return (
-    <main>
-      {/* Hero — technical, not marketing */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="container-main">
-          <p className="label mb-4">Core Technology</p>
-          <h1 className="heading-xl max-w-2xl mb-6">
-            How IEG{' '}
-            <span style={{ color: 'var(--text-muted)' }}>actually works.</span>
+    <div ref={ref}>
+      {/* HERO */}
+      <section className="relative" style={{ padding: '160px 0 100px', background: 'var(--bg-primary)' }}>
+        <ParticleField count={60} opacity={0.3} />
+        <div className="hero-glow" style={{ right: '10%', top: '30%' }} />
+        <div className="ieg-container relative z-10">
+          <span className="section-label reveal" style={{ display: 'block', marginBottom: '16px' }}>Technology</span>
+          <h1 className="display-hero reveal" style={{ maxWidth: '800px', marginBottom: '24px' }}>
+            The Science of <span className="text-orange">Self-Sustaining</span> Power
           </h1>
-          <p className="body-lg max-w-xl">
-            An internal energy regeneration system that minimizes entropy and recycles
-            output power through a patented closed-loop architecture.
+          <p className="body-xl reveal" style={{ maxWidth: '600px' }}>
+            A patented internal energy regeneration paradigm that eliminates dependency on external power sources.
           </p>
         </div>
       </section>
 
-      {/* System Flow — visual steps (unique to this page) */}
-      <section className="py-20" style={{ background: 'var(--bg-elevated)', borderTop: '1px solid var(--border)' }}>
-        <div className="container-main">
-          <p className="label mb-4">System Architecture</p>
-          <h2 className="heading-lg mb-12">Three-stage energy loop</h2>
+      {/* IEG CONCEPT */}
+      <section className="section-pad reveal" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="ieg-container">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="section-label" style={{ display: 'block', marginBottom: '16px' }}>The IEG System</span>
+              <h2 className="display-md" style={{ marginBottom: '24px' }}>
+                How Internal Energy <span className="text-orange">Regeneration</span> Works
+              </h2>
+              <p className="body-lg" style={{ marginBottom: '20px' }}>
+                A standard battery (12V–60V) powers a high-efficiency BLDC Motor (~90% efficiency). 
+                This motor drives the patented IEG MB Generator, which uses advanced magnetic boost 
+                technology to produce significantly more electrical energy than is consumed.
+              </p>
+              <p className="body-md" style={{ marginBottom: '20px' }}>
+                The system generates more output than conventional systems by leveraging internal magnetic 
+                boost technology. Excess energy is continuously looped back through a Battery Charger to 
+                recharge the power source — creating a truly self-sustaining energy cycle.
+              </p>
+              <p className="body-md">
+                The result: stable 240V/50Hz AC power output, running up to 18 hours per day, 
+                with zero fuel, zero grid dependency, and near-zero operational costs.
+              </p>
+            </div>
+            <div className="glass-card" style={{ padding: '40px', aspectRatio: '1' }}>
+              <svg viewBox="0 0 400 400" className="w-full h-full">
+                <rect x="150" y="20" width="100" height="50" rx="6" fill="none" stroke="#F7941D" strokeWidth="1.5" opacity="0.8" />
+                <text x="200" y="42" textAnchor="middle" fill="#F7941D" fontSize="10" fontWeight="700" fontFamily="monospace">BATTERY</text>
+                <text x="200" y="56" textAnchor="middle" fill="#8C9BAB" fontSize="8" fontFamily="monospace">12V–60V</text>
+                <rect x="300" y="150" width="90" height="50" rx="6" fill="none" stroke="#1B7340" strokeWidth="1.5" opacity="0.8" />
+                <text x="345" y="172" textAnchor="middle" fill="#1B7340" fontSize="9" fontWeight="700" fontFamily="monospace">BLDC MOTOR</text>
+                <text x="345" y="188" textAnchor="middle" fill="#8C9BAB" fontSize="8" fontFamily="monospace">~90% eff.</text>
+                <rect x="150" y="290" width="100" height="60" rx="6" fill="rgba(247,148,29,0.08)" stroke="#F7941D" strokeWidth="2" />
+                <text x="200" y="315" textAnchor="middle" fill="#F7941D" fontSize="10" fontWeight="700" fontFamily="monospace">IEG MB</text>
+                <text x="200" y="330" textAnchor="middle" fill="#F7941D" fontSize="9" fontWeight="700" fontFamily="monospace">GENERATOR</text>
+                <text x="200" y="345" textAnchor="middle" fill="#8C9BAB" fontSize="7" fontFamily="monospace">180%+ output</text>
+                <rect x="10" y="150" width="90" height="50" rx="6" fill="none" stroke="#F7941D" strokeWidth="1.5" opacity="0.8" />
+                <text x="55" y="170" textAnchor="middle" fill="#F7941D" fontSize="8" fontWeight="700" fontFamily="monospace">BATTERY</text>
+                <text x="55" y="184" textAnchor="middle" fill="#F7941D" fontSize="8" fontWeight="700" fontFamily="monospace">CHARGER</text>
+                <path d="M250 50 Q340 50 340 150" fill="none" stroke="#1B7340" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+                <path d="M340 200 Q340 290 250 310" fill="none" stroke="#F7941D" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+                <path d="M150 310 Q60 290 55 200" fill="none" stroke="#F7941D" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+                <path d="M55 150 Q55 50 150 40" fill="none" stroke="#F7941D" strokeWidth="1.5" className="energy-path" opacity="0.5" />
+                <circle r="4" fill="#F7941D" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#tflow1" /></animateMotion></circle>
+                <circle r="4" fill="#1B7340" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" begin="0.75s"><mpath href="#tflow2" /></animateMotion></circle>
+                <circle r="4" fill="#F7941D" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" begin="1.5s"><mpath href="#tflow3" /></animateMotion></circle>
+                <circle r="3.5" fill="#F7941D" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" begin="2.25s"><mpath href="#tflow4" /></animateMotion></circle>
+                <path id="tflow1" d="M250 50 Q340 50 340 150" fill="none" stroke="none" />
+                <path id="tflow2" d="M340 200 Q340 290 250 310" fill="none" stroke="none" />
+                <path id="tflow3" d="M150 310 Q60 290 55 200" fill="none" stroke="none" />
+                <path id="tflow4" d="M55 150 Q55 50 150 40" fill="none" stroke="none" />
+                <text x="200" y="200" textAnchor="middle" fill="rgba(247,148,29,0.15)" fontSize="32" fontWeight="800" fontFamily="var(--font-syne)">IEG</text>
+                <text x="200" y="220" textAnchor="middle" fill="rgba(255,255,255,0.08)" fontSize="8" fontFamily="monospace" letterSpacing="0.2em">SELF-REGENERATING</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            {techSteps.map((step, i) => (
-              <div key={step.num} className="relative">
-                <div className="card p-6 h-full">
-                  <span className="text-xs font-mono font-medium block mb-3" style={{ color: 'var(--accent)' }}>
-                    {step.num}
-                  </span>
-                  <h3 className="text-base font-semibold text-white mb-2">{step.title}</h3>
-                  <p className="body-sm">{step.desc}</p>
-                </div>
-                {i < techSteps.length - 1 && (
-                  <div className="hidden md:flex absolute top-1/2 -right-3 z-10 -translate-y-1/2">
-                    <ArrowRight className="w-4 h-4" style={{ color: 'var(--text-muted)' }} />
+      {/* PATENTS */}
+      <section className="section-pad" style={{ background: 'var(--bg-primary)' }}>
+        <div className="ieg-container">
+          <div className="text-center mb-16">
+            <span className="section-label reveal" style={{ display: 'block', marginBottom: '16px' }}>Intellectual Property</span>
+            <h2 className="display-md reveal">Government-Granted <span className="text-orange">Patents</span></h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {[BRAND.patent1, BRAND.patent2].map((patent) => (
+              <div key={patent.number} className="reveal glass-card" style={{ padding: '40px 32px' }}>
+                <span className="stat-pill" style={{ marginBottom: '20px', display: 'inline-block', borderColor: 'var(--orange-dim)', color: 'var(--orange)' }}>
+                  Patent No. {patent.number}
+                </span>
+                <h3 style={{
+                  fontFamily: 'var(--font-syne)',
+                  fontWeight: 700,
+                  fontSize: '22px',
+                  color: 'var(--text-1)',
+                  marginBottom: '16px',
+                }}>
+                  {patent.title}
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px' }}>
+                  <div className="flex justify-between">
+                    <span className="mono-label">Filed</span>
+                    <span className="body-sm" style={{ color: 'var(--text-2)' }}>{patent.filed}</span>
                   </div>
-                )}
+                  <div className="flex justify-between">
+                    <span className="mono-label">Granted</span>
+                    <span className="body-sm" style={{ color: 'var(--text-2)' }}>{patent.granted}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="mono-label">Patentee</span>
+                    <span className="body-sm" style={{ color: 'var(--text-2)' }}>{patent.patentee}</span>
+                  </div>
+                </div>
+                <div style={{ borderTop: '1px solid var(--border)', paddingTop: '16px' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-3)', letterSpacing: '0.06em' }}>
+                    Intellectual Property India — Government of India
+                  </span>
+                </div>
               </div>
             ))}
           </div>
-
-          {/* Loop */}
-          <div className="flex items-center justify-center gap-2">
-            <div className="h-px flex-1 max-w-[160px]" style={{ background: 'var(--border)' }} />
-            <span className="text-xs font-medium px-3 py-1 rounded-full"
-              style={{ color: 'var(--accent)', background: 'var(--accent-muted)' }}>
-              ↻ Closed regeneration loop
-            </span>
-            <div className="h-px flex-1 max-w-[160px]" style={{ background: 'var(--border)' }} />
-          </div>
         </div>
       </section>
 
-      {/* Patents */}
-      <section className="py-20" style={{ borderTop: '1px solid var(--border)' }}>
-        <div className="container-main">
-          <p className="label mb-4">Intellectual Property</p>
-          <h2 className="heading-lg mb-10">Protected by law</h2>
-          <div className="grid md:grid-cols-2 gap-4 max-w-3xl">
-            <div className="card p-6">
-              <p className="text-xs uppercase tracking-wider mb-1" style={{ color: 'var(--accent)' }}>Granted 2022</p>
-              <p className="text-lg font-semibold text-white mb-3">Patent No. 391051</p>
-              <p className="body-sm">Method of autonomous power generation without external fuel. 20-year protection from 2011.</p>
-            </div>
-            <div className="card p-6">
-              <p className="text-xs uppercase tracking-wider mb-1" style={{ color: 'var(--amber)' }}>Granted 2025</p>
-              <p className="text-lg font-semibold text-white mb-3">Regeneration Protocol</p>
-              <p className="body-sm">Advanced protocol capturing and recirculating latent energy for continuous operation.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Generator Specs — table format (unique to this page) */}
-      <section className="py-20" style={{ background: 'var(--bg-elevated)', borderTop: '1px solid var(--border)' }}>
-        <div className="container-main">
-          <p className="label mb-4">Specifications</p>
-          <h2 className="heading-lg mb-10">Generator models</h2>
-          <div className="grid md:grid-cols-2 gap-4 max-w-3xl">
-            {[
-              { name: 'IEG 1000', kva: '1 KVA', specs: [['Rating', '1 KVA / 0.9 KWe'], ['Output', '2.3A / 220-240V'], ['Harmonics', '4-5%'], ['Runtime', '18 hrs/day'], ['Noise', '68-72 dB']] },
-              { name: 'IEG 2000', kva: '2 KVA', recommended: true, specs: [['Rating', '2 KVA / 1.8 KWe'], ['Output (1Φ)', '4.6A / 220-240V'], ['Output (3Φ)', '3.0A / 415V'], ['Harmonics', '4-5%'], ['Runtime', '18 hrs/day']] },
-            ].map((m) => (
-              <div key={m.name} className="card p-6 relative overflow-hidden"
-                style={{ borderColor: m.recommended ? 'rgba(34,197,94,0.3)' : undefined }}>
-                {m.recommended && (
-                  <span className="absolute top-0 right-0 text-[9px] font-medium px-2 py-0.5 rounded-bl"
-                    style={{ background: 'var(--accent)', color: 'var(--bg)' }}>RECOMMENDED</span>
-                )}
-                <div className="flex items-center justify-between mb-5">
-                  <p className="text-xl font-semibold text-white">{m.name}</p>
-                  <span className="text-xs font-medium px-2 py-0.5 rounded-full"
-                    style={{ color: 'var(--accent)', background: 'var(--accent-muted)' }}>{m.kva}</span>
-                </div>
-                <div className="space-y-2">
-                  {m.specs.map(([k, v]) => (
-                    <div key={k} className="flex justify-between text-sm py-1.5"
-                      style={{ borderBottom: '1px solid var(--border)' }}>
-                      <span style={{ color: 'var(--text-muted)' }}>{k}</span>
-                      <span className="font-medium text-white">{v}</span>
-                    </div>
+      {/* COMPARISON TABLE 1 — Petrol vs Electric vs IEG */}
+      <section className="section-pad reveal" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="ieg-container">
+          <span className="section-label" style={{ display: 'block', marginBottom: '16px' }}>Comparison</span>
+          <h2 className="display-md" style={{ marginBottom: '40px' }}>
+            Petrol vs Electric vs <span className="text-orange">IEG</span>
+          </h2>
+          <div style={{ overflow: 'auto' }}>
+            <table className="ieg-table" style={{ minWidth: '700px' }}>
+              <thead>
+                <tr>
+                  {COMPARISON_TWO_WHEELER.headers.map((h) => (
+                    <th key={h}>{h}</th>
                   ))}
-                </div>
-              </div>
-            ))}
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARISON_TWO_WHEELER.rows.map((row, i) => (
+                  <tr key={i}>
+                    {row.map((cell, j) => (
+                      <td key={j} className={j === 3 ? 'ieg-highlight' : ''} style={{ fontWeight: j === 3 ? 600 : 400 }}>
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
-      {/* Prototypes */}
-      <section className="py-20" style={{ borderTop: '1px solid var(--border)' }}>
-        <div className="container-main">
-          <p className="label mb-4">Hardware</p>
-          <h2 className="heading-lg mb-10">Working prototypes</h2>
-          <div className="grid md:grid-cols-3 gap-4 max-w-4xl">
-            {[
-              { src: '/assets/pdf_page17_img2.png', name: 'IEG 600W Solar', desc: 'Compact residential' },
-              { src: '/assets/pdf_page17_img1.png', name: 'IEG 3KVA', desc: 'Industrial / commercial' },
-              { src: '/assets/pdf_page17_img3.png', name: 'IEG 5KVA', desc: 'Heavy-duty' },
-            ].map((p) => (
-              <div key={p.name} className="card overflow-hidden group">
-                <div className="aspect-square flex items-center justify-center p-6"
-                  style={{ background: '#0A0D0A' }}>
-                  <Image src={p.src} alt={p.name} width={250} height={250}
-                    className="object-contain transition-transform duration-500 group-hover:scale-105" />
+      {/* COMPARISON TABLE 2 — Running Cost */}
+      <section className="section-pad reveal" style={{ background: 'var(--bg-primary)' }}>
+        <div className="ieg-container">
+          <h2 className="display-md" style={{ marginBottom: '40px' }}>
+            EV vs IEG: <span className="text-orange">Running Cost</span>
+          </h2>
+          <div className="grid gap-8">
+            {(['twoWheeler', 'fourWheeler', 'rickshaw'] as const).map((key) => {
+              const d = COMPARISON_RUNNING_COST[key];
+              const label = key === 'twoWheeler' ? '2-Wheeler' : key === 'fourWheeler' ? '4-Wheeler' : 'E-Rickshaw';
+              return (
+                <div key={key} className="glass-card" style={{ padding: '28px 32px' }}>
+                  <div className="flex flex-col md:flex-row md:items-center gap-6">
+                    <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '20px', color: 'var(--text-1)', minWidth: '120px' }}>
+                      {label}
+                    </h3>
+                    <div className="flex-1 grid grid-cols-2 gap-8">
+                      <div>
+                        <span className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Standard EV</span>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-2)' }}>
+                          {d.ev.range} · {d.ev.cost} · <strong style={{ color: '#EF4444' }}>{d.ev.perKm}/km</strong>
+                        </span>
+                      </div>
+                      <div>
+                        <span className="mono-label" style={{ display: 'block', marginBottom: '8px', color: 'var(--orange)' }}>IEG Powered</span>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-2)' }}>
+                          {d.ieg.range} · {d.ieg.cost} · <strong style={{ color: 'var(--green)' }}>{d.ieg.perKm}/km</strong>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="p-4" style={{ borderTop: '1px solid var(--border)' }}>
-                  <p className="text-sm font-medium text-white">{p.name}</p>
-                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{p.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10">
-            <Link href="/contact" className="btn-primary">
-              Request Technical Briefing <ArrowRight className="w-4 h-4" />
-            </Link>
+              );
+            })}
           </div>
         </div>
       </section>
-    </main>
+
+      {/* TECHNICAL SPECS */}
+      <section className="section-pad reveal" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="ieg-container">
+          <span className="section-label" style={{ display: 'block', marginBottom: '16px' }}>Specifications</span>
+          <h2 className="display-md" style={{ marginBottom: '40px' }}>
+            IEG Power Station <span className="text-orange">Specs</span>
+          </h2>
+          <div style={{ overflow: 'auto' }}>
+            <table className="ieg-table" style={{ minWidth: '600px' }}>
+              <thead>
+                <tr>
+                  <th>Spec</th>
+                  {GENERATOR_SPECS.models.map((m) => (
+                    <th key={m.name}>{m.name}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {(['rating', 'harmonics', 'battery', 'output1Phase', 'output3Phase', 'noise', 'runtime'] as const).map((key) => {
+                  const labels: Record<string, string> = {
+                    rating: 'Rating',
+                    harmonics: 'Harmonics',
+                    battery: 'Battery',
+                    output1Phase: '1-Phase Output',
+                    output3Phase: '3-Phase Output',
+                    noise: 'Noise Level',
+                    runtime: 'Daily Runtime',
+                  };
+                  return (
+                    <tr key={key}>
+                      <td style={{ fontWeight: 500, color: 'var(--text-1)' }}>{labels[key]}</td>
+                      {GENERATOR_SPECS.models.map((m) => (
+                        <td key={m.name} className={key === 'runtime' ? 'ieg-highlight' : ''}>{m[key]}</td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
