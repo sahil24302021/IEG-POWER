@@ -17,12 +17,10 @@ export default function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
   const lastScrollY = useRef(0);
 
-  // Scroll behavior: glassmorphic on scroll, hide on scroll down, show on scroll up
   useEffect(() => {
     const onScroll = () => {
       const currentY = window.scrollY;
       setScrolled(currentY > 50);
-      
       if (currentY > 300) {
         setVisible(currentY < lastScrollY.current || currentY < 100);
       } else {
@@ -48,34 +46,38 @@ export default function Navbar() {
     }
   }, [mobileOpen]);
 
-  // Entrance animation
   useGSAP(() => {
     if (headerRef.current) {
       gsap.from(headerRef.current, {
-        y: -40, 
-        opacity: 0, 
-        duration: 0.8, 
-        ease: 'power3.out', 
+        y: -40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
         delay: pathname === '/' ? 1.8 : 0.2,
-        clearProps: 'all'
+        clearProps: 'all',
       });
     }
   }, []);
 
   return (
     <>
-      <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50" style={{
-        background: scrolled ? 'rgba(6,10,14,0.88)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.04)' : '1px solid transparent',
-        transition: 'background 0.5s cubic-bezier(0.23, 1, 0.32, 1), backdrop-filter 0.5s, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
-      }}>
+      <header
+        ref={headerRef}
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{
+          background: scrolled ? 'rgba(6,10,14,0.88)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.04)' : '1px solid transparent',
+          transition: 'background 0.5s cubic-bezier(0.23,1,0.32,1), transform 0.4s cubic-bezier(0.23,1,0.32,1)',
+          transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        }}
+      >
         <div className="ieg-container flex items-center justify-between" style={{ height: '72px' }}>
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 relative z-50 group">
-            <div className="relative w-8 h-8" style={{ transition: 'transform 0.3s ease' }}>
+          <Link href="/" className="flex items-center gap-2.5 relative z-50">
+            <div className="relative w-8 h-8">
               <Image src="/logo.png" alt="IEG" fill sizes="32px" className="object-contain" priority />
             </div>
             <span style={{
@@ -97,7 +99,6 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="nav-link-item"
                   style={{
                     fontFamily: 'var(--font-dm-sans)',
                     fontSize: '13px',
@@ -107,7 +108,7 @@ export default function Navbar() {
                     borderRadius: '8px',
                     textDecoration: 'none',
                     position: 'relative',
-                    transition: 'all 0.3s cubic-bezier(0.23, 1, 0.32, 1)',
+                    transition: 'all 0.3s ease',
                     letterSpacing: '0.01em',
                   }}
                 >
@@ -128,47 +129,81 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* CTA */}
+          {/* Desktop CTA */}
           <div className="hidden lg:block">
-            <Link href="/contact" className="btn-orange" style={{
-              padding: '9px 22px',
-              fontSize: '12px',
-            }}>
+            <Link href="/contact" className="btn-orange" style={{ padding: '9px 22px', fontSize: '12px' }}>
               Contact Us
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
           </div>
 
-          {/* Hamburger */}
+          {/* ─── MOBILE HAMBURGER ───────────────────────────────────────
+               Uses a bright orange-bordered pill so it is ALWAYS visible
+               on any background (transparent or dark navbar).
+               CRITICAL: no `display` property in the inline style —
+               that would fight Tailwind's lg:hidden / flex classes.
+          ──────────────────────────────────────────────────────────── */}
           <button
-            className="lg:hidden relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            className="lg:hidden flex items-center justify-center relative z-50"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '8px',
+              background: mobileOpen
+                ? 'rgba(247,148,29,0.2)'
+                : 'rgba(247,148,29,0.08)',
+              border: `1.5px solid ${mobileOpen ? '#F7941D' : 'rgba(247,148,29,0.5)'}`,
+              flexDirection: 'column',
+              gap: '5px',
+              padding: 0,
+              cursor: 'pointer',
+              transition: 'background 0.25s ease, border-color 0.25s ease',
+            }}
           >
-            <span className="block w-5 h-[1.5px] transition-all duration-300" style={{
-              background: 'var(--text-1)',
-              transform: mobileOpen ? 'rotate(45deg) translateY(4px)' : 'none',
+            {/* Line 1 */}
+            <span style={{
+              width: '18px',
+              height: '2.5px',
+              borderRadius: '3px',
+              background: '#F7941D',
+              transformOrigin: 'center',
+              transition: 'transform 0.3s ease',
+              transform: mobileOpen ? 'rotate(45deg) translateY(7.5px)' : 'none',
             }} />
-            <span className="block w-5 h-[1.5px] transition-all duration-300" style={{
-              background: 'var(--text-1)',
+            {/* Line 2 */}
+            <span style={{
+              width: '18px',
+              height: '2.5px',
+              borderRadius: '3px',
+              background: '#F7941D',
+              transition: 'opacity 0.3s ease',
               opacity: mobileOpen ? 0 : 1,
             }} />
-            <span className="block w-5 h-[1.5px] transition-all duration-300" style={{
-              background: 'var(--text-1)',
-              transform: mobileOpen ? 'rotate(-45deg) translateY(-4px)' : 'none',
+            {/* Line 3 */}
+            <span style={{
+              width: '18px',
+              height: '2.5px',
+              borderRadius: '3px',
+              background: '#F7941D',
+              transformOrigin: 'center',
+              transition: 'transform 0.3s ease',
+              transform: mobileOpen ? 'rotate(-45deg) translateY(-7.5px)' : 'none',
             }} />
           </button>
+
         </div>
       </header>
 
-      {/* Mobile Fullscreen Overlay */}
+      {/* Mobile fullscreen overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden flex flex-col justify-center" style={{
-          background: 'rgba(6,10,14,0.98)',
-          backdropFilter: 'blur(40px)',
-        }}>
+        <div
+          className="fixed inset-0 z-40 lg:hidden flex flex-col justify-center"
+          style={{ background: 'rgba(6,10,14,0.98)', backdropFilter: 'blur(40px)' }}
+        >
           <nav ref={mobileNavRef} className="flex flex-col gap-1 px-8">
             {NAV_LINKS.map((link) => (
               <Link

@@ -51,7 +51,9 @@ export default function SubsidiariesPreview() {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Unified grid for all 5 cards — 1 col mobile, 2 col md, 3 col lg */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* First 3 cards — full card layout */}
           {SUBSIDIARIES.slice(0, 3).map((sub) => (
             <div key={sub.number} className="subs-card glass-card hover-lift" style={{ padding: '36px 28px' }}>
               <div style={{
@@ -85,29 +87,33 @@ export default function SubsidiariesPreview() {
               </div>
             </div>
           ))}
-        </div>
 
-        {/* Bottom row — remaining 2 */}
-        <div className="grid md:grid-cols-2 gap-5 mt-5 max-w-[66%] lg:max-w-none lg:grid-cols-2">
+          {/* Last 2 cards — same grid, same width, compact inline layout */}
           {SUBSIDIARIES.slice(3).map((sub) => (
             <div key={sub.number} className="subs-card glass-card hover-lift" style={{ padding: '32px 28px' }}>
-              <div className="flex items-center gap-4 mb-3">
-                <span style={{
-                  fontFamily: 'var(--font-syne)',
-                  fontWeight: 800,
-                  fontSize: '30px',
-                  color: 'var(--orange)',
-                  opacity: 0.85,
-                }}>
-                  {sub.number}
-                </span>
-                <div>
-                  <span className="mono-label" style={{ color: 'var(--orange)', display: 'block', marginBottom: '2px' }}>{sub.segment}</span>
-                  <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '18px', color: 'var(--text-1)' }}>
-                    {sub.name}
-                  </h3>
-                </div>
+              <div style={{
+                fontFamily: 'var(--font-syne)',
+                fontWeight: 800,
+                fontSize: '44px',
+                lineHeight: 1,
+                color: 'var(--orange)',
+                opacity: 0.85,
+                marginBottom: '12px',
+              }}>
+                {sub.number}
               </div>
+              <span className="mono-label" style={{ color: 'var(--orange)', display: 'block', marginBottom: '6px' }}>
+                {sub.segment}
+              </span>
+              <h3 style={{
+                fontFamily: 'var(--font-syne)',
+                fontWeight: 700,
+                fontSize: '20px',
+                color: 'var(--text-1)',
+                marginBottom: '10px',
+              }}>
+                {sub.name}
+              </h3>
               <p className="body-sm">{sub.desc}</p>
             </div>
           ))}

@@ -24,7 +24,8 @@ export default function ProductsPage() {
       ref.current!.querySelectorAll('.reveal').forEach((el) => {
         gsap.fromTo(el,
           { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.9, ease: 'power4.out',
+          {
+            y: 0, opacity: 1, duration: 0.9, ease: 'power4.out',
             scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
           }
         );
@@ -34,7 +35,8 @@ export default function ProductsPage() {
       ref.current!.querySelectorAll('.prod-item').forEach((el, i) => {
         gsap.fromTo(el,
           { y: 80, opacity: 0, scale: 0.97 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.9, delay: i * 0.1, ease: 'power4.out',
+          {
+            y: 0, opacity: 1, scale: 1, duration: 0.9, delay: i * 0.1, ease: 'power4.out',
             scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
           }
         );
@@ -77,20 +79,19 @@ export default function ProductsPage() {
                 <div className="grid md:grid-cols-[340px_1fr] gap-0">
                   <div style={{
                     background: 'rgba(255,255,255,0.02)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     borderRight: '1px solid var(--border)',
                     minHeight: '260px',
                     position: 'relative',
                   }}>
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      sizes="340px"
-                      className="object-contain p-8"
-                    />
+                    <div className="absolute inset-x-8 inset-y-8">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 340px"
+                        className="object-contain"
+                      />
+                    </div>
                   </div>
 
                   <div style={{ padding: '36px' }}>
@@ -141,7 +142,7 @@ export default function ProductsPage() {
       </section>
 
       {/* UPCOMING PRODUCTS */}
-      <section className="section-pad relative" style={{ background: 'var(--bg-primary)' }}>
+      <section className="section-pad relative overflow-hidden" style={{ background: 'var(--bg-primary)' }}>
         <div className="section-glow-right" />
         <div className="ieg-container">
           <div className="flex items-center gap-4 mb-16">

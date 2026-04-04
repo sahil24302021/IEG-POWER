@@ -4,9 +4,11 @@
    Syne · DM Sans · JetBrains Mono
    ============================================================ */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* eslint-disable */
+/* stylelint-disable */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 /* ── Design Tokens ── */
 :root {
@@ -584,6 +586,8 @@
 .roadmap-step {
   position: relative;
   padding-left: 48px;
+  /* Ensure dot is never clipped by overflow on mobile */
+  overflow: visible;
 }
 .roadmap-step::before {
   content: '';
@@ -607,6 +611,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Ensure it renders above any sibling content */
+  z-index: 1;
 }
 .roadmap-dot::after {
   content: '';
@@ -615,6 +621,26 @@
   border-radius: 50%;
   background: var(--orange);
   box-shadow: 0 0 8px var(--orange-glow);
+}
+/* Mobile: slightly increase dot size for easier visibility */
+@media (max-width: 768px) {
+  .roadmap-step {
+    padding-left: 44px;
+  }
+  .roadmap-dot {
+    left: 2px;
+    top: 4px;
+    width: 28px;
+    height: 28px;
+    border-color: rgba(247,148,29,0.35);
+  }
+  .roadmap-dot::after {
+    width: 10px;
+    height: 10px;
+  }
+  .roadmap-step::before {
+    left: 13px;
+  }
 }
 
 /* ── Energy Flow SVG paths ── */
@@ -644,7 +670,18 @@
 /* ── Section spacing ── */
 .section-pad { padding: 100px 0; }
 @media (max-width: 768px) {
-  .section-pad { padding: 70px 0; }
+  .section-pad { padding: 60px 0; }
+}
+
+/* ── Mobile body text adjustments ── */
+@media (max-width: 640px) {
+  .body-xl {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .body-lg {
+    font-size: 15px;
+  }
 }
 
 /* ── Hero radial glow — vastspace style ── */
