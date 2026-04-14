@@ -25,7 +25,7 @@ export default function MarqueeTicker() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '12px',
-                  padding: '12px 24px',
+                  padding: 'clamp(8px, 1.5vw, 12px) clamp(14px, 2vw, 24px)',
                   borderRadius: '100px',
                   border: isPatent ? '1px solid var(--border-orange)' : '1px solid rgba(255,255,255,0.06)',
                   background: isPatent ? 'rgba(247,148,29,0.05)' : 'rgba(255,255,255,0.02)',

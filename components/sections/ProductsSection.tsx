@@ -18,27 +18,34 @@ export default function ProductsSection() {
     
     // Heading reveal
     gsap.from('.prod-heading', {
-      y: 40, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out',
-      scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
+      y: 30, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out',
+      scrollTrigger: { trigger: ref.current, start: 'top 82%', toggleActions: 'play none none none' },
     });
 
-    // Cards — staggered scale + fade from bottom
-    gsap.from('.prod-card', {
-      y: 80, opacity: 0, scale: 0.95, duration: 0.9, stagger: 0.15, ease: 'power4.out',
-      scrollTrigger: { trigger: '.prod-grid', start: 'top 85%', toggleActions: 'play none none none' },
+    // Cards — slide in from alternating sides
+    const cards = gsap.utils.toArray<HTMLElement>('.prod-card');
+    cards.forEach((card, i) => {
+      const fromX = i % 2 === 0 ? -70 : 70;
+      gsap.fromTo(card,
+        { x: fromX, opacity: 0 },
+        {
+          x: 0, opacity: 1, duration: 0.9, delay: i * 0.08,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '.prod-grid', start: 'top 82%', toggleActions: 'play none none none' },
+        }
+      );
     });
 
-    // Parallax scroll on cards
-    const cards = gsap.utils.toArray('.prod-card');
-    cards.forEach((card: any, i: number) => {
+    // Subtle parallax scrub
+    cards.forEach((card, i) => {
       gsap.to(card, {
-        y: -15 * (i % 2 === 0 ? 1 : 1.5),
+        y: -10 * (i % 2 === 0 ? 1 : 1.4),
         ease: 'none',
         scrollTrigger: {
           trigger: card,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1,
+          scrub: 1.5,
         },
       });
     });
@@ -52,17 +59,20 @@ export default function ProductsSection() {
             <span className="prod-heading section-label" style={{ display: 'block', marginBottom: '12px' }}>Products</span>
             <h2 className="prod-heading display-md">Built For <span className="text-orange">Every Need</span></h2>
           </div>
-          <Link href="/products" className="prod-heading btn-sm">
+          <Link href="/products" className="prod-heading btn-sm magnetic-btn">
             View All Products
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </Link>
         </div>
 
-        {/* Equal-size grid — all cards same height */}
         <div className="prod-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {PRODUCTS_READY.map((product) => (
-            <div key={product.id} className="prod-card product-card glass-card flex flex-col" style={{ overflow: 'hidden' }}>
-              {/* Image — fixed height */}
+            <div
+              key={product.id}
+              className="prod-card glass-card shimmer-card hover-lift flex flex-col"
+              style={{ overflow: 'hidden' }}
+            >
+              {/* Image */}
               <div style={{
                 height: '200px',
                 background: 'rgba(255,255,255,0.02)',
@@ -82,7 +92,7 @@ export default function ProductsSection() {
                 />
               </div>
 
-              {/* Copy — flex-grow to equalize */}
+              {/* Copy */}
               <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <span className="mono-label" style={{ color: 'var(--orange)', marginBottom: '4px', display: 'block', fontSize: '10px' }}>
                   {product.category}
@@ -101,7 +111,6 @@ export default function ProductsSection() {
                   {product.description}
                 </p>
 
-                {/* Spec pills */}
                 <div className="flex flex-wrap gap-2">
                   {Object.entries(product.specs).map(([key, val]) => (
                     <span key={key} className="stat-pill" style={{ fontSize: '10px', padding: '4px 10px' }}>

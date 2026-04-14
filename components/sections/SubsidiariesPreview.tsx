@@ -14,17 +14,23 @@ export default function SubsidiariesPreview() {
   useEffect(() => {
     if (!ref.current) return;
     const ctx = gsap.context(() => {
+      // Heading
       gsap.fromTo(ref.current!.querySelectorAll('.subs-heading'),
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
+          scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
         }
       );
+
+      // Cards — slide in from alternating sides
       ref.current!.querySelectorAll('.subs-card').forEach((el, i) => {
+        const fromX = i % 2 === 0 ? -70 : 70;
         gsap.fromTo(el,
-          { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, delay: i * 0.1, ease: 'power4.out',
-            scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' },
+          { x: fromX, opacity: 0 },
+          {
+            x: 0, opacity: 1, duration: 0.9, delay: i * 0.1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
           }
         );
       });
@@ -45,17 +51,19 @@ export default function SubsidiariesPreview() {
               5 Companies. <span className="gradient-text">One Vision.</span>
             </h2>
           </div>
-          <Link href="/subsidiaries" className="subs-heading btn-sm">
+          <Link href="/subsidiaries" className="subs-heading btn-sm magnetic-btn">
             View All Verticals
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </Link>
         </div>
 
-        {/* Unified grid for all 5 cards — 1 col mobile, 2 col md, 3 col lg */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* First 3 cards — full card layout */}
           {SUBSIDIARIES.slice(0, 3).map((sub) => (
-            <div key={sub.number} className="subs-card glass-card hover-lift" style={{ padding: '36px 28px' }}>
+            <div
+              key={sub.number}
+              className="subs-card glass-card shimmer-card hover-lift"
+              style={{ padding: '36px 28px' }}
+            >
               <div style={{
                 fontFamily: 'var(--font-syne)',
                 fontWeight: 800,
@@ -88,9 +96,12 @@ export default function SubsidiariesPreview() {
             </div>
           ))}
 
-          {/* Last 2 cards — same grid, same width, compact inline layout */}
           {SUBSIDIARIES.slice(3).map((sub) => (
-            <div key={sub.number} className="subs-card glass-card hover-lift" style={{ padding: '32px 28px' }}>
+            <div
+              key={sub.number}
+              className="subs-card glass-card shimmer-card hover-lift"
+              style={{ padding: '32px 28px' }}
+            >
               <div style={{
                 fontFamily: 'var(--font-syne)',
                 fontWeight: 800,

@@ -20,20 +20,25 @@ export default function WhyIEGSection() {
   useEffect(() => {
     if (!ref.current) return;
     const ctx = gsap.context(() => {
+      // Heading
       gsap.fromTo(ref.current!.querySelectorAll('.why-heading'),
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
+          scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
         }
       );
 
+      // Cards — alternate slide from left/right
       ref.current!.querySelectorAll('.why-card').forEach((el, i) => {
+        const fromX = i % 2 === 0 ? -60 : 60;
         gsap.fromTo(el,
-          { y: 80, opacity: 0, scale: 0.9 },
-          { y: 0, opacity: 1, scale: 1, duration: 1, delay: i * 0.12, ease: 'power4.out',
+          { x: fromX, opacity: 0, scale: 0.95 },
+          {
+            x: 0, opacity: 1, scale: 1,
+            duration: 0.9, delay: i * 0.1, ease: 'power3.out',
             scrollTrigger: {
               trigger: ref.current!.querySelector('.why-grid'),
-              start: 'top 85%',
+              start: 'top 82%',
               toggleActions: 'play none none none',
             },
           }
@@ -61,7 +66,7 @@ export default function WhyIEGSection() {
           {WHY_IEG.map((item, i) => (
             <div
               key={item.title}
-              className="why-card glass-card hover-lift"
+              className="why-card glass-card shimmer-card hover-lift"
               style={{ padding: '40px 28px', textAlign: 'center' }}
             >
               <div
@@ -75,7 +80,6 @@ export default function WhyIEGSection() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   margin: '0 auto 22px',
-                  transition: 'all 0.4s ease',
                 }}
               >
                 {ICONS[i]}

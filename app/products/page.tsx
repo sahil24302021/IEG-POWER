@@ -48,7 +48,7 @@ export default function ProductsPage() {
   return (
     <div ref={ref}>
       {/* HERO */}
-      <section className="relative overflow-hidden" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
+      <section className="relative overflow-hidden" style={{ paddingTop: 'clamp(90px, 12vw, 120px)', paddingBottom: 'clamp(50px, 8vw, 80px)' }}>
         <GradientMesh />
         <div className="grid-bg" />
 

@@ -1,7 +1,7 @@
 /* ============================================================
-   IEG VIDAKA POWERS — ₹50L Agency-Grade Design System v2
-   Fluid Glass × VastSpace × Deep Space Black + IEG Orange
-   Syne · DM Sans · JetBrains Mono
+   IEG AUTO POWERS LTD — Agency-Grade Design System v4
+   Fluid Glass × Deep Space Black + IEG Orange
+   Optimized Award-Level Animations · Syne · DM Sans · JetBrains Mono
    ============================================================ */
 
 /* eslint-disable */
@@ -256,6 +256,104 @@
 }
 .glass-card:hover::before { opacity: 1; }
 .glass-card:hover::after  { opacity: 1; }
+
+/* ── Magnetic Hover Button ── */
+.magnetic-btn {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+.magnetic-btn:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* ── Horizontal Slide-In Reveals (scroll-triggered via GSAP) ── */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.slide-in-left.active,
+.slide-in-right.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Blur-Up Reveal Animation ── */
+@keyframes blur-up-reveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+.blur-up {
+  animation: blur-up-reveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Shimmer Sweep on Cards (subtle) ── */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+.shimmer-card {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.03),
+    transparent
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+}
+.shimmer-card:hover::after {
+  animation: shimmer-sweep 0.7s ease forwards;
+}
+
+/* ── Parallax Section (GSAP scrub) ── */
+.parallax-section {
+  will-change: transform;
+}
+
+/* ── Pulsing Ring around CTA ── */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(247,148,29,0.4); }
+  70% { box-shadow: 0 0 0 16px rgba(247,148,29,0); }
+  100% { box-shadow: 0 0 0 0 rgba(247,148,29,0); }
+}
+.pulse-ring {
+  animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* ── Counter Blur-In ── */
+@keyframes counter-blur-in {
+  from { filter: blur(12px); opacity: 0; transform: scale(0.85); }
+  to { filter: blur(0); opacity: 1; transform: scale(1); }
+}
+.counter-blur-in {
+  animation: counter-blur-in 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
 
 /* ── Buttons ── */
 .btn-orange {
@@ -663,9 +761,13 @@
 
 /* ── Micro-interactions ── */
 .hover-lift {
-  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+  will-change: transform;
 }
-.hover-lift:hover { transform: translateY(-5px); }
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+}
 
 /* ── Section spacing ── */
 .section-pad { padding: 100px 0; }
@@ -743,13 +845,32 @@
 .team-card {
   background: var(--bg-card-solid);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-  transition: all 0.3s ease;
+  border-radius: 20px;
+  padding: 36px 24px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), rgba(247,148,29,0.3), var(--green));
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 .team-card:hover {
   border-color: var(--orange-dim);
-  transform: translateY(-3px);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 24px 80px rgba(247,148,29,0.1),
+    0 0 0 1px rgba(247,148,29,0.08);
+}
+.team-card:hover::before {
+  opacity: 1;
 }
 
 /* ── Table styles ── */
@@ -925,6 +1046,154 @@
   pointer-events: none;
 }
 .reveal {
-  opacity: 1; /* 🔥 prevents invisible bug */
+  opacity: 1;
   transform: translateY(0);
 }
+
+/* ========================================
+   COMPREHENSIVE MOBILE RESPONSIVE SYSTEM
+   ======================================== */
+
+/* ── Small Mobile (< 480px) ── */
+@media (max-width: 480px) {
+  .ieg-container {
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+  }
+
+  /* Typography scale down */
+  .display-hero { font-size: clamp(22px, 6.5vw, 32px); line-height: 1.12; }
+  .display-lg  { font-size: clamp(22px, 6vw, 30px); }
+  .display-md  { font-size: clamp(18px, 5vw, 26px); }
+  .display-sm  { font-size: clamp(15px, 4vw, 20px); }
+  .body-xl { font-size: 15px; line-height: 1.6; }
+  .body-lg { font-size: 14px; }
+  .body-md { font-size: 13px; }
+
+  /* Cards */
+  .glass-card { border-radius: 14px; }
+  .glass-card:hover { transform: none; }
+
+  /* Buttons full-width and taller for tap */
+  .btn-orange {
+    padding: 14px 24px;
+    font-size: 13px;
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+  .btn-ghost {
+    padding: 14px 24px;
+    font-size: 13px;
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+  .btn-sm {
+    padding: 11px 18px;
+    font-size: 12px;
+    min-height: 44px;
+  }
+
+  /* Sections */
+  .section-pad { padding: 44px 0; }
+
+  /* Pills */
+  .stat-pill { font-size: 10px; padding: 6px 10px; }
+  .section-label { font-size: 10px; letter-spacing: 0.14em; }
+  .mono-label { font-size: 10px; }
+
+  /* Team */
+  .team-card { padding: 24px 18px; border-radius: 14px; }
+
+  /* Product card image */
+  .product-card .object-contain { padding: 1rem !important; }
+
+  /* Roadmap */
+  .roadmap-step { padding-left: 38px; padding-bottom: 28px; }
+
+  /* Tables — horizontal scroll */
+  .ieg-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Certificate grid: 1 col */
+  .cert-item { margin-bottom: 0; }
+
+  /* Footer spacing */
+  footer .ieg-container { padding-bottom: 24px; }
+
+  /* Form */
+  .form-input { font-size: 16px; padding: 14px 16px; } /* 16px prevents iOS zoom */
+
+  /* Nav height */
+  header .ieg-container { height: 64px !important; }
+
+  /* Hero glow — smaller */
+  .hero-glow { width: 400px; height: 400px; }
+}
+
+/* ── Mid Mobile (481–640px) ── */
+@media (min-width: 481px) and (max-width: 640px) {
+  .ieg-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .display-hero { font-size: clamp(26px, 5vw, 36px); }
+  .display-md { font-size: clamp(20px, 4vw, 28px); }
+  .section-pad { padding: 52px 0; }
+  .glass-card:hover { transform: translateY(-3px); }
+  .btn-orange, .btn-ghost { width: auto; }
+}
+
+/* ── Tablet (641–1024px) ── */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section-pad { padding: 64px 0; }
+  .glass-card:hover { transform: translateY(-5px); }
+}
+
+/* ── All Mobile (< 1024px) ── */
+@media (max-width: 1023px) {
+  /* Make grids stack properly */
+  .grid.lg\:grid-cols-2,
+  .grid.lg\:grid-cols-\[50\%_50\%\],
+  .grid.lg\:grid-cols-\[1fr_1\.2fr\] {
+    grid-template-columns: 1fr;
+  }
+
+  /* Reduce hero padding */
+  .hero-glow {
+    width: 500px;
+    height: 500px;
+    opacity: 0.6;
+  }
+}
+
+/* ── Reduce motion for accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Touch devices — simplify interactions ── */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+
+  .glass-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .glass-card:hover::before,
+  .glass-card:hover::after { opacity: 0; }
+  .hover-lift:hover { transform: none; box-shadow: none; }
+  .shimmer-card:hover::after { animation: none; }
+  .product-card:hover { transform: none; }
+  .team-card:hover { transform: none; }
+
+  /* Bigger tap targets */
+  .nav-link { padding: 10px 0; }
+  .stat-pill { padding: 8px 14px; }
+}
+

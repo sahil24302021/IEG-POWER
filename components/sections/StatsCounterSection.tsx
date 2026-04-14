@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
+  const [revealed, setRevealed] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -17,12 +18,13 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
       trigger: ref.current,
       start: 'top 85%',
       onEnter: () => {
+        setRevealed(true);
         const duration = 2000;
         const startTime = Date.now();
         const animate = () => {
           const elapsed = Date.now() - startTime;
           const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
+          const eased = 1 - Math.pow(1 - progress, 4);
           setCount(Math.round(target * eased));
           if (progress < 1) requestAnimationFrame(animate);
         };
@@ -33,7 +35,15 @@ function AnimatedCounter({ target, suffix }: { target: number; suffix: string })
     return () => trigger.kill();
   }, [target]);
 
-  return <span ref={ref}>{count}{suffix}</span>;
+  return (
+    <span
+      ref={ref}
+      className={revealed ? 'counter-blur-in' : ''}
+      style={{ display: 'inline-block' }}
+    >
+      {count}{suffix}
+    </span>
+  );
 }
 
 export default function StatsCounterSection() {
@@ -42,11 +52,13 @@ export default function StatsCounterSection() {
   useEffect(() => {
     if (!ref.current) return;
     const ctx = gsap.context(() => {
+      // Slide in from alternating sides
       ref.current!.querySelectorAll('.stat-block').forEach((el, i) => {
+        const fromX = i % 2 === 0 ? -50 : 50;
         gsap.fromTo(el,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, delay: i * 0.1, ease: 'power3.out',
-            scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
+          { x: fromX, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.8, delay: i * 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: ref.current, start: 'top 82%', toggleActions: 'play none none none' },
           }
         );
       });
@@ -61,7 +73,6 @@ export default function StatsCounterSection() {
       borderBottom: '1px solid var(--border)',
       padding: '100px 0',
     }}>
-      {/* Subtle gradient mesh */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -71,8 +82,8 @@ export default function StatsCounterSection() {
 
       <div className="ieg-container relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
-          {STATS.map((s) => (
-            <div key={s.label} className="stat-block text-center">
+          {STATS.map((s, i) => (
+            <div key={s.label} className="stat-block text-center" style={{ padding: '24px 16px' }}>
               <div style={{
                 fontFamily: 'var(--font-syne)',
                 fontWeight: 800,
@@ -85,7 +96,6 @@ export default function StatsCounterSection() {
                 <AnimatedCounter target={s.value} suffix={s.suffix} />
               </div>
               <span className="mono-label">{s.label}</span>
-              {/* Animated underline */}
               <div style={{
                 width: '40px',
                 height: '2px',

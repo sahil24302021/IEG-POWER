@@ -14,23 +14,23 @@ export default function CTABanner() {
     if (!ref.current) return;
     const ctx = gsap.context(() => {
       gsap.fromTo('.cta-title',
-        { y: 60, opacity: 0 },
+        { y: 80, opacity: 0, filter: 'blur(12px)', scale: 0.9 },
         {
-          y: 0, opacity: 1, duration: 1.2, ease: 'power4.out',
+          y: 0, opacity: 1, filter: 'blur(0px)', scale: 1, duration: 1.4, ease: 'power4.out',
           scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
         }
       );
       gsap.fromTo('.cta-sub',
-        { y: 30, opacity: 0 },
+        { y: 40, opacity: 0, filter: 'blur(6px)' },
         {
-          y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power3.out',
+          y: 0, opacity: 1, filter: 'blur(0px)', duration: 1, delay: 0.25, ease: 'power3.out',
           scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
         }
       );
       gsap.fromTo('.cta-btn',
-        { y: 20, opacity: 0 },
+        { y: 30, opacity: 0, scale: 0.9 },
         {
-          y: 0, opacity: 1, duration: 0.6, delay: 0.4, ease: 'power3.out',
+          y: 0, opacity: 1, scale: 1, duration: 0.8, delay: 0.5, ease: 'power3.out',
           scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
         }
       );
@@ -61,8 +61,9 @@ export default function CTABanner() {
         width: '800px',
         height: '800px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(247,148,29,0.06) 0%, transparent 60%)',
+        background: 'radial-gradient(circle, rgba(247,148,29,0.08) 0%, transparent 60%)',
         pointerEvents: 'none',
+        animation: 'glow-pulse 4s ease-in-out infinite',
       }} />
       <div style={{
         position: 'absolute',
@@ -103,7 +104,7 @@ export default function CTABanner() {
         </p>
 
         <div className="cta-btn" style={{ opacity: 0 }}>
-          <Link href="/contact" className="btn-orange" style={{ fontSize: '16px', padding: '18px 40px' }}>
+          <Link href="/contact" className="btn-orange pulse-ring magnetic-btn" style={{ fontSize: '16px', padding: '18px 40px' }}>
             Get In Touch
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>

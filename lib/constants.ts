@@ -1,22 +1,22 @@
 // ============================================================
-// IEG Vidaka Powers — Content Constants
+// IEG Auto Powers Ltd — Content Constants
 // All data sourced from content.pdf and presentation.pptx
 // NO LOREM IPSUM — every value is real company data
 // ============================================================
 
 // ---- BRAND ----
 export const BRAND = {
-  name: 'IEG Vidaka Powers',
+  name: 'IEG Auto Powers Ltd',
   shortName: 'IEG',
-  fullName: 'IEG — Internal Energy Generate',
+  fullName: 'IEG Auto Powers Ltd — Internal Energy Generate',
   tagline: 'The Power Within',
   tagline2: 'Empowering the Future',
   mission: 'Provide clean, renewable, self-sustaining energy with zero external power dependency.',
   vision: 'Making the globe more ecologically sustainable for future generations',
-  email: 'connect@iegvidaka.com',
+  email: 'connect@iegauto.com',
   founderEmail: 'ajaykumarchoudhary07@gmail.com',
   phone: '+91 77395 44789',
-  website: 'www.iegvidaka.com',
+  website: 'www.iegauto.com',
   hq: 'Dahisar East, Mumbai, Maharashtra, India',
   factory: 'Vapi, Gujarat, India',
   cin: 'U35106MH2024PLC418794',
@@ -60,8 +60,8 @@ export const JOURNEY_MILESTONES = [
   { year: '2004', title: 'Presidential Recognition', desc: 'Meets Dr. APJ Abdul Kalam, presents the invention. Receives personal recognition from the President of India.' },
   { year: '2011', title: 'Patent Filed', desc: 'Working IEG prototype developed and tested. Patent application No. 391051 filed with the Indian Patent Office.' },
   { year: '2022', title: 'Patent Granted', desc: 'Indian Patent No. 391051 officially granted by the Controller General of Patents. 20-year protection secured.' },
-  { year: '2024', title: 'Company Incorporated', desc: 'IEG Vidaka Powers Ltd. formally incorporated on February 8, 2024. Production facility established in Vapi, Gujarat.' },
-  { year: '2025', title: '2nd Patent Granted', desc: 'Patent No. 557845 — A System for Regeneration of Internal Energy — officially granted January 13, 2025.' },
+  { year: '2024', title: 'Company Incorporated', desc: 'IEG Auto Powers Ltd. formally incorporated on February 8, 2024. Production facility established in Vapi, Gujarat.' },
+  { year: '2025', title: '2nd Patent Granted & IEG Auto Formalized', desc: 'Patent No. 557845 — A System for Regeneration of Internal Energy — officially granted January 13, 2025. IEG Auto Powers Ltd. formally established.' },
 ];
 
 // ---- SOLUTION HIGHLIGHTS ----
@@ -95,7 +95,7 @@ export const PRODUCTS_READY = [
   },
   {
     id: 'battery-charger',
-    name: 'IEG Vidaka Battery Charger',
+    name: 'IEG Battery Charger',
     category: 'Energy Storage',
     description: 'Models BC48 (600W) to BC360 (5000W). 96% efficiency across all models. 24 hours backup time. Portable, clean, zero carbon.',
     specs: { efficiency: '96%', backup: '24hr Backup', models: '600W to 5000W' },
@@ -120,12 +120,12 @@ export const PRODUCTS_READY = [
 ];
 
 export const PRODUCTS_UPCOMING = [
-  { name: 'IEG Vidaka 36V Cycle Charger', category: 'Mobility' },
-  { name: 'IEG Vidaka E-bike Charger 96V', category: 'Mobility' },
-  { name: 'IEG Vidaka Mobile Battery Charger', category: 'Consumer Electronics' },
-  { name: 'IEG Vidaka Ceiling Fan', category: 'Home Appliance' },
-  { name: 'IEG Vidaka Laptop Charger', category: 'Consumer Electronics' },
-  { name: 'IEG Vidaka Air Conditioner', category: 'Home Appliance' },
+  { name: 'IEG 36V Cycle Charger', category: 'Mobility' },
+  { name: 'IEG E-bike Charger 96V', category: 'Mobility' },
+  { name: 'IEG Mobile Battery Charger', category: 'Consumer Electronics' },
+  { name: 'IEG Ceiling Fan', category: 'Home Appliance' },
+  { name: 'IEG Laptop Charger', category: 'Consumer Electronics' },
+  { name: 'IEG Air Conditioner', category: 'Home Appliance' },
   { name: 'IEG Four-Wheeler Charger', category: 'Mobility' },
 ];
 
@@ -159,20 +159,11 @@ export const COMPARISON_RUNNING_COST = {
   },
 };
 
-// ---- TEAM ----
+// ---- BOARD OF DIRECTORS ----
 export const TEAM_MEMBERS = [
   { name: 'Ajay Choudhary', role: 'Managing Director', focus: 'Inventor & Patent Owner' },
-  { name: 'Mansukh Vaghasiya', role: 'Chairman', focus: 'Corporate Governance & Strategy' },
-  { name: 'Rajesh Vaghasiya', role: 'Director Finance', focus: 'Capital Structure & Financial Control' },
-  { name: 'Nitin Vyas', role: 'Director Production', focus: 'Mechanical Engineering' },
-  { name: 'Vijay Gupta', role: 'Director Production', focus: 'Electronics' },
-  { name: 'Vinay Salodkar', role: 'Director Marketing', focus: 'Technical' },
-  { name: 'Rajeshwar Nagle', role: 'Director IT', focus: 'Technology Infrastructure' },
-  { name: 'Neena Nagle', role: 'Director Operations', focus: 'Operations Management' },
-  { name: 'Nilesh Vyas', role: 'Director Marketing', focus: 'Market Development' },
-  { name: 'Manshuk Radadiya', role: 'Director Marketing', focus: 'Power Sector' },
-  { name: 'Devashish Saraf', role: 'Director Business Development', focus: 'Strategic Partnerships' },
-  { name: 'Ambarish Salodkar', role: 'Data Analyst', focus: 'Business Intelligence' },
+  { name: 'Kanchan Singh', role: 'Director', focus: 'Strategic Planning & Governance' },
+  { name: 'Vijay Krishna Gupta', role: 'Director', focus: 'Business Development & Operations' },
 ];
 
 // ---- ROADMAP ----
@@ -268,7 +259,7 @@ export const CERTIFICATES = [
   {
     id: 'incorporation',
     title: 'Certificate of Incorporation',
-    subtitle: 'IEG Vidaka Powers Limited',
+    subtitle: 'IEG Auto Powers Limited',
     details: 'CIN: U35106MH2024PLC418794 | Date: February 8, 2024',
     authority: 'Ministry of Corporate Affairs, Government of India',
     image: '/assets/pdf_page7_img1.png',

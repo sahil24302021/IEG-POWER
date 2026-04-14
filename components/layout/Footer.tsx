@@ -14,7 +14,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border)' }}>
+    <footer style={{
+      background: 'var(--bg-primary)',
+      borderTop: '1px solid var(--border)',
+      paddingTop: 'clamp(40px, 6vw, 80px)',
+      paddingBottom: '24px',
+    }}>
       {/*
         BUG FIX: The original `padding: 'clamp(40px, 8vw, 80px) 0 0'` shorthand
         was zeroing out left & right padding on .ieg-container, making mobile content
@@ -22,10 +27,9 @@ export default function Footer() {
       */}
       <div
         className="ieg-container"
-        style={{ paddingTop: 'clamp(40px, 8vw, 80px)', paddingBottom: 0 }}
       >
         {/* Top Grid: 1 col mobile → 2 col sm (640px+) → 4 col lg (1024px+) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 mb-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
 
           {/* Brand — spans 2 cols on sm so it's above the 2-col nav/product links */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -39,12 +43,12 @@ export default function Footer() {
                 fontSize: '16px',
                 color: 'var(--text-1)',
               }}>
-                IEG Vidaka Powers
+                IEG Auto Powers Ltd
               </span>
             </Link>
             <p style={{
               fontFamily: 'var(--font-dm-sans)',
-              fontSize: '14px',
+              fontSize: 'clamp(13px, 1.6vw, 14px)',
               lineHeight: 1.7,
               color: 'var(--text-3)',
               maxWidth: '340px',
@@ -176,7 +180,7 @@ export default function Footer() {
             color: 'var(--text-3)',
             textAlign: 'center',
           }}>
-            © 2025 IEG Vidaka Powers Limited. All Rights Reserved.
+            © 2025 IEG Auto Powers Limited. All Rights Reserved.
           </span>
           <span style={{
             fontFamily: 'var(--font-mono)',

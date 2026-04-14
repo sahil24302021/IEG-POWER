@@ -45,7 +45,7 @@ export default function AboutPage() {
   return (
     <div ref={ref}>
       {/* HERO */}
-      <section className="relative overflow-hidden" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
+      <section className="relative overflow-hidden" style={{ paddingTop: 'clamp(90px, 12vw, 120px)', paddingBottom: 'clamp(50px, 8vw, 80px)' }}>
         <GradientMesh />
         <div className="grid-bg" />
 
@@ -65,7 +65,7 @@ export default function AboutPage() {
       {/* FOUNDER */}
       <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
         <div className="ieg-container">
-          <div className="grid lg:grid-cols-[400px_1fr] gap-16 items-center">
+          <div className="grid lg:grid-cols-[400px_1fr] gap-10 lg:gap-16 items-center">
             <div className="reveal">
               <div className="glass-card overflow-hidden" style={{ aspectRatio: '3/4', position: 'relative' }}>
                 <Image
@@ -96,14 +96,14 @@ export default function AboutPage() {
               </p>
               <p className="reveal body-md" style={{ marginBottom: '32px' }}>
                 After a 10-year patent examination process, the patent was officially granted in 2022. 
-                In 2024, IEG Vidaka Powers Ltd. was formally incorporated, and in January 2025, 
+                In 2024, IEG Auto Powers Ltd. was formally incorporated, and in January 2025, 
                 a second patent (No. 557845) was granted for the System for Regeneration of Internal Energy.
               </p>
-              <div className="reveal glass-card" style={{ padding: '28px', borderLeft: '3px solid var(--orange)' }}>
+              <div className="reveal glass-card" style={{ padding: 'clamp(20px, 3vw, 28px)', borderLeft: '3px solid var(--orange)' }}>
                 <p style={{
                   fontFamily: 'var(--font-dm-sans)',
                   fontStyle: 'italic',
-                  fontSize: '16px',
+                  fontSize: 'clamp(14px, 1.6vw, 16px)',
                   lineHeight: 1.7,
                   color: 'var(--text-2)',
                 }}>
@@ -120,7 +120,7 @@ export default function AboutPage() {
       <section className="section-pad relative" style={{ background: 'var(--bg-primary)' }}>
         <div className="section-glow-left" />
         <div className="ieg-container">
-          <div className="text-center mb-16">
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 5vw, 64px)' }}>
             <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ The Journey ]</span>
             <h2 className="reveal display-md">30+ Years to <span className="gradient-text">This Moment</span></h2>
           </div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
       {/* VISION & VALUES */}
       <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
         <div className="ieg-container">
-          <div className="text-center mb-16">
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 5vw, 64px)' }}>
             <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Vision ]</span>
             <h2 className="reveal display-md" style={{ marginBottom: '16px' }}>
               Making the Globe More <span className="gradient-text">Sustainable</span>
@@ -207,27 +207,27 @@ export default function AboutPage() {
       {/* TEAM */}
       <section className="section-pad" style={{ background: 'var(--bg-primary)' }}>
         <div className="ieg-container">
-          <div className="text-center mb-16">
-            <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Leadership ]</span>
-            <h2 className="reveal display-md">The <span className="gradient-text">Team</span></h2>
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 5vw, 64px)' }}>
+            <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Board of Directors ]</span>
+            <h2 className="reveal display-md">The <span className="gradient-text">Directors</span></h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 max-w-3xl mx-auto">
             {TEAM_MEMBERS.map((member) => (
-              <div key={member.name} className="reveal team-card text-center hover-lift">
+              <div key={member.name} className="reveal team-card text-center">
                 <div style={{
-                  width: '68px',
-                  height: '68px',
+                  width: 'clamp(56px, 8vw, 68px)',
+                  height: 'clamp(56px, 8vw, 68px)',
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, var(--bg-secondary), rgba(247,148,29,0.08))',
                   border: '1px solid var(--border)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 auto 18px',
+                  margin: '0 auto 14px',
                   fontFamily: 'var(--font-syne)',
                   fontWeight: 700,
-                  fontSize: '18px',
+                  fontSize: 'clamp(14px, 2vw, 18px)',
                   color: 'var(--orange)',
                 }}>
                   {member.name.split(' ').map(n => n[0]).join('')}
@@ -235,7 +235,7 @@ export default function AboutPage() {
                 <h3 style={{
                   fontFamily: 'var(--font-syne)',
                   fontWeight: 700,
-                  fontSize: '15px',
+                  fontSize: 'clamp(14px, 1.8vw, 16px)',
                   color: 'var(--text-1)',
                   marginBottom: '4px',
                   lineHeight: 1.3,
@@ -255,19 +255,19 @@ export default function AboutPage() {
       {/* RECOGNITION */}
       <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
         <div className="ieg-container">
-          <div className="text-center mb-16">
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 5vw, 64px)' }}>
             <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Recognition ]</span>
             <h2 className="reveal display-md">Recognized By <span className="gradient-text">The Best</span></h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-5 sm:gap-8 max-w-4xl mx-auto">
             {RECOGNITIONS.map((rec) => (
-              <div key={rec.name} className="reveal glass-card" style={{ padding: '44px 36px' }}>
-                <div style={{ fontSize: '52px', lineHeight: 1, color: 'var(--orange)', opacity: 0.15, fontFamily: 'var(--font-syne)', marginBottom: '-8px' }}>&ldquo;</div>
-                <p style={{ fontFamily: 'var(--font-dm-sans)', fontStyle: 'italic', fontSize: '16px', lineHeight: 1.8, color: 'var(--text-2)', marginBottom: '28px' }}>
+              <div key={rec.name} className="reveal glass-card" style={{ padding: 'clamp(28px, 5vw, 44px) clamp(20px, 4vw, 36px)' }}>
+                <div style={{ fontSize: 'clamp(36px, 5vw, 52px)', lineHeight: 1, color: 'var(--orange)', opacity: 0.15, fontFamily: 'var(--font-syne)', marginBottom: '-8px' }}>&ldquo;</div>
+                <p style={{ fontFamily: 'var(--font-dm-sans)', fontStyle: 'italic', fontSize: 'clamp(14px, 1.6vw, 16px)', lineHeight: 1.8, color: 'var(--text-2)', marginBottom: 'clamp(18px, 3vw, 28px)' }}>
                   {rec.quote}
                 </p>
-                <div style={{ borderTop: '1px solid var(--border)', paddingTop: '18px' }}>
-                  <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '17px', color: 'var(--text-1)', display: 'block', marginBottom: '4px' }}>
+                <div style={{ borderTop: '1px solid var(--border)', paddingTop: '14px' }}>
+                  <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 'clamp(14px, 1.6vw, 17px)', color: 'var(--text-1)', display: 'block', marginBottom: '4px' }}>
                     {rec.name}
                   </span>
                   <span className="body-sm">{rec.title} · <span style={{ color: 'var(--orange)' }}>{rec.year}</span></span>
@@ -280,3 +280,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

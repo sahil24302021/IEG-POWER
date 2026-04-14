@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradientMesh from '@/components/ui/GradientMesh';
 import ParticleBg from '@/components/ui/ParticleBg';
+import IEGFlowDiagram from '@/components/ui/IEGFlowDiagram';
 import { BRAND, COMPARISON_TWO_WHEELER, COMPARISON_RUNNING_COST, GENERATOR_SPECS } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -46,7 +48,7 @@ export default function TechnologyPage() {
   return (
     <div ref={ref}>
       {/* HERO — Full viewport cinematic */}
-      <section className="relative overflow-hidden" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
+      <section className="relative overflow-hidden" style={{ paddingTop: 'clamp(90px, 12vw, 120px)', paddingBottom: 'clamp(50px, 8vw, 80px)' }}>
         <GradientMesh />
         <div className="grid-bg" />
 
@@ -79,7 +81,7 @@ export default function TechnologyPage() {
       <section className="section-pad relative overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
         <div className="section-glow-right" />
         <div className="ieg-container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="reveal">
               <span className="section-label" style={{ display: 'block', marginBottom: '16px' }}>
                 [ The IEG System ]
@@ -88,14 +90,13 @@ export default function TechnologyPage() {
                 How Internal Energy <span className="text-orange">Regeneration</span> Works
               </h2>
               <p className="body-lg" style={{ marginBottom: '20px' }}>
-                A standard battery (12V–60V) powers a high-efficiency BLDC Motor (~90% efficiency). 
-                This motor drives the patented IEG MB Generator, which uses advanced magnetic boost 
-                technology to produce significantly more electrical energy than is consumed.
+                In the concept working of <strong>IEG technology</strong>, the battery is connected to an electronic controller which regulates power delivery to the BLDC motor. The battery operates at approximately 85% efficiency, while the controller transfers power to the motor with about 95% efficiency. The BLDC motor itself functions at around 80% efficiency and converts electrical energy into mechanical rotational energy. 
               </p>
               <p className="body-md" style={{ marginBottom: '20px' }}>
-                The system generates more output than conventional systems by leveraging internal magnetic 
-                boost technology. Excess energy is continuously looped back through a Battery Charger to 
-                recharge the power source — creating a truly self-sustaining energy cycle.
+                This rotational output is mechanically coupled to the IEG system where mechanical, electrical, and magnetic energy are combined to enhance energy utilization, resulting in an operational efficiency of approximately 180%.
+              </p>
+              <p className="body-md" style={{ marginBottom: '20px', color: 'var(--text-2)' }}>
+                This processed energy is then transferred to an alternator operating at about 80% efficiency, taking around 80% of the energy from the IEG system to generate electrical power. This is supplied back to the controller, forming a closed loop. The controller sends the received alternator power back to the motor to maintain operation, and any remaining energy is provided as usable output.
               </p>
               <div className="flex flex-wrap gap-3 mt-8">
                 <span className="stat-pill" style={{ borderColor: 'var(--orange-dim)', color: 'var(--orange)' }}>180%+ Output</span>
@@ -105,36 +106,10 @@ export default function TechnologyPage() {
             </div>
 
             {/* Animated Diagram */}
-            <div className="reveal glass-card" style={{ padding: 'clamp(16px, 5vw, 40px)', aspectRatio: '1' }}>
-              <svg viewBox="0 0 400 400" className="w-full h-full">
-                <rect x="150" y="20" width="100" height="50" rx="6" fill="none" stroke="#F7941D" strokeWidth="1.5" opacity="0.8" />
-                <text x="200" y="42" textAnchor="middle" fill="#F7941D" fontSize="10" fontWeight="700" fontFamily="monospace">BATTERY</text>
-                <text x="200" y="56" textAnchor="middle" fill="#8C9BAB" fontSize="8" fontFamily="monospace">12V–60V</text>
-                <rect x="300" y="150" width="90" height="50" rx="6" fill="none" stroke="#1B7340" strokeWidth="1.5" opacity="0.8" />
-                <text x="345" y="172" textAnchor="middle" fill="#1B7340" fontSize="9" fontWeight="700" fontFamily="monospace">BLDC MOTOR</text>
-                <text x="345" y="188" textAnchor="middle" fill="#8C9BAB" fontSize="8" fontFamily="monospace">~90% eff.</text>
-                <rect x="150" y="290" width="100" height="60" rx="6" fill="rgba(247,148,29,0.08)" stroke="#F7941D" strokeWidth="2" />
-                <text x="200" y="315" textAnchor="middle" fill="#F7941D" fontSize="10" fontWeight="700" fontFamily="monospace">IEG MB</text>
-                <text x="200" y="330" textAnchor="middle" fill="#F7941D" fontSize="9" fontWeight="700" fontFamily="monospace">GENERATOR</text>
-                <text x="200" y="345" textAnchor="middle" fill="#8C9BAB" fontSize="7" fontFamily="monospace">180%+ output</text>
-                <rect x="10" y="150" width="90" height="50" rx="6" fill="none" stroke="#F7941D" strokeWidth="1.5" opacity="0.8" />
-                <text x="55" y="170" textAnchor="middle" fill="#F7941D" fontSize="8" fontWeight="700" fontFamily="monospace">BATTERY</text>
-                <text x="55" y="184" textAnchor="middle" fill="#F7941D" fontSize="8" fontWeight="700" fontFamily="monospace">CHARGER</text>
-                <path d="M250 50 Q340 50 340 150" fill="none" stroke="#1B7340" strokeWidth="1.5" className="energy-path" opacity="0.5" />
-                <path d="M340 200 Q340 290 250 310" fill="none" stroke="#F7941D" strokeWidth="1.5" className="energy-path" opacity="0.5" />
-                <path d="M150 310 Q60 290 55 200" fill="none" stroke="#F7941D" strokeWidth="1.5" className="energy-path" opacity="0.5" />
-                <path d="M55 150 Q55 50 150 40" fill="none" stroke="#F7941D" strokeWidth="1.5" className="energy-path" opacity="0.5" />
-                <circle r="4" fill="#F7941D" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#tflow1" /></animateMotion></circle>
-                <circle r="4" fill="#1B7340" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" begin="0.75s"><mpath href="#tflow2" /></animateMotion></circle>
-                <circle r="4" fill="#F7941D" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" begin="1.5s"><mpath href="#tflow3" /></animateMotion></circle>
-                <circle r="3.5" fill="#F7941D" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" begin="2.25s"><mpath href="#tflow4" /></animateMotion></circle>
-                <path id="tflow1" d="M250 50 Q340 50 340 150" fill="none" stroke="none" />
-                <path id="tflow2" d="M340 200 Q340 290 250 310" fill="none" stroke="none" />
-                <path id="tflow3" d="M150 310 Q60 290 55 200" fill="none" stroke="none" />
-                <path id="tflow4" d="M55 150 Q55 50 150 40" fill="none" stroke="none" />
-                <text x="200" y="200" textAnchor="middle" fill="rgba(247,148,29,0.12)" fontSize="32" fontWeight="800" fontFamily="var(--font-syne)">IEG</text>
-                <text x="200" y="220" textAnchor="middle" fill="rgba(255,255,255,0.06)" fontSize="8" fontFamily="monospace" letterSpacing="0.2em">SELF-REGENERATING</text>
-              </svg>
+            <div className="reveal glass-card" style={{ padding: 'clamp(16px, 4vw, 32px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '100%' }}>
+                <IEGFlowDiagram />
+              </div>
             </div>
           </div>
         </div>
@@ -143,7 +118,7 @@ export default function TechnologyPage() {
       {/* IEG ARCHITECTURE & MORE ABOUT THE TECHNOLOGY */}
       <section className="section-pad relative overflow-hidden" style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border)' }}>
         <div className="ieg-container">
-          <div className="text-center mb-16">
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 5vw, 64px)' }}>
             <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Engineering Architecture ]</span>
             <h2 className="reveal display-md">The <span className="gradient-text">Concept</span> & Blueprint</h2>
             <p className="reveal body-lg mt-6 max-w-3xl mx-auto">
@@ -153,15 +128,34 @@ export default function TechnologyPage() {
             </p>
           </div>
 
-          <div className="reveal glass-card flex justify-center items-center" style={{ padding: '8px', marginBottom: '60px', border: '1px solid var(--border)', background: 'var(--bg-secondary)' }}>
-            <div className="w-full max-w-5xl" style={{ borderRadius: '8px', overflow: 'hidden', background: '#ffffff', display: 'flex' }}>
-              <img 
-                src="/assets/images/ieg-diagram.jpg" 
-                alt="IEG Concept Schematic" 
-                className="w-full h-auto"
-                style={{ display: 'block', objectFit: 'contain' }}
+          {/* IEG System Diagram */}
+          <div className="reveal" style={{ marginBottom: '60px' }}>
+            <div className="glass-card" style={{ padding: 'clamp(16px, 4vw, 32px)', overflow: 'hidden', border: '1px solid var(--orange-dim)', background: 'rgba(247, 148, 29, 0.03)' }}>
+              <Image
+                src="/assets/images/ieg-diagram.jpg"
+                alt="Complete System Energy Flow — Battery → Controller → BLDC Motor → IEG System → Alternator with Closed Loop Feedback"
+                width={1400}
+                height={800}
+                style={{ width: '100%', height: 'auto', borderRadius: '12px' }}
+                priority
               />
             </div>
+          </div>
+
+          {/* Example Explanation */}
+          <div className="reveal glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', marginBottom: '60px', border: '1px solid var(--orange-dim)', background: 'rgba(247, 148, 29, 0.03)' }}>
+            <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 600, color: 'var(--orange)', marginBottom: '16px' }}>
+              To understand this with an example:
+            </h3>
+            <p className="body-md text-gray-300" style={{ lineHeight: 1.7 }}>
+              Consider a battery rated at 12V, 10A supplying 2A current to the motor. In this case, the motor receives an electrical input power of 24 watts. This 24-watt output is processed through the IEG system, where due to its 180% operational effectiveness, the power is represented as approximately 49 watts equivalent. 
+            </p>
+            <p className="body-md text-gray-300 mt-4" style={{ lineHeight: 1.7 }}>
+              About 80% of this 49-watt power is transferred to the alternator, allowing the alternator to operate with around 39 watts. The alternator converts this energy back into electrical form and sends it to the controller. After accounting for the controller&apos;s own efficiency of 95%, approximately 38 watts of usable power are available.
+            </p>
+            <p className="body-md text-gray-300 mt-4" style={{ lineHeight: 1.7 }}>
+              From this, the controller supplies about 24 watts back to the motor so that the cycle continues running, around 1 watt is directed to the battery, and the remaining 14 watts are available as output power, which can be used to charge the battery, power external loads, or be utilized elsewhere as required.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
@@ -205,7 +199,7 @@ export default function TechnologyPage() {
       <section className="section-pad relative" style={{ background: 'var(--bg-primary)' }}>
         <div className="section-glow-left" />
         <div className="ieg-container">
-          <div className="text-center mb-16">
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 5vw, 64px)' }}>
             <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Intellectual Property ]</span>
             <h2 className="reveal display-md">Government-Granted <span className="gradient-text">Patents</span></h2>
           </div>

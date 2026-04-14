@@ -16,14 +16,16 @@ export default function RecognitionSection() {
       gsap.fromTo(ref.current!.querySelectorAll('.rec-heading'),
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
+          scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
         }
       );
+
+      // Cards slide in from opposite sides
       ref.current!.querySelectorAll('.rec-card').forEach((el, i) => {
         gsap.fromTo(el,
-          { y: 60, opacity: 0, scale: 0.97 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.9, delay: i * 0.15, ease: 'power4.out',
-            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+          { x: i === 0 ? -80 : 80, opacity: 0 },
+          { x: 0, opacity: 1, duration: 1, delay: i * 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
           }
         );
       });
@@ -46,7 +48,7 @@ export default function RecognitionSection() {
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {RECOGNITIONS.map((rec) => (
-            <div key={rec.name} className="rec-card glass-card" style={{ padding: '44px 36px' }}>
+            <div key={rec.name} className="rec-card glass-card shimmer-card hover-lift" style={{ padding: '44px 36px' }}>
               <div style={{
                 fontSize: '56px',
                 lineHeight: 1,

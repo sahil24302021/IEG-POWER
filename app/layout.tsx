@@ -30,9 +30,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "IEG — The Power Within | Patented Clean Energy Technology",
-  description: "IEG Vidaka Powers: Patented self-sustaining energy systems (Patent No. 391051 & 557845). Zero fuel, zero grid, zero emissions. 30+ years of R&D.",
-  keywords: "IEG, Internal Energy Generate, clean energy, patent 391051, self-sustaining power, electric vehicle charger, IEG Vidaka",
+  title: "IEG Auto Powers Ltd — The Power Within | Patented Clean Energy Technology",
+  description: "IEG Auto Powers Ltd: Patented self-sustaining energy systems (Patent No. 391051 & 557845). Zero fuel, zero grid, zero emissions. 30+ years of R&D.",
+  keywords: "IEG, Internal Energy Generate, clean energy, patent 391051, self-sustaining power, electric vehicle charger, IEG Auto Powers",
 };
 
 export default function RootLayout({
