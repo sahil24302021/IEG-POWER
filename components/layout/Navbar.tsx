@@ -201,10 +201,10 @@ export default function Navbar() {
       {/* Mobile fullscreen overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 lg:hidden flex flex-col justify-center"
+          className="fixed inset-0 z-40 lg:hidden flex flex-col"
           style={{ background: 'rgba(6,10,14,0.98)', backdropFilter: 'blur(40px)' }}
         >
-          <nav ref={mobileNavRef} className="flex flex-col gap-1 px-8">
+          <nav ref={mobileNavRef} className="flex flex-col gap-1 px-8" style={{ paddingTop: '100px' }}>
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
@@ -214,7 +214,7 @@ export default function Navbar() {
                 style={{
                   fontFamily: 'var(--font-syne)',
                   fontWeight: 700,
-                  fontSize: '28px',
+                  fontSize: 'clamp(22px, 5vw, 28px)',
                   color: pathname === link.href ? 'var(--orange)' : 'var(--text-2)',
                   transition: 'color 0.2s ease',
                   textDecoration: 'none',
@@ -223,7 +223,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <div className="mt-8 pt-8" style={{ borderTop: '1px solid var(--border)' }}>
+            <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
