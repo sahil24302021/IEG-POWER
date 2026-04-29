@@ -66,23 +66,18 @@
     background-color: var(--bg-primary);
     color: var(--text-1);
     overflow-x: hidden;
-    cursor: none;
+
     font-family: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
   }
 
-  @media (pointer: coarse) {
-    body { cursor: auto; }
-  }
+
 
   ::selection {
     background-color: var(--orange);
     color: var(--bg-primary);
   }
 
-  a, button { cursor: none; }
-  @media (pointer: coarse) {
-    a, button { cursor: pointer; }
-  }
+  a, button { cursor: pointer; }
 }
 
 /* ── Container ── */
@@ -369,7 +364,7 @@
   color: #060A0E;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   border: none;
-  cursor: none;
+  cursor: pointer;
   text-decoration: none;
   position: relative;
   overflow: hidden;
@@ -422,7 +417,7 @@
   color: var(--text-2);
   border: 1px solid var(--border);
   transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-  cursor: none;
+  cursor: pointer;
   text-decoration: none;
   backdrop-filter: blur(12px);
 }
@@ -524,47 +519,7 @@
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
 
-/* ── Custom Cursor ── */
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background: var(--orange);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  mix-blend-mode: difference;
-  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
-}
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(247,148,29,0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
-}
-.cursor-dot.hovering {
-  width: 48px;
-  height: 48px;
-  background: rgba(247,148,29,0.15);
-  mix-blend-mode: normal;
-}
-.cursor-ring.hovering {
-  width: 60px;
-  height: 60px;
-  border-color: var(--orange);
-  opacity: 0.6;
-}
-@media (pointer: coarse) {
-  .cursor-dot, .cursor-ring { display: none !important; }
-}
+
 
 /* ── Loading Screen ── */
 .loading-screen {

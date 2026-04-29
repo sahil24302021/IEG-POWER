@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import LenisProvider from "@/components/layout/LenisProvider";
 import LoadingScreen from "@/components/layout/LoadingScreen";
-import CustomCursor from "@/components/layout/CustomCursor";
+
 
 const syne = Syne({
   subsets: ['latin'],
@@ -48,7 +48,7 @@ export default function RootLayout({
       */}
       <body className="noise-overlay" suppressHydrationWarning>
         <LoadingScreen />
-        <CustomCursor />
+
         <LenisProvider>
           <ScrollProgress />
           <Navbar />
