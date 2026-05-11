@@ -80,7 +80,7 @@ export default function AboutPage() {
             <div>
               <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ The Founder ]</span>
               <h2 className="reveal display-md" style={{ marginBottom: '8px' }}>Ajay Choudhary</h2>
-              <p className="reveal body-md" style={{ color: 'var(--orange)', marginBottom: '28px' }}>
+              <p className="reveal body-md" style={{ color: 'var(--gold)', marginBottom: '28px' }}>
                 Inventor, Scientist & Managing Director
               </p>
               <p className="reveal body-lg" style={{ marginBottom: '20px' }}>
@@ -99,7 +99,7 @@ export default function AboutPage() {
                 In 2024, IEG Auto Powers Ltd. was formally incorporated, and in January 2025, 
                 a second patent (No. 557845) was granted for the System for Regeneration of Internal Energy.
               </p>
-              <div className="reveal glass-card" style={{ padding: 'clamp(20px, 3vw, 28px)', borderLeft: '3px solid var(--orange)' }}>
+              <div className="reveal glass-card" style={{ padding: 'clamp(20px, 3vw, 28px)', borderLeft: '3px solid var(--gold)' }}>
                 <p style={{
                   fontFamily: 'var(--font-dm-sans)',
                   fontStyle: 'italic',
@@ -134,7 +134,7 @@ export default function AboutPage() {
                     fontFamily: 'var(--font-syne)',
                     fontWeight: 800,
                     fontSize: '32px',
-                    color: 'var(--orange)',
+                    color: 'var(--gold)',
                     display: 'block',
                     marginBottom: '6px',
                   }}>
@@ -174,7 +174,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUE_PROPS.map((v) => (
               <div key={v.title} className="reveal glass-card text-center hover-lift" style={{ padding: '36px 24px' }}>
-                <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: v.icon === 'globe' ? 'rgba(27,115,64,0.08)' : 'rgba(247,148,29,0.06)', border: `1px solid ${v.icon === 'globe' ? 'rgba(27,115,64,0.15)' : 'rgba(247,148,29,0.12)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 18px' }}>
+                <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: v.icon === 'globe' || v.icon === 'leaf' ? 'rgba(27,115,64,0.08)' : v.icon === 'shield' ? 'rgba(46,134,193,0.08)' : 'rgba(201,162,39,0.06)', border: `1px solid ${v.icon === 'globe' || v.icon === 'leaf' ? 'rgba(27,115,64,0.15)' : v.icon === 'shield' ? 'rgba(46,134,193,0.15)' : 'rgba(201,162,39,0.12)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 18px' }}>
                   {v.icon === 'leaf' && (
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B7340" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 22c3.3-3.3 6-8 6-15a12 12 0 0112 12c-7 0-11.7 2.7-15 3z"/><path d="M2 22L12 12"/></svg>
                   )}
@@ -182,10 +182,10 @@ export default function AboutPage() {
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B7340" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                   )}
                   {v.icon === 'shield' && (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F7941D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E86C1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                   )}
                   {v.icon === 'coin' && (
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F7941D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A227" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                   )}
                 </div>
                 <h3 style={{
@@ -219,8 +219,8 @@ export default function AboutPage() {
                   width: 'clamp(56px, 8vw, 68px)',
                   height: 'clamp(56px, 8vw, 68px)',
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, var(--bg-secondary), rgba(247,148,29,0.08))',
-                  border: '1px solid var(--border)',
+                  background: 'linear-gradient(135deg, var(--bg-secondary), rgba(27,111,168,0.1))',
+                  border: '1px solid rgba(27,111,168,0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -228,7 +228,7 @@ export default function AboutPage() {
                   fontFamily: 'var(--font-syne)',
                   fontWeight: 700,
                   fontSize: 'clamp(14px, 2vw, 18px)',
-                  color: 'var(--orange)',
+                  color: 'var(--blue)',
                 }}>
                   {member.name.split(' ').map(n => n[0]).join('')}
                 </div>
@@ -242,9 +242,51 @@ export default function AboutPage() {
                 }}>
                   {member.name}
                 </h3>
-                <span className="body-sm" style={{ display: 'block', marginBottom: '2px' }}>{member.role}</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-3)', letterSpacing: '0.04em' }}>
-                  {member.focus}
+                <span className="body-sm">{member.role}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Shareholders */}
+          <div className="text-center" style={{ marginTop: 'clamp(48px, 6vw, 80px)', marginBottom: 'clamp(24px, 4vw, 40px)' }}>
+            <h3 className="reveal" style={{
+              fontFamily: 'var(--font-syne)',
+              fontWeight: 700,
+              fontSize: 'clamp(20px, 2.5vw, 28px)',
+              color: 'var(--text-1)',
+              marginBottom: '8px',
+            }}>
+              Shareholders
+            </h3>
+            <p className="reveal body-md" style={{ color: 'var(--text-3)' }}>Key stakeholders of the company</p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-4xl mx-auto">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="reveal glass-card text-center hover-lift" style={{ padding: '28px 16px' }}>
+                <div style={{
+                  width: '52px',
+                  height: '52px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, var(--bg-secondary), rgba(212,175,55,0.08))',
+                  border: '1px solid rgba(212,175,55,0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 14px',
+                }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
+                <span style={{
+                  fontFamily: 'var(--font-syne)',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  color: 'var(--text-2)',
+                }}>
+                  Share Holder
                 </span>
               </div>
             ))}
@@ -262,7 +304,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-5 sm:gap-8 max-w-4xl mx-auto">
             {RECOGNITIONS.map((rec) => (
               <div key={rec.name} className="reveal glass-card" style={{ padding: 'clamp(28px, 5vw, 44px) clamp(20px, 4vw, 36px)' }}>
-                <div style={{ fontSize: 'clamp(36px, 5vw, 52px)', lineHeight: 1, color: 'var(--orange)', opacity: 0.15, fontFamily: 'var(--font-syne)', marginBottom: '-8px' }}>&ldquo;</div>
+                <div style={{ fontSize: 'clamp(36px, 5vw, 52px)', lineHeight: 1, color: 'var(--gold)', opacity: 0.15, fontFamily: 'var(--font-syne)', marginBottom: '-8px' }}>&ldquo;</div>
                 <p style={{ fontFamily: 'var(--font-dm-sans)', fontStyle: 'italic', fontSize: 'clamp(14px, 1.6vw, 16px)', lineHeight: 1.8, color: 'var(--text-2)', marginBottom: 'clamp(18px, 3vw, 28px)' }}>
                   {rec.quote}
                 </p>
@@ -270,7 +312,7 @@ export default function AboutPage() {
                   <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 'clamp(14px, 1.6vw, 17px)', color: 'var(--text-1)', display: 'block', marginBottom: '4px' }}>
                     {rec.name}
                   </span>
-                  <span className="body-sm">{rec.title} · <span style={{ color: 'var(--orange)' }}>{rec.year}</span></span>
+                  <span className="body-sm">{rec.title} · <span style={{ color: 'var(--gold)' }}>{rec.year}</span></span>
                 </div>
               </div>
             ))}

@@ -23,8 +23,8 @@ export default function IEGFlowDiagram() {
         @keyframes ieg-fwd  { to { stroke-dashoffset:-32; } }
         @keyframes ieg-rev  { to { stroke-dashoffset: 32; } }
         @keyframes ieg-glow {
-          0%,100%{ filter:drop-shadow(0 0 6px rgba(247,148,29,.4)); }
-          50%    { filter:drop-shadow(0 0 20px rgba(247,148,29,.8)); }
+          0%,100%{ filter:drop-shadow(0 0 6px rgba(201,162,39,.4)); }
+          50%    { filter:drop-shadow(0 0 20px rgba(201,162,39,.8)); }
         }
         @keyframes ieg-pulse {
           0%,100%{ opacity:.13; }  50%{ opacity:.3; }
@@ -43,7 +43,7 @@ export default function IEGFlowDiagram() {
 
       <div style={{
         position:'absolute', inset:0, borderRadius:'16px',
-        background:'radial-gradient(ellipse at 60% 50%,rgba(247,148,29,.07) 0%,transparent 65%)',
+        background:'radial-gradient(ellipse at 60% 50%,rgba(201,162,39,.07) 0%,transparent 65%)',
         pointerEvents:'none',
       }}/>
 
@@ -69,10 +69,10 @@ export default function IEGFlowDiagram() {
             <path d="M1 2L9 5L1 8" fill="none" stroke="#1B7340" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </marker>
           <marker id="ao" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M1 2L9 5L1 8" fill="none" stroke="#F7941D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M1 2L9 5L1 8" fill="none" stroke="#C9A227" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </marker>
           <marker id="ao-s" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-            <path d="M1 2L9 5L1 8" fill="none" stroke="#F7941D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M1 2L9 5L1 8" fill="none" stroke="#C9A227" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </marker>
           <marker id="ag-s" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
             <path d="M1 2L9 5L1 8" fill="none" stroke="#1B7340" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -89,14 +89,14 @@ export default function IEGFlowDiagram() {
 
         {/* ── FEEDBACK ARC ── */}
         <path d="M590 60 Q590 0 330 0 Q70 0 70 60"
-          fill="none" stroke="rgba(247,148,29,.15)" strokeWidth="2" strokeDasharray="8 6"/>
+          fill="none" stroke="rgba(201,162,39,.15)" strokeWidth="2" strokeDasharray="8 6"/>
         <path d="M590 60 Q590 0 330 0 Q70 0 70 60"
-          fill="none" stroke="rgba(247,148,29,.6)" strokeWidth="2"
+          fill="none" stroke="rgba(201,162,39,.6)" strokeWidth="2"
           strokeDasharray="8 6" className="ieg-fr" markerStart="url(#ao-s)"/>
         <line x1="200" y1="18" x2="200" y2="60"
           fill="none" stroke="rgba(27,115,64,.5)" strokeWidth="2" markerEnd="url(#ag-s)"/>
         <text x="330" y="-12" textAnchor="middle"
-          fill="rgba(247,148,29,.6)" fontSize="11" fontWeight="700"
+          fill="rgba(201,162,39,.6)" fontSize="11" fontWeight="700"
           fontFamily="var(--font-mono,monospace)" letterSpacing=".14em">
           CLOSED LOOP FEEDBACK
         </text>
@@ -104,14 +104,14 @@ export default function IEGFlowDiagram() {
         {/* ── CONNECTORS static ── */}
         <line x1="120" y1="110" x2="150" y2="110" stroke="rgba(180,180,180,.2)" strokeWidth="2.5" markerEnd="url(#ak)"/>
         <line x1="250" y1="110" x2="280" y2="110" stroke="rgba(27,115,64,.35)" strokeWidth="2.5" markerEnd="url(#ag)"/>
-        <line x1="380" y1="110" x2="410" y2="110" stroke="rgba(247,148,29,.35)" strokeWidth="2.5" markerEnd="url(#ao)"/>
-        <line x1="510" y1="110" x2="540" y2="110" stroke="rgba(247,148,29,.35)" strokeWidth="2.5" markerEnd="url(#ao)"/>
+        <line x1="380" y1="110" x2="410" y2="110" stroke="rgba(201,162,39,.35)" strokeWidth="2.5" markerEnd="url(#ao)"/>
+        <line x1="510" y1="110" x2="540" y2="110" stroke="rgba(201,162,39,.35)" strokeWidth="2.5" markerEnd="url(#ao)"/>
         
         {/* animated dashes */}
         <line x1="120" y1="110" x2="150" y2="110" stroke="rgba(180,180,180,.6)" strokeWidth="2.5" className="ieg-ff"/>
         <line x1="250" y1="110" x2="280" y2="110" stroke="rgba(27,115,64,.8)"   strokeWidth="2.5" className="ieg-ff"/>
-        <line x1="380" y1="110" x2="410" y2="110" stroke="rgba(247,148,29,.8)"  strokeWidth="2.5" className="ieg-ff"/>
-        <line x1="510" y1="110" x2="540" y2="110" stroke="rgba(247,148,29,.8)"  strokeWidth="2.5" className="ieg-ff"/>
+        <line x1="380" y1="110" x2="410" y2="110" stroke="rgba(201,162,39,.8)"  strokeWidth="2.5" className="ieg-ff"/>
+        <line x1="510" y1="110" x2="540" y2="110" stroke="rgba(201,162,39,.8)"  strokeWidth="2.5" className="ieg-ff"/>
 
         {/* ── LOAD path ── */}
         <path d="M200 160 L200 360 L290 360" fill="none" stroke="rgba(27,115,64,.28)" strokeWidth="2" markerEnd="url(#ag)"/>
@@ -187,16 +187,16 @@ export default function IEGFlowDiagram() {
         {/* ════════════════ NODE 4 — IEG SYSTEM (x=410) ════════════════ */}
         <g className="ieg-glow">
           {/* pulse halo */}
-          <rect x="400" y="50" width="120" height="120" rx="16" fill="rgba(247,148,29,.14)" className="ieg-p"/>
+          <rect x="400" y="50" width="120" height="120" rx="16" fill="rgba(201,162,39,.14)" className="ieg-p"/>
           {/* card */}
-          <rect x="410" y="60" width="100" height="100" rx="12" fill="#F7941D" stroke="#C97008" strokeWidth="2"/>
+          <rect x="410" y="60" width="100" height="100" rx="12" fill="#C9A227" stroke="#C49A00" strokeWidth="2"/>
           <g clipPath="url(#ci)">
             <circle cx="460" cy="110" r="34" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.25)" strokeWidth="1.5"/>
             {/* bold lightning bolt */}
             <path d="M465 75 L450 105 L462 105 L455 140 L475 110 L463 110 Z" fill="white" opacity=".95"/>
           </g>
           <text x="460" y="185" textAnchor="middle" fill="rgba(55,24,0,.92)" fontSize="14" fontWeight="800" fontFamily="var(--font-mono,monospace)" letterSpacing=".05em">IEG SYSTEM</text>
-          <text x="460" y="205" textAnchor="middle" fill="rgba(247,148,29,.9)" fontSize="11" fontWeight="700" fontFamily="var(--font-mono,monospace)">~180% eff.</text>
+          <text x="460" y="205" textAnchor="middle" fill="rgba(201,162,39,.9)" fontSize="11" fontWeight="700" fontFamily="var(--font-mono,monospace)">~180% eff.</text>
         </g>
 
         {/* ════════════════ NODE 5 — ALTERNATOR (x=540) ════════════════ */}
@@ -252,16 +252,16 @@ export default function IEGFlowDiagram() {
         <circle r="5" fill="#1B7340" opacity=".9">
           <animateMotion dur="1.4s" repeatCount="indefinite" begin=".28s"><mpath href="#p2"/></animateMotion>
         </circle>
-        <circle r="5" fill="#F7941D" opacity=".9">
+        <circle r="5" fill="#C9A227" opacity=".9">
           <animateMotion dur="1.4s" repeatCount="indefinite" begin=".56s"><mpath href="#p3"/></animateMotion>
         </circle>
-        <circle r="5" fill="#F7941D" opacity=".9">
+        <circle r="5" fill="#C9A227" opacity=".9">
           <animateMotion dur="1.4s" repeatCount="indefinite" begin=".84s"><mpath href="#p4"/></animateMotion>
         </circle>
-        <circle r="4.5" fill="#F7941D" opacity=".75">
+        <circle r="4.5" fill="#C9A227" opacity=".75">
           <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#pfb"/></animateMotion>
         </circle>
-        <circle r="3.5" fill="#F7941D" opacity=".4">
+        <circle r="3.5" fill="#C9A227" opacity=".4">
           <animateMotion dur="3s" repeatCount="indefinite" begin="1.5s"><mpath href="#pfb"/></animateMotion>
         </circle>
         <circle r="4.5" fill="#1B7340" opacity=".8">

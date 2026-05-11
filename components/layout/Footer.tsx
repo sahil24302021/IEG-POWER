@@ -34,14 +34,14 @@ export default function Footer() {
           {/* Brand — spans 2 cols on sm so it's above the 2-col nav/product links */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="relative w-8 h-8">
-                <Image src="/logo.png" alt="IEG" fill sizes="32px" className="object-contain" />
+              <div className="relative w-[48px] h-[48px]">
+                <Image src="/ieg-logo.png" alt="IEG" fill sizes="48px" className="object-contain" loading="lazy" />
               </div>
               <span style={{
                 fontFamily: 'var(--font-syne)',
                 fontWeight: 800,
                 fontSize: '16px',
-                color: 'var(--text-1)',
+                color: '#F5F5F0',
               }}>
                 IEG Auto Powers Ltd
               </span>
@@ -137,7 +137,7 @@ export default function Footer() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4" style={{ marginBottom: '16px' }}>
               <div>
                 <span style={{
-                  fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--orange)',
+                  fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
                   letterSpacing: '0.1em', textTransform: 'uppercase' as const,
                   display: 'block', marginBottom: '4px',
                 }}>
@@ -149,7 +149,7 @@ export default function Footer() {
               </div>
               <div>
                 <span style={{
-                  fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--orange)',
+                  fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
                   letterSpacing: '0.1em', textTransform: 'uppercase' as const,
                   display: 'block', marginBottom: '4px',
                 }}>
@@ -166,6 +166,12 @@ export default function Footer() {
               </span>
               <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
                 Patent {BRAND.patent2.number}
+              </span>
+              <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
+                Application 202631019343
+              </span>
+              <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
+                Application 202631015926
               </span>
             </div>
           </div>

@@ -76,7 +76,7 @@ export default function StatsCounterSection() {
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(ellipse at 30% 50%, rgba(247,148,29,0.03) 0%, transparent 60%)',
+        background: 'radial-gradient(ellipse at 30% 50%, rgba(46,134,193,0.04) 0%, transparent 60%)',
         pointerEvents: 'none',
       }} />
 
@@ -90,7 +90,7 @@ export default function StatsCounterSection() {
                 fontSize: 'clamp(36px, 5vw, 60px)',
                 lineHeight: 1,
                 letterSpacing: '-0.04em',
-                color: 'var(--orange)',
+                color: 'var(--gold)',
                 marginBottom: '14px',
               }}>
                 <AnimatedCounter target={s.value} suffix={s.suffix} />
@@ -99,7 +99,8 @@ export default function StatsCounterSection() {
               <div style={{
                 width: '40px',
                 height: '2px',
-                background: 'linear-gradient(90deg, var(--orange), transparent)',
+                background: 'var(--gold)',
+                opacity: 0.4,
                 margin: '14px auto 0',
                 borderRadius: '1px',
               }} />

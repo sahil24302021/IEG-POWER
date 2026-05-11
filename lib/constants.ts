@@ -13,12 +13,13 @@ export const BRAND = {
   tagline2: 'Empowering the Future',
   mission: 'Provide clean, renewable, self-sustaining energy with zero external power dependency.',
   vision: 'Making the globe more ecologically sustainable for future generations',
-  email: 'connect@iegauto.com',
-  founderEmail: 'ajaykumarchoudhary07@gmail.com',
-  phone: '+91 77395 44789',
-  website: 'www.iegauto.com',
+  email: 'legautopowerltd@gmail.com',
+  founderEmail: 'legautopowerltd@gmail.com',
+  phone: '+91 76000 13556',
+  website: 'www.iegautopower.com',
+  websiteStatus: 'Coming Soon',
   hq: 'Dahisar East, Mumbai, Maharashtra, India',
-  factory: 'Vapi, Gujarat, India',
+  factory: 'India',
   cin: 'U35106MH2024PLC418794',
   incorporatedDate: 'February 8, 2024',
   patent1: { number: '391051', title: 'Internal Energy Generating System', filed: '13/12/2011', granted: '03/03/2022', patentee: 'Ajay Choudhary' },
@@ -135,7 +136,7 @@ export const COMPARISON_TWO_WHEELER = {
   rows: [
     ['Power Source', 'Fossil Fuel', 'Electric Battery', '∞ Internal Energy'],
     ['Charging Infra', 'Petrol Pumps', 'Electric Outlets', 'No Charging Needed'],
-    ['Environmental Impact', '23,000 gm CO₂/liter', 'Grid-dependent', 'Zero Emissions'],
+    ['Environmental Impact', '23,000 gm CO₂/liter', 'Grid-dependent', 'near Zero Emissions'],
     ['Carbon Credit', 'None', 'Partial', 'Full Eligibility'],
     ['Range', 'Limited by fuel', 'Limited by battery', '∞ Unlimited'],
     ['Charging Time', '5 min fill', '4-6 hours', 'No Charging'],
@@ -147,15 +148,15 @@ export const COMPARISON_TWO_WHEELER = {
 export const COMPARISON_RUNNING_COST = {
   twoWheeler: {
     ev: { battery: '2 KW', range: '100 km', cost: '₹90', perKm: '₹0.90' },
-    ieg: { battery: '2 KW', range: '200 km', cost: '₹24', perKm: '₹0.12' },
+    ieg: { battery: '2 KW', range: 'Unlimited', cost: '₹0', perKm: '₹0' },
   },
   fourWheeler: {
     ev: { battery: '50 KW', range: '250 km', cost: '₹416', perKm: '₹1.60' },
-    ieg: { battery: '50 KW', range: '500 km', cost: '₹208', perKm: '₹0.42' },
+    ieg: { battery: '50 KW', range: 'Unlimited', cost: '₹0', perKm: '₹0' },
   },
   rickshaw: {
     ev: { battery: '5 KW', range: '100 km', cost: '₹45', perKm: '₹0.45' },
-    ieg: { battery: '5 KW', range: '200 km', cost: '₹27', perKm: '₹0.27' },
+    ieg: { battery: '5 KW', range: 'Unlimited', cost: '₹0', perKm: '₹0' },
   },
 };
 
@@ -287,7 +288,7 @@ export const VALUE_PROPS = [
   { icon: 'leaf', title: 'No Pollution', desc: 'Zero emissions, zero carbon footprint' },
   { icon: 'globe', title: 'Low Carbon', desc: 'Promotes green revolution with carbon credits' },
   { icon: 'shield', title: 'No Harm to Nature', desc: 'Safe for environment and mother nature' },
-  { icon: 'coin', title: 'Very Low Cost', desc: 'Negligible infrastructure and maintenance' },
+  { icon: 'coin', title: 'Value-driven', desc: 'Negligible infrastructure and maintenance' },
 ];
 
 // ---- MARKET DATA ----

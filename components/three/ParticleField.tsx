@@ -10,7 +10,7 @@ interface Props {
   opacity?: number;
 }
 
-export default function ParticleField({ color = '#F7941D', count = 80, speed = 0.3, opacity = 0.4 }: Props) {
+export default function ParticleField({ color = '#C9A227', count = 80, speed = 0.3, opacity = 0.4 }: Props) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

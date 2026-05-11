@@ -6,7 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradientMesh from '@/components/ui/GradientMesh';
 import ParticleBg from '@/components/ui/ParticleBg';
 import { SUBSIDIARIES } from '@/lib/constants';
-import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,57 +53,43 @@ export default function SubsidiariesPage() {
       </section>
 
       {/* SUBSIDIARIES */}
-      {SUBSIDIARIES.map((sub, i) => (
-        <section key={sub.number} className="section-pad relative overflow-hidden" style={{ background: i % 2 === 0 ? 'var(--bg-secondary)' : 'var(--bg-primary)' }}>
-          {i % 2 === 0 ? <div className="section-glow-right" /> : <div className="section-glow-left" />}
-          <div className="ieg-container">
-            <div className="sub-card grid lg:grid-cols-[140px_1fr] gap-12 items-start">
-              {/* Large number */}
-              <div style={{
-                fontFamily: 'var(--font-syne)',
-                fontWeight: 800,
-                fontSize: 'clamp(64px, 7vw, 100px)',
-                lineHeight: 1,
-                color: 'var(--orange)',
-                opacity: 0.85,
-              }}>
-                {sub.number}
-              </div>
-
-              {/* Content */}
-              <div>
-                <span className="mono-label" style={{ color: 'var(--orange)', display: 'block', marginBottom: '10px' }}>
-                  {sub.segment}
-                </span>
-                <h2 style={{
-                  fontFamily: 'var(--font-syne)',
-                  fontWeight: 700,
-                  fontSize: 'clamp(26px, 3.2vw, 40px)',
-                  color: 'var(--text-1)',
-                  marginBottom: '18px',
-                  letterSpacing: '-0.02em',
-                }}>
-                  {sub.name}
-                </h2>
-                <p className="body-lg" style={{ marginBottom: '32px', maxWidth: '620px' }}>
-                  {sub.desc}
-                </p>
-
-                {/* Products */}
-                <div className="flex flex-wrap gap-3 mb-10">
-                  {sub.products.map((product) => (
-                    <span key={product} className="stat-pill">{product}</span>
-                  ))}
+      <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="ieg-container">
+          <div className="grid gap-6">
+            {SUBSIDIARIES.map((sub) => (
+              <div key={sub.number} className="sub-card glass-card hover-lift" style={{ padding: 'clamp(28px, 5vw, 40px) clamp(24px, 5vw, 36px)' }}>
+                <div className="flex items-center gap-6">
+                  <span style={{
+                    fontFamily: 'var(--font-syne)',
+                    fontWeight: 800,
+                    fontSize: 'clamp(36px, 5vw, 56px)',
+                    lineHeight: 1,
+                    color: 'var(--gold)',
+                    opacity: 0.85,
+                    minWidth: '70px',
+                  }}>
+                    {sub.number}
+                  </span>
+                  <div>
+                    <span className="mono-label" style={{ color: 'var(--gold)', display: 'block', marginBottom: '6px' }}>
+                      {sub.segment}
+                    </span>
+                    <h2 style={{
+                      fontFamily: 'var(--font-syne)',
+                      fontWeight: 700,
+                      fontSize: 'clamp(20px, 2.5vw, 30px)',
+                      color: 'var(--text-1)',
+                      letterSpacing: '-0.02em',
+                    }}>
+                      {sub.name}
+                    </h2>
+                  </div>
                 </div>
-
-                <Link href="/contact" className="btn-sm">
-                  Enquire About This Vertical →
-                </Link>
               </div>
-            </div>
+            ))}
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -69,8 +69,8 @@ export default function ProductsPage() {
       <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
         <div className="ieg-container">
           <div className="flex items-center gap-4 mb-16">
-            <h2 className="reveal display-md">Production Ready</h2>
-            <span className="reveal tag orbit-badge">SHIPPING NOW</span>
+            <h2 className="reveal display-md">In Production</h2>
+            <span className="reveal tag orbit-badge">UNDER PRODUCTION</span>
           </div>
 
           <div className="grid gap-8">
@@ -90,12 +90,14 @@ export default function ProductsPage() {
                         fill
                         sizes="(max-width: 768px) 100vw, 340px"
                         className="object-contain"
+                        loading="lazy"
+                        quality={80}
                       />
                     </div>
                   </div>
 
                   <div style={{ padding: '36px' }}>
-                    <span className="mono-label" style={{ color: 'var(--orange)', marginBottom: '10px', display: 'block' }}>
+                    <span className="mono-label" style={{ color: 'var(--gold)', marginBottom: '10px', display: 'block' }}>
                       {product.category}
                     </span>
                     <h3 style={{
@@ -181,6 +183,43 @@ export default function ProductsPage() {
                 </Link>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* INDUSTRY APPLICATIONS */}
+      <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
+        <div className="ieg-container">
+          <div className="text-center" style={{ marginBottom: 'clamp(32px, 5vw, 64px)' }}>
+            <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Applications ]</span>
+            <h2 className="reveal display-md" style={{ marginBottom: '16px' }}>
+              Industry Applications of <span className="gradient-text">IEG Technology</span>
+            </h2>
+            <p className="reveal body-lg" style={{ maxWidth: '700px', margin: '0 auto' }}>
+              IEG technology can be implemented across most energy-dependent industries, offering a practical alternative to conventional electrical systems.
+            </p>
+          </div>
+
+          <div className="reveal" style={{ borderRadius: '16px', overflow: 'hidden' }}>
+            <Image
+              src="/assets/industry-apps-grid.png"
+              alt="IEG Industry Applications - Electric Two Wheeler, Three Wheeler, Car, Bus, Laptop Charger, Robots, Drones, Chula, Ships, AC, Fridge, Turbine, Solar, OT, Eco-House, Machines"
+              width={3680}
+              height={1155}
+              quality={75}
+              loading="lazy"
+              style={{
+                width: '100%',
+                height: 'auto',
+                borderRadius: '16px',
+              }}
+            />
+          </div>
+
+          <div className="reveal glass-card" style={{ padding: '28px 32px', marginTop: '32px', borderLeft: '3px solid var(--gold)' }}>
+            <p className="body-md" style={{ color: 'var(--text-2)' }}>
+              Across coal-powered infrastructure and large-scale industrial motor applications, the IEG System enhances high-level operational efficiency and energy performance. B2B clients can monitor real-time performance (voltage, current, output) of IEG systems through the IEG application, ensuring complete transparency and technical validation.
+            </p>
           </div>
         </div>
       </section>

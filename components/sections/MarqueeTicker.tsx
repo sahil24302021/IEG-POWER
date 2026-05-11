@@ -27,16 +27,16 @@ export default function MarqueeTicker() {
                   gap: '12px',
                   padding: 'clamp(8px, 1.5vw, 12px) clamp(14px, 2vw, 24px)',
                   borderRadius: '100px',
-                  border: isPatent ? '1px solid var(--border-orange)' : '1px solid rgba(255,255,255,0.06)',
-                  background: isPatent ? 'rgba(247,148,29,0.05)' : 'rgba(255,255,255,0.02)',
+                  border: isPatent ? '1px solid var(--border-blue)' : '1px solid rgba(46,134,193,0.06)',
+                  background: isPatent ? 'rgba(46,134,193,0.05)' : 'rgba(255,255,255,0.02)',
                   backdropFilter: 'blur(12px)',
                 }}>
                   {isPatent ? (
                     // Glowing indicator for important items
                     <span style={{ 
                       display: 'block', width: '6px', height: '6px', 
-                      borderRadius: '50%', background: 'var(--orange)', 
-                      boxShadow: '0 0 10px var(--orange-glow)' 
+                      borderRadius: '50%', background: 'var(--gold)', 
+                      boxShadow: '0 0 10px var(--gold-glow)' 
                     }} />
                   ) : (
                     // Subtle geometric star for normal items
@@ -49,7 +49,7 @@ export default function MarqueeTicker() {
                     fontSize: '13px',
                     fontWeight: 500,
                     letterSpacing: '0.08em',
-                    color: isPatent ? 'var(--orange)' : 'var(--text-2)',
+                    color: isPatent ? 'var(--gold)' : 'var(--text-2)',
                     whiteSpace: 'nowrap',
                   }}>
                     {text}

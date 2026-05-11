@@ -1,95 +1,102 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
+/**
+ * LoadingScreen — Premium splash with IEG logo + animated progress counter.
+ * Uses a plain <img> to avoid next/image SSR hydration mismatches.
+ * Duration: ~2.5s for a proper, visible loading experience.
+ */
 export default function LoadingScreen() {
   const [hidden, setHidden] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [progress, setProgress] = useState(0);
-  const barRef = useRef<HTMLDivElement>(null);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    
-    // Animated counter 0→100
-    const duration = 150;
-    const startTime = Date.now();
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
+    // Animated counter 0→100 over 2.5 seconds
+    const duration = 2500;
+    const startTime = performance.now();
+
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
       const p = Math.min(elapsed / duration, 1);
-      // Ease out cubic
+      // Ease out cubic for smooth deceleration
       const eased = 1 - Math.pow(1 - p, 3);
       setProgress(Math.round(eased * 100));
+
       if (p < 1) {
         requestAnimationFrame(animate);
       } else {
-        setTimeout(() => setHidden(true), 200);
+        // Hold at 100% for a beat, then fade out
+        setTimeout(() => setFadeOut(true), 200);
+        setTimeout(() => setHidden(true), 900);
       }
     };
+
     requestAnimationFrame(animate);
   }, []);
 
-  if (!mounted) return null;
+  if (hidden) return null;
 
   return (
     <div
-      className={`loading-screen ${hidden ? 'hidden' : ''}`}
       style={{
         position: 'fixed',
         inset: 0,
         zIndex: 100000,
-        background: 'var(--bg-primary)',
+        background: '#050A12',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '36px',
-        transition: 'opacity 0.8s cubic-bezier(0.23,1,0.32,1), visibility 0.8s',
-        opacity: hidden ? 0 : 1,
-        visibility: hidden ? 'hidden' as const : 'visible' as const,
-        pointerEvents: hidden ? 'none' as const : 'auto' as const,
+        transition: 'opacity 0.7s cubic-bezier(0.23,1,0.32,1)',
+        opacity: fadeOut ? 0 : 1,
       }}
     >
-      {/* Logo */}
+      {/* Logo with pulse animation */}
       <div style={{
-        fontFamily: 'var(--font-syne)',
-        fontWeight: 800,
-        fontSize: '36px',
-        letterSpacing: '-0.04em',
-        color: 'white',
-        opacity: 0.9,
+        width: '80px',
+        height: '80px',
+        position: 'relative',
+        animation: 'pulse-logo 2s ease-in-out infinite',
       }}>
-        IEG
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/ieg-logo.png"
+          alt="IEG"
+          width={80}
+          height={80}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        />
       </div>
 
-      {/* Progress bar */}
+      {/* Progress bar — tri-color gradient */}
       <div style={{
         width: '140px',
         height: '2px',
-        background: 'rgba(255,255,255,0.06)',
+        background: 'rgba(46,134,193,0.1)',
         borderRadius: '2px',
         overflow: 'hidden',
-        position: 'relative',
       }}>
         <div
-          ref={barRef}
           style={{
             height: '100%',
             width: `${progress}%`,
-            background: 'linear-gradient(90deg, var(--orange), rgba(247,148,29,0.6))',
+            background: 'linear-gradient(90deg, #1B6FA8, #D4AF37, #1A7A4C)',
             borderRadius: '2px',
-            boxShadow: '0 0 12px rgba(247,148,29,0.4)',
-            transition: 'width 0.05s linear',
+            boxShadow: '0 0 12px rgba(46,134,193,0.4)',
+            transition: 'width 0.06s linear',
           }}
         />
       </div>
 
-      {/* Counter */}
+      {/* Percentage counter */}
       <span style={{
-        fontFamily: 'var(--font-mono)',
+        fontFamily: 'monospace',
         fontSize: '11px',
         letterSpacing: '0.15em',
-        color: 'var(--text-3)',
+        color: '#526580',
       }}>
         {progress}%
       </span>

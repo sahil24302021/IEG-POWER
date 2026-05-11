@@ -8,10 +8,10 @@ import { WHY_IEG } from '@/lib/constants';
 gsap.registerPlugin(ScrollTrigger);
 
 const ICONS = [
-  <svg key="a" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F7941D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>,
-  <svg key="b" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B7340" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 22c3.3-3.3 6-8 6-15a12 12 0 0112 12c-7 0-11.7 2.7-15 3z"/><path d="M2 22L12 12"/></svg>,
-  <svg key="c" width="32" height="28" viewBox="0 0 36 24" fill="none" stroke="#F7941D" strokeWidth="1.5" strokeLinecap="round"><path d="M18 12c0-4 3-6 6-6s6 2 6 6-3 6-6 6-6-2-6-6z"/><path d="M18 12c0 4-3 6-6 6s-6-2-6-6 3-6 6-6 6 2 6 6z"/></svg>,
-  <svg key="d" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F7941D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>,
+  <svg key="a" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B6FA8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>,
+  <svg key="b" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1A7A4C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 22c3.3-3.3 6-8 6-15a12 12 0 0112 12c-7 0-11.7 2.7-15 3z"/><path d="M2 22L12 12"/></svg>,
+  <svg key="c" width="32" height="28" viewBox="0 0 36 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round"><path d="M18 12c0-4 3-6 6-6s6 2 6 6-3 6-6 6-6-2-6-6z"/><path d="M18 12c0 4-3 6-6 6s-6-2-6-6 3-6 6-6 6 2 6 6z"/></svg>,
+  <svg key="d" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B6FA8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>,
 ];
 
 export default function WhyIEGSection() {
@@ -74,8 +74,18 @@ export default function WhyIEGSection() {
                   width: '68px',
                   height: '68px',
                   borderRadius: '18px',
-                  background: i % 2 === 0 ? 'rgba(247,148,29,0.06)' : 'rgba(27,115,64,0.06)',
-                  border: `1px solid ${i % 2 === 0 ? 'rgba(247,148,29,0.12)' : 'rgba(27,115,64,0.12)'}`,
+                  background: [
+                    'rgba(27,111,168,0.08)',
+                    'rgba(26,122,76,0.08)',
+                    'rgba(212,175,55,0.06)',
+                    'rgba(27,111,168,0.08)',
+                  ][i],
+                  border: `1px solid ${[
+                    'rgba(27,111,168,0.15)',
+                    'rgba(26,122,76,0.15)',
+                    'rgba(212,175,55,0.12)',
+                    'rgba(27,111,168,0.15)',
+                  ][i]}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',

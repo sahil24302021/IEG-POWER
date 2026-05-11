@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradientMesh from '@/components/ui/GradientMesh';
 import MarqueeTicker from '@/components/sections/MarqueeTicker';
 import IEGFlowDiagram from '@/components/ui/IEGFlowDiagram';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,43 +15,55 @@ export default function HeroSection() {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // On return visits, show content instantly — no animation flash
+    const isReturn = sessionStorage.getItem('ieg-hero-seen') === '1';
+    sessionStorage.setItem('ieg-hero-seen', '1');
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.5 });
-      
-      tl.fromTo('.hero-label', { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' });
-      
-      tl.fromTo('.hero-title-line', 
-        { y: 50, opacity: 0, filter: 'blur(4px)' }, 
-        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.9, stagger: 0.1, ease: 'power4.out' }, 
-        '-=0.3'
-      );
-      
-      tl.fromTo('.hero-sub', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, '-=0.3');
-      tl.fromTo('.hero-ctas', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.25');
-      tl.fromTo('.hero-pills > *', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06, ease: 'power2.out' }, '-=0.2');
-      
-      // Diagram — slides from right on desktop, fades up on mobile
-      const mm = gsap.matchMedia();
-      mm.add('(min-width: 1024px)', () => {
-        tl.fromTo('.hero-loop-container', 
-          { x: 80, opacity: 0 }, 
-          { x: 0, opacity: 1, duration: 1, ease: 'power3.out' }, 
-          '-=1.0'
+      if (isReturn) {
+        // Instant — no animation, no flash
+        gsap.set(['.hero-label', '.hero-title-line', '.hero-sub', '.hero-ctas', '.hero-pills > *', '.hero-loop-container', '.scroll-indicator', '.hero-ticker'], {
+          opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)',
+        });
+      } else {
+        // First visit — full cinematic entrance
+        const tl = gsap.timeline({ delay: 0.5 });
+        
+        tl.fromTo('.hero-label', { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' });
+        
+        tl.fromTo('.hero-title-line', 
+          { y: 50, opacity: 0, filter: 'blur(4px)' }, 
+          { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.9, stagger: 0.1, ease: 'power4.out' }, 
+          '-=0.3'
         );
-      });
-      mm.add('(max-width: 1023px)', () => {
-        tl.fromTo('.hero-loop-container', 
-          { y: 30, opacity: 0, scale: 0.95 }, 
-          { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out' }, 
-          '-=0.6'
-        );
-      });
-      
-      tl.fromTo('.scroll-indicator', { opacity: 0 }, { opacity: 1, duration: 0.8 }, '-=0.3');
-      tl.fromTo('.hero-ticker', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.5');
-      
-      // Parallax (desktop only)
-      mm.add('(min-width: 1024px)', () => {
+        
+        tl.fromTo('.hero-sub', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, '-=0.3');
+        tl.fromTo('.hero-ctas', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.25');
+        tl.fromTo('.hero-pills > *', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06, ease: 'power2.out' }, '-=0.2');
+        
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 1024px)', () => {
+          tl.fromTo('.hero-loop-container', 
+            { x: 80, opacity: 0 }, 
+            { x: 0, opacity: 1, duration: 1, ease: 'power3.out' }, 
+            '-=1.0'
+          );
+        });
+        mm.add('(max-width: 1023px)', () => {
+          tl.fromTo('.hero-loop-container', 
+            { y: 30, opacity: 0, scale: 0.95 }, 
+            { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out' }, 
+            '-=0.6'
+          );
+        });
+        
+        tl.fromTo('.scroll-indicator', { opacity: 0 }, { opacity: 1, duration: 0.8 }, '-=0.3');
+        tl.fromTo('.hero-ticker', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.5');
+      }
+
+      // Parallax (desktop only) — always active
+      const mm2 = gsap.matchMedia();
+      mm2.add('(min-width: 1024px)', () => {
         gsap.to('.hero-text-col', {
           y: -50, ease: 'none',
           scrollTrigger: { trigger: ref.current, start: 'top top', end: '60% top', scrub: 1.5 },
@@ -73,7 +86,7 @@ export default function HeroSection() {
       <GradientMesh />
       <div className="grid-bg" />
 
-      {/* Orange glow — visible on all screens */}
+      {/* Blue glow — visible on all screens */}
       <div style={{
         position: 'absolute',
         top: '15%',
@@ -82,7 +95,7 @@ export default function HeroSection() {
         width: 'clamp(350px, 80vw, 900px)',
         height: 'clamp(350px, 80vw, 900px)',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(247,148,29,0.08) 0%, rgba(247,148,29,0.02) 40%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(46,134,193,0.08) 0%, rgba(201,162,39,0.03) 40%, transparent 70%)',
         pointerEvents: 'none',
       }} />
       {/* Green glow */}
@@ -146,15 +159,15 @@ export default function HeroSection() {
             </div>
             <div className="hero-pills flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3" style={{ opacity: 0 }}>
               <span className="stat-pill">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7941D" strokeWidth="2" style={{ display:'inline', marginRight:'3px', verticalAlign:'-2px', flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B6FA8" strokeWidth="2" style={{ display:'inline', marginRight:'3px', verticalAlign:'-2px', flexShrink: 0 }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 2 Patents
               </span>
               <span className="stat-pill">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F7941D" strokeWidth="2" style={{ display:'inline', marginRight:'3px', verticalAlign:'-2px', flexShrink: 0 }}><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2" style={{ display:'inline', marginRight:'3px', verticalAlign:'-2px', flexShrink: 0 }}><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 30+ Years R&D
               </span>
               <span className="stat-pill" style={{ color: 'var(--green)' }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1B7340" strokeWidth="2" style={{ display:'inline', marginRight:'3px', verticalAlign:'-2px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1A7A4C" strokeWidth="2" style={{ display:'inline', marginRight:'3px', verticalAlign:'-2px', flexShrink: 0 }}><polyline points="20 6 9 17 4 12"/></svg>
                 IIM Verified
               </span>
             </div>
@@ -184,7 +197,7 @@ export default function HeroSection() {
         </span>
         <svg width="16" height="28" viewBox="0 0 16 28" fill="none">
           <rect x="1" y="1" width="14" height="26" rx="7" stroke="rgba(255,255,255,.12)" strokeWidth="1.5"/>
-          <circle cx="8" cy="8" r="2" fill="var(--orange)">
+          <circle cx="8" cy="8" r="2" fill="var(--gold)">
             <animate attributeName="cy" values="8;18;8" dur="2s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
           </circle>

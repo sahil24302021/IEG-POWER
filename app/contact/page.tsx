@@ -64,14 +64,13 @@ export default function ContactPage() {
                 <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '26px', color: 'var(--text-1)', marginBottom: '6px' }}>
                   Ajay Choudhary
                 </h2>
-                <p className="body-md" style={{ color: 'var(--orange)', marginBottom: '28px' }}>Founder & Managing Director</p>
+                <p className="body-md" style={{ color: 'var(--gold)', marginBottom: '28px' }}>Founder & Managing Director</p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   {[
-                    ['Mobile', BRAND.phone, `tel:${BRAND.phone}`],
-                    ['Email', BRAND.founderEmail, `mailto:${BRAND.founderEmail}`],
-                    ['Company Email', BRAND.email, `mailto:${BRAND.email}`],
-                    ['Website', BRAND.website, ''],
+                    ['Contact No', BRAND.phone, `tel:${BRAND.phone}`],
+                    ['Email', BRAND.email, `mailto:${BRAND.email}`],
+                    ['Website', `${BRAND.website} — ${BRAND.websiteStatus}`, ''],
                   ].map(([label, value, href]) => (
                     <div key={label}>
                       <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>{label}</span>
@@ -86,7 +85,7 @@ export default function ContactPage() {
               </div>
 
               <div className="reveal" style={{ marginBottom: '40px' }}>
-                <span className="mono-label" style={{ display: 'block', marginBottom: '14px', color: 'var(--orange)' }}>Locations</span>
+                <span className="mono-label" style={{ display: 'block', marginBottom: '14px', color: 'var(--gold)' }}>Locations</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {[
                     ['HQ & R&D', BRAND.hq],
@@ -109,8 +108,8 @@ export default function ContactPage() {
                     className="glass-card text-left hover-lift"
                     style={{
                       padding: '18px 22px',
-                      border: form.subject === type ? '1px solid var(--orange)' : '1px solid var(--border)',
-                      background: form.subject === type ? 'var(--orange-dim)' : 'var(--bg-card)',
+                      border: form.subject === type ? '1px solid var(--gold)' : '1px solid var(--border)',
+                      background: form.subject === type ? 'var(--gold-dim)' : 'var(--bg-card)',
                       cursor: 'pointer',
                     }}
                   >
@@ -118,7 +117,7 @@ export default function ContactPage() {
                       fontFamily: 'var(--font-syne)',
                       fontWeight: 600,
                       fontSize: '15px',
-                      color: form.subject === type ? 'var(--orange)' : 'var(--text-2)',
+                      color: form.subject === type ? 'var(--gold)' : 'var(--text-2)',
                     }}>
                       {type}
                     </span>

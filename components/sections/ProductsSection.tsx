@@ -87,14 +87,16 @@ export default function ProductsSection() {
                   src={product.image}
                   alt={product.name}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-contain p-6"
+                  loading="lazy"
+                  quality={80}
                 />
               </div>
 
               {/* Copy */}
               <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <span className="mono-label" style={{ color: 'var(--orange)', marginBottom: '4px', display: 'block', fontSize: '10px' }}>
+                <span className="mono-label" style={{ color: 'var(--gold)', marginBottom: '4px', display: 'block', fontSize: '10px' }}>
                   {product.category}
                 </span>
                 <h3 style={{

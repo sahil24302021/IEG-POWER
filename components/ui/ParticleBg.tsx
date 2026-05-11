@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 
 interface Props {
   color?: string;
@@ -9,48 +9,69 @@ interface Props {
 }
 
 /**
- * SSR-safe particle background using Canvas 2D.
- * No Three.js dependency — renders floating particles with connecting lines.
+ * ParticleBg — SSR-safe particle background using Canvas 2D.
+ * 
+ * Production optimizations:
+ * - IntersectionObserver pauses animation when off-screen
+ * - 30fps throttle to reduce CPU usage
+ * - Reduced particle count on mobile
+ * - Prefers-reduced-motion support
+ * - Debounced resize handler
+ * - Memoized component
  */
-export default function ParticleBg({ color = '#F7941D', count = 50, opacity = 0.3 }: Props) {
+function ParticleBg({ color = '#2E86C1', count = 50, opacity = 0.3 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    // Skip entirely for reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     let animId: number;
     let w = 0, h = 0;
+    let isVisible = true;
+    let lastFrame = 0;
+    const FPS_INTERVAL = 1000 / 30;
 
     const particles: { x: number; y: number; vx: number; vy: number; size: number }[] = [];
+
+    // IntersectionObserver for visibility-based animation pause
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    if (canvas.parentElement) observer.observe(canvas.parentElement);
 
     const resize = () => {
       const parent = canvas.parentElement;
       if (!parent) return;
       w = parent.clientWidth;
       h = parent.clientHeight;
-      canvas.width = w * Math.min(window.devicePixelRatio, 2);
-      canvas.height = h * Math.min(window.devicePixelRatio, 2);
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
-      ctx.scale(Math.min(window.devicePixelRatio, 2), Math.min(window.devicePixelRatio, 2));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     const init = () => {
       resize();
       const isMobile = w < 768;
-      const pCount = isMobile ? Math.round(count * 0.4) : count;
+      const pCount = isMobile ? Math.round(count * 0.3) : count;
       particles.length = 0;
       for (let i = 0; i < pCount; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          size: Math.random() * 2 + 0.5,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 1.5 + 0.5,
         });
       }
     };
@@ -65,9 +86,18 @@ export default function ParticleBg({ color = '#F7941D', count = 50, opacity = 0.
     };
 
     const rgb = hexToRgb(color);
-    const threshold = 150;
+    const threshold = 120; // Reduced from 150 for fewer line calculations
 
-    const draw = () => {
+    const draw = (timestamp: number) => {
+      animId = requestAnimationFrame(draw);
+
+      // 30fps throttle
+      if (timestamp - lastFrame < FPS_INTERVAL) return;
+      lastFrame = timestamp;
+
+      // Skip when not visible
+      if (!isVisible) return;
+
       ctx.clearRect(0, 0, w, h);
 
       // Update & draw particles
@@ -83,36 +113,44 @@ export default function ParticleBg({ color = '#F7941D', count = 50, opacity = 0.
         ctx.fill();
       }
 
-      // Draw connecting lines
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
+      // Draw connecting lines (limit to first 30 particles to reduce O(n²) cost)
+      const maxLines = Math.min(particles.length, 30);
+      for (let i = 0; i < maxLines; i++) {
+        for (let j = i + 1; j < maxLines; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < threshold) {
+          const distSq = dx * dx + dy * dy; // Skip sqrt for perf
+          if (distSq < threshold * threshold) {
+            const dist = Math.sqrt(distSq);
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${opacity * 0.15 * (1 - dist / threshold)})`;
+            ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${opacity * 0.12 * (1 - dist / threshold)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
       }
-
-      animId = requestAnimationFrame(draw);
     };
 
     init();
-    draw();
+    animId = requestAnimationFrame(draw);
 
-    window.addEventListener('resize', () => {
-      resize();
-    });
+    // Debounced resize
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        init();
+      }, 200);
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
 
     return () => {
       cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
+      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', handleResize);
+      observer.disconnect();
     };
   }, [color, count, opacity]);
 
@@ -124,7 +162,10 @@ export default function ParticleBg({ color = '#F7941D', count = 50, opacity = 0.
         inset: 0,
         zIndex: 0,
         pointerEvents: 'none',
+        contain: 'strict',
       }}
     />
   );
 }
+
+export default memo(ParticleBg);

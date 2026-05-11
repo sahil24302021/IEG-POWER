@@ -69,13 +69,13 @@ export default function SubsidiariesPreview() {
                 fontWeight: 800,
                 fontSize: '44px',
                 lineHeight: 1,
-                color: 'var(--orange)',
+                color: 'var(--gold)',
                 opacity: 0.85,
                 marginBottom: '16px',
               }}>
                 {sub.number}
               </div>
-              <span className="mono-label" style={{ color: 'var(--orange)', display: 'block', marginBottom: '8px' }}>
+              <span className="mono-label" style={{ color: 'var(--gold)', display: 'block', marginBottom: '8px' }}>
                 {sub.segment}
               </span>
               <h3 style={{
@@ -107,13 +107,13 @@ export default function SubsidiariesPreview() {
                 fontWeight: 800,
                 fontSize: '44px',
                 lineHeight: 1,
-                color: 'var(--orange)',
+                color: 'var(--gold)',
                 opacity: 0.85,
                 marginBottom: '12px',
               }}>
                 {sub.number}
               </div>
-              <span className="mono-label" style={{ color: 'var(--orange)', display: 'block', marginBottom: '6px' }}>
+              <span className="mono-label" style={{ color: 'var(--gold)', display: 'block', marginBottom: '6px' }}>
                 {sub.segment}
               </span>
               <h3 style={{

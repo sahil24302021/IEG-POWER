@@ -1,16 +1,34 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
+/**
+ * ScrollProgress — Zero re-render scroll progress bar.
+ * Uses direct DOM manipulation via ref instead of React state
+ * to avoid triggering re-renders on every scroll event.
+ * GPU-accelerated via transform: scaleX() instead of width changes.
+ */
 export default function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateProgress = () => {
+      if (!barRef.current) return;
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setProgress(scrollPercent);
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      // Use scaleX for GPU-accelerated rendering — no layout thrashing
+      barRef.current.style.transform = `scaleX(${progress})`;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -19,8 +37,9 @@ export default function ScrollProgress() {
 
   return (
     <div
+      ref={barRef}
       className="scroll-progress"
-      style={{ width: `${progress}%` }}
+      style={{ transform: 'scaleX(0)', transformOrigin: 'left' }}
       aria-hidden="true"
     />
   );

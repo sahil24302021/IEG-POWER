@@ -52,7 +52,7 @@ export default function RecognitionSection() {
               <div style={{
                 fontSize: '56px',
                 lineHeight: 1,
-                color: 'var(--orange)',
+                color: 'var(--gold)',
                 opacity: 0.12,
                 fontFamily: 'var(--font-syne)',
                 marginBottom: '-6px',
@@ -81,7 +81,7 @@ export default function RecognitionSection() {
                   {rec.name}
                 </span>
                 <span className="body-sm">
-                  {rec.title} · <span style={{ color: 'var(--orange)' }}>{rec.year}</span>
+                  {rec.title} · <span style={{ color: 'var(--gold)' }}>{rec.year}</span>
                 </span>
               </div>
             </div>

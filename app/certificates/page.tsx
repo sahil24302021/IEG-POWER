@@ -112,7 +112,7 @@ export default function CertificatesPage() {
                   <span style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '9px',
-                    color: 'var(--orange)',
+                    color: 'var(--gold)',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase' as const,
                     display: 'block',

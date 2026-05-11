@@ -8,12 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'ieg-black': '#080C10',
-        'ieg-slate': '#0D1F2D',
-        'ieg-orange': '#F7941D',
-        'ieg-green': '#1B7340',
-        'ieg-muted': '#8C9BAB',
-        'ieg-dim': '#4A5568',
+        'ieg-black': '#050A12',
+        'ieg-slate': '#0A1628',
+        'ieg-gold': '#D4AF37',
+        'ieg-blue': '#1B6FA8',
+        'ieg-blue-deep': '#1B4F72',
+        'ieg-green': '#1A7A4C',
+        'ieg-muted': '#94A3B8',
+        'ieg-dim': '#526580',
       },
       fontFamily: {
         syne: ['var(--font-syne)', 'sans-serif'],

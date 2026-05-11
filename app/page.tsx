@@ -1,5 +1,5 @@
+import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
-import MarqueeTicker from '@/components/sections/MarqueeTicker';
 import WhyIEGSection from '@/components/sections/WhyIEGSection';
 import TechTeaser from '@/components/sections/TechTeaser';
 import StatsCounterSection from '@/components/sections/StatsCounterSection';
@@ -7,6 +7,11 @@ import ProductsSection from '@/components/sections/ProductsSection';
 import SubsidiariesPreview from '@/components/sections/SubsidiariesPreview';
 import RecognitionSection from '@/components/sections/RecognitionSection';
 import CTABanner from '@/components/sections/CTABanner';
+
+export const metadata: Metadata = {
+  title: 'IEG Auto Powers Ltd — The Power Within | Patented Clean Energy Technology',
+  description: 'IEG Auto Powers Ltd: Patented self-sustaining energy systems (Patent No. 391051 & 557845). Zero fuel, zero grid, zero emissions. 30+ years of R&D.',
+};
 
 export default function Home() {
   return (

@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradientMesh from '@/components/ui/GradientMesh';
 import ParticleBg from '@/components/ui/ParticleBg';
-import { MARKET, SUBSIDIARY_STRUCTURE, ROADMAP_STEPS } from '@/lib/constants';
+import { MARKET, ROADMAP_STEPS } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,8 +71,8 @@ export default function InvestorsPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { value: '$34.8B', label: 'Market Size 2024', desc: MARKET.market, color: 'var(--orange)' },
-              { value: '$110.7B', label: 'Projected 2029', desc: '3.2× growth in five years', color: 'var(--orange)' },
+              { value: '$34.8B', label: 'Market Size 2024', desc: MARKET.market, color: 'var(--gold)' },
+              { value: '$110.7B', label: 'Projected 2029', desc: '3.2× growth in five years', color: 'var(--gold)' },
               { value: '26%', label: 'CAGR', desc: `Source: ${MARKET.source}`, color: 'var(--green)' },
             ].map((card) => (
               <div key={card.label} className="market-card glass-card hover-lift" style={{ padding: '40px 32px', textAlign: 'center' }}>
@@ -83,75 +83,6 @@ export default function InvestorsPage() {
                 <p className="body-sm" style={{ marginTop: '10px' }}>{card.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* STRUCTURE */}
-      <section className="section-pad relative" style={{ background: 'var(--bg-primary)' }}>
-        <div className="section-glow-left" />
-        <div className="ieg-container">
-          <span className="reveal section-label" style={{ display: 'block', marginBottom: '16px' }}>[ Structure ]</span>
-          <h2 className="reveal display-md" style={{ marginBottom: '48px' }}>
-            Investment <span className="gradient-text">Framework</span>
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-            <div className="reveal glass-card" style={{ padding: '36px' }}>
-              <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '22px', color: 'var(--text-1)', marginBottom: '20px' }}>
-                Corporate Structure
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {[
-                  ['Parent Company', 'Public Limited'],
-                  ['Subsidiaries (5)', 'Private Limited'],
-                ].map(([label, value]) => (
-                  <div key={label} className="flex justify-between items-center" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '14px' }}>
-                    <span className="body-md">{label}</span>
-                    <span className="mono-label">{value}</span>
-                  </div>
-                ))}
-                <div className="flex justify-between items-center">
-                  <span className="body-md" style={{ color: 'var(--text-1)' }}>IEG Parent Holding</span>
-                  <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '24px', color: 'var(--orange)' }}>
-                    {SUBSIDIARY_STRUCTURE.parentShare}%
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="body-md" style={{ color: 'var(--text-1)' }}>Investor Group</span>
-                  <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '24px', color: 'var(--green)' }}>
-                    {SUBSIDIARY_STRUCTURE.investorShare}%
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="reveal glass-card" style={{ padding: '36px' }}>
-              <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '22px', color: 'var(--text-1)', marginBottom: '20px' }}>
-                Capital Structure
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                {[
-                  ['IEG Contribution', 'Proprietary Tech', ''],
-                  ['Investor Funds', `${SUBSIDIARY_STRUCTURE.investorFund}%`, 'var(--orange)'],
-                  ['Bank/Institutional Loan', `${SUBSIDIARY_STRUCTURE.loanPercent}%`, 'var(--text-2)'],
-                ].map(([label, value, color]) => (
-                  <div key={label as string} className="flex justify-between items-center" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '14px' }}>
-                    <span className="body-md">{label}</span>
-                    <span style={{ fontFamily: color ? 'var(--font-syne)' : 'var(--font-mono)', fontWeight: color ? 700 : 400, color: color || 'var(--text-3)', fontSize: color ? '16px' : '11px', letterSpacing: color ? '' : '0.1em', textTransform: color ? undefined : 'uppercase' as const }}>
-                      {value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ marginTop: '24px', padding: '18px', background: 'rgba(247,148,29,0.04)', borderRadius: '10px', border: '1px solid var(--orange-dim)' }}>
-                <span className="mono-label" style={{ color: 'var(--orange)', display: 'block', marginBottom: '6px' }}>Governance</span>
-                <span className="body-sm">
-                  Board: 1 IEG Director + 1 Investor Director + 1 Independent Director. 
-                  Joint banking authorization by both directors.
-                </span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -168,7 +99,7 @@ export default function InvestorsPage() {
             {ROADMAP_STEPS.map((step) => (
               <div key={step.title} className="reveal roadmap-step" style={{ paddingBottom: '40px' }}>
                 <div className="roadmap-dot" />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--orange)', letterSpacing: '0.06em', display: 'block', marginBottom: '6px' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--gold)', letterSpacing: '0.06em', display: 'block', marginBottom: '6px' }}>
                   {step.day}
                 </span>
                 <span style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '22px', color: 'var(--text-1)', display: 'block', marginBottom: '8px' }}>

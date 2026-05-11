@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradientMesh from '@/components/ui/GradientMesh';
 import ParticleBg from '@/components/ui/ParticleBg';
 import IEGFlowDiagram from '@/components/ui/IEGFlowDiagram';
-import { BRAND, COMPARISON_TWO_WHEELER, COMPARISON_RUNNING_COST, GENERATOR_SPECS } from '@/lib/constants';
+import { BRAND, COMPARISON_TWO_WHEELER, COMPARISON_RUNNING_COST } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,7 +68,7 @@ export default function TechnologyPage() {
           <div className="scroll-indicator" style={{ position: 'absolute', bottom: '40px', left: '50%' }}>
             <svg width="16" height="28" viewBox="0 0 16 28" fill="none">
               <rect x="1" y="1" width="14" height="26" rx="7" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5"/>
-              <circle cx="8" cy="8" r="2" fill="var(--orange)">
+              <circle cx="8" cy="8" r="2" fill="var(--gold)">
                 <animate attributeName="cy" values="8;18;8" dur="2s" repeatCount="indefinite"/>
                 <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
               </circle>
@@ -99,8 +99,8 @@ export default function TechnologyPage() {
                 This processed energy is then transferred to an alternator operating at about 80% efficiency, taking around 80% of the energy from the IEG system to generate electrical power. This is supplied back to the controller, forming a closed loop. The controller sends the received alternator power back to the motor to maintain operation, and any remaining energy is provided as usable output.
               </p>
               <div className="flex flex-wrap gap-3 mt-8">
-                <span className="stat-pill" style={{ borderColor: 'var(--orange-dim)', color: 'var(--orange)' }}>180%+ Output</span>
-                <span className="stat-pill" style={{ borderColor: 'var(--orange-dim)', color: 'var(--orange)' }}>240V/50Hz AC</span>
+                <span className="stat-pill" style={{ borderColor: 'var(--gold-dim)', color: 'var(--gold)' }}>180%+ Output</span>
+                <span className="stat-pill" style={{ borderColor: 'var(--gold-dim)', color: 'var(--gold)' }}>240V/50Hz AC</span>
                 <span className="stat-pill" style={{ borderColor: 'rgba(27,115,64,0.15)', color: 'var(--green)' }}>Zero Fuel</span>
               </div>
             </div>
@@ -130,7 +130,7 @@ export default function TechnologyPage() {
 
           {/* IEG System Diagram */}
           <div className="reveal" style={{ marginBottom: '60px' }}>
-            <div className="glass-card" style={{ padding: 'clamp(16px, 4vw, 32px)', overflow: 'hidden', border: '1px solid var(--orange-dim)', background: 'rgba(247, 148, 29, 0.03)' }}>
+            <div className="glass-card" style={{ padding: 'clamp(16px, 4vw, 32px)', overflow: 'hidden', border: '1px solid var(--gold-dim)', background: 'rgba(232, 184, 0, 0.03)' }}>
               <Image
                 src="/assets/images/ieg-diagram.jpg"
                 alt="Complete System Energy Flow — Battery → Controller → BLDC Motor → IEG System → Alternator with Closed Loop Feedback"
@@ -143,24 +143,24 @@ export default function TechnologyPage() {
           </div>
 
           {/* Example Explanation */}
-          <div className="reveal glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', marginBottom: '60px', border: '1px solid var(--orange-dim)', background: 'rgba(247, 148, 29, 0.03)' }}>
-            <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 600, color: 'var(--orange)', marginBottom: '16px' }}>
+          <div className="reveal glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', marginBottom: '60px', border: '1px solid var(--gold-dim)', background: 'rgba(232, 184, 0, 0.03)' }}>
+            <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 600, color: 'var(--gold)', marginBottom: '16px' }}>
               To understand this with an example:
             </h3>
             <p className="body-md text-gray-300" style={{ lineHeight: 1.7 }}>
-              Consider a battery rated at 12V, 10A supplying 2A current to the motor. In this case, the motor receives an electrical input power of 24 watts. This 24-watt output is processed through the IEG system, where due to its 180% operational effectiveness, the power is represented as approximately 49 watts equivalent. 
+              Consider a battery rated at 12V, 10A supplying 2A current to the motor. In this case, the motor receives an electrical input power of 24 watts. This 24-watt output is processed through the IEG system, where due to its 180% operational effectiveness, the power is represented as approximately 44 watts equivalent. 
             </p>
             <p className="body-md text-gray-300 mt-4" style={{ lineHeight: 1.7 }}>
-              About 80% of this 49-watt power is transferred to the alternator, allowing the alternator to operate with around 39 watts. The alternator converts this energy back into electrical form and sends it to the controller. After accounting for the controller&apos;s own efficiency of 95%, approximately 38 watts of usable power are available.
+              About 80% of this 44-watt power is transferred to the alternator, allowing the alternator to operate with around 34 watts. The alternator converts this energy back into electrical form and sends it to the controller. After accounting for the controller&apos;s own efficiency of 95%, approximately 38 watts of usable power are available.
             </p>
             <p className="body-md text-gray-300 mt-4" style={{ lineHeight: 1.7 }}>
-              From this, the controller supplies about 24 watts back to the motor so that the cycle continues running, around 1 watt is directed to the battery, and the remaining 14 watts are available as output power, which can be used to charge the battery, power external loads, or be utilized elsewhere as required.
+              From this, the controller supplies about 24 watts back to the motor so that the cycle continues running, around 1 watt is directed to the battery, and the remaining 10 watts are available as output power, which can be used to charge the battery, power external loads, or be utilized elsewhere as required.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             <div className="reveal glass-card" style={{ padding: 'clamp(24px, 5vw, 32px)' }}>
-              <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 600, color: 'var(--orange)', marginBottom: '16px' }}>
+              <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '20px', fontWeight: 600, color: 'var(--gold)', marginBottom: '16px' }}>
                 Energy Amplification
               </h3>
               <p className="body-sm text-gray-400">
@@ -296,7 +296,7 @@ export default function TechnologyPage() {
                         </span>
                       </div>
                       <div>
-                        <span className="mono-label" style={{ display: 'block', marginBottom: '8px', color: 'var(--orange)' }}>IEG Powered</span>
+                        <span className="mono-label" style={{ display: 'block', marginBottom: '8px', color: 'var(--gold)' }}>IEG Powered</span>
                         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-2)' }}>
                           {d.ieg.range} · {d.ieg.cost} · <strong style={{ color: 'var(--green)' }}>{d.ieg.perKm}/km</strong>
                         </span>
@@ -317,34 +317,10 @@ export default function TechnologyPage() {
           <h2 className="reveal display-md" style={{ marginBottom: '40px' }}>
             IEG Power Station <span className="gradient-text">Specs</span>
           </h2>
-          <div className="glass-card" style={{ overflowX: 'auto', padding: '0', WebkitOverflowScrolling: 'touch' }}>
-            <table className="ieg-table" style={{ minWidth: '600px' }}>
-              <thead>
-                <tr>
-                  <th>Spec</th>
-                  {GENERATOR_SPECS.models.map((m) => (
-                    <th key={m.name}>{m.name}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {(['rating', 'harmonics', 'battery', 'output1Phase', 'output3Phase', 'noise', 'runtime'] as const).map((key) => {
-                  const labels: Record<string, string> = {
-                    rating: 'Rating', harmonics: 'Harmonics', battery: 'Battery',
-                    output1Phase: '1-Phase Output', output3Phase: '3-Phase Output',
-                    noise: 'Noise Level', runtime: 'Daily Runtime',
-                  };
-                  return (
-                    <tr key={key} className="spec-row">
-                      <td style={{ fontWeight: 500, color: 'var(--text-1)' }}>{labels[key]}</td>
-                      {GENERATOR_SPECS.models.map((m) => (
-                        <td key={m.name} className={key === 'runtime' ? 'ieg-highlight' : ''}>{m[key]}</td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <div className="reveal glass-card" style={{ padding: '48px 32px', textAlign: 'center' }}>
+            <p className="body-lg" style={{ color: 'var(--text-3)' }}>
+              Detailed specifications will be updated soon.
+            </p>
           </div>
         </div>
       </section>

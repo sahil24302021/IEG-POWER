@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -61,7 +62,7 @@ export default function CTABanner() {
         width: '800px',
         height: '800px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(247,148,29,0.08) 0%, transparent 60%)',
+        background: 'radial-gradient(circle, rgba(46,134,193,0.08) 0%, rgba(201,162,39,0.04) 40%, transparent 60%)',
         pointerEvents: 'none',
         animation: 'glow-pulse 4s ease-in-out infinite',
       }} />
