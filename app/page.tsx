@@ -3,7 +3,7 @@ import HeroSection from '@/components/sections/HeroSection';
 import WhyIEGSection from '@/components/sections/WhyIEGSection';
 import TechTeaser from '@/components/sections/TechTeaser';
 import StatsCounterSection from '@/components/sections/StatsCounterSection';
-import ProductsSection from '@/components/sections/ProductsSection';
+
 import SubsidiariesPreview from '@/components/sections/SubsidiariesPreview';
 import RecognitionSection from '@/components/sections/RecognitionSection';
 import CTABanner from '@/components/sections/CTABanner';
@@ -28,8 +28,7 @@ export default function Home() {
       {/* STATS — 4 massive animated counters: 1993, 2, 5, 120 */}
       <StatsCounterSection />
 
-      {/* PRODUCTS — 5 glass cards with 3D tilt hover */}
-      <ProductsSection />
+
 
       {/* SUBSIDIARIES — "5 Companies. One Vision." overview */}
       <SubsidiariesPreview />

@@ -54,7 +54,7 @@ export default function AboutPage() {
             [ 04 — About ]
           </span>
           <h1 className="about-hero-title" style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.1, letterSpacing: '-0.025em', color: 'var(--text-1)', maxWidth: '700px', marginBottom: '28px', opacity: 0 }}>
-            30 Years <span className="gradient-text">In The Making</span>
+            30+ Years <span className="gradient-text">In The Making</span>
           </h1>
           <p className="about-hero-sub body-xl" style={{ maxWidth: '600px', opacity: 0 }}>
             One inventor. One vision. A technology that could change the world.

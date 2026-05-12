@@ -5,14 +5,6 @@ import Image from 'next/image';
 import { BRAND, NAV_LINKS } from '@/lib/constants';
 
 export default function Footer() {
-  const productLinks = [
-    { name: 'E-Rickshaw Charger', href: '/products' },
-    { name: 'E-Scooty Charger', href: '/products' },
-    { name: 'Battery Charger', href: '/products' },
-    { name: 'Electric Chullah', href: '/products' },
-    { name: 'Power Generator', href: '/products' },
-  ];
-
   return (
     <footer style={{
       background: 'var(--bg-primary)',
@@ -28,10 +20,10 @@ export default function Footer() {
       <div
         className="ieg-container"
       >
-        {/* Top Grid: 1 col mobile → 2 col sm (640px+) → 4 col lg (1024px+) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
+        {/* Top Grid: 1 col mobile → 2 col sm (640px+) → 3 col lg (1024px+) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
 
-          {/* Brand — spans 2 cols on sm so it's above the 2-col nav/product links */}
+          {/* Brand — spans 2 cols on sm so it's above the nav links */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-5">
               <div className="relative w-[48px] h-[48px]">
@@ -81,33 +73,6 @@ export default function Footer() {
             </span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {NAV_LINKS.filter(l => l.name !== 'Home').map((link) => (
-                <Link key={link.name} href={link.href} style={{
-                  fontFamily: 'var(--font-dm-sans)',
-                  fontSize: '14px',
-                  color: 'var(--text-3)',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s ease',
-                }}>
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Products links */}
-          <div>
-            <span style={{
-              fontFamily: 'var(--font-syne)',
-              fontWeight: 700,
-              fontSize: '14px',
-              color: 'var(--text-1)',
-              display: 'block',
-              marginBottom: '16px',
-            }}>
-              Products
-            </span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {productLinks.map((link) => (
                 <Link key={link.name} href={link.href} style={{
                   fontFamily: 'var(--font-dm-sans)',
                   fontSize: '14px',

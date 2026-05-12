@@ -61,7 +61,7 @@ export const JOURNEY_MILESTONES = [
   { year: '2004', title: 'Presidential Recognition', desc: 'Meets Dr. APJ Abdul Kalam, presents the invention. Receives personal recognition from the President of India.' },
   { year: '2011', title: 'Patent Filed', desc: 'Working IEG prototype developed and tested. Patent application No. 391051 filed with the Indian Patent Office.' },
   { year: '2022', title: 'Patent Granted', desc: 'Indian Patent No. 391051 officially granted by the Controller General of Patents. 20-year protection secured.' },
-  { year: '2024', title: 'Company Incorporated', desc: 'IEG Auto Powers Ltd. formally incorporated on February 8, 2024. Production facility established in Vapi, Gujarat.' },
+
   { year: '2025', title: '2nd Patent Granted & IEG Auto Formalized', desc: 'Patent No. 557845 — A System for Regeneration of Internal Energy — officially granted January 13, 2025. IEG Auto Powers Ltd. formally established.' },
 ];
 
