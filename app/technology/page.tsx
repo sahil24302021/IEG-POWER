@@ -319,7 +319,7 @@ export default function TechnologyPage() {
           </h2>
           <div className="reveal glass-card" style={{ padding: '48px 32px', textAlign: 'center' }}>
             <p className="body-lg" style={{ color: 'var(--text-3)' }}>
-              Detailed specifications will be updated soon.
+              Detailed specifications will be Updated Soon.
             </p>
           </div>
         </div>
