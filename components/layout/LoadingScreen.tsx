@@ -44,7 +44,7 @@ export default function LoadingScreen() {
         position: 'fixed',
         inset: 0,
         zIndex: 100000,
-        background: '#050A12',
+        background: '#0B1526',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

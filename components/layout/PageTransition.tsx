@@ -39,7 +39,7 @@ export default function PageTransition() {
         position: 'fixed',
         inset: 0,
         zIndex: 99999,
-        background: '#050A12',
+        background: '#0B1526',
         pointerEvents: 'none',
         animation: 'page-transition-fade 0.4s ease-out forwards',
       }}

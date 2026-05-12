@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'ieg-black': '#050A12',
+        'ieg-black': '#0B1526',
         'ieg-slate': '#0A1628',
         'ieg-gold': '#D4AF37',
         'ieg-blue': '#1B6FA8',
