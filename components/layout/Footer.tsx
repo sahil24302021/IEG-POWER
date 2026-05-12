@@ -12,19 +12,12 @@ export default function Footer() {
       paddingTop: 'clamp(40px, 6vw, 80px)',
       paddingBottom: '24px',
     }}>
-      {/*
-        BUG FIX: The original `padding: 'clamp(40px, 8vw, 80px) 0 0'` shorthand
-        was zeroing out left & right padding on .ieg-container, making mobile content
-        go edge-to-edge. Now using paddingTop only so class side-padding is preserved.
-      */}
-      <div
-        className="ieg-container"
-      >
-        {/* Top Grid: 1 col mobile → 2 col sm (640px+) → 3 col lg (1024px+) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
+      <div className="ieg-container">
+        {/* Top section: Brand left, Company + Locations right */}
+        <div className="footer-grid" style={{ marginBottom: 'clamp(32px, 5vw, 56px)' }}>
 
-          {/* Brand — spans 2 cols on sm so it's above the nav links */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          {/* Brand */}
+          <div className="footer-brand">
             <Link href="/" className="flex items-center gap-3 mb-5">
               <div className="relative w-[48px] h-[48px]">
                 <Image src="/ieg-logo.png" alt="IEG" fill sizes="48px" className="object-contain" loading="lazy" />
@@ -59,85 +52,87 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Company links */}
-          <div>
-            <span style={{
-              fontFamily: 'var(--font-syne)',
-              fontWeight: 700,
-              fontSize: '14px',
-              color: 'var(--text-1)',
-              display: 'block',
-              marginBottom: '16px',
-            }}>
-              Company
-            </span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {NAV_LINKS.filter(l => l.name !== 'Home').map((link) => (
-                <Link key={link.name} href={link.href} style={{
-                  fontFamily: 'var(--font-dm-sans)',
-                  fontSize: '14px',
-                  color: 'var(--text-3)',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s ease',
-                }}>
-                  {link.name}
-                </Link>
-              ))}
+          {/* Right columns wrapper */}
+          <div className="footer-right">
+            {/* Company links */}
+            <div>
+              <span style={{
+                fontFamily: 'var(--font-syne)',
+                fontWeight: 700,
+                fontSize: '14px',
+                color: 'var(--text-1)',
+                display: 'block',
+                marginBottom: '16px',
+              }}>
+                Company
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {NAV_LINKS.filter(l => l.name !== 'Home').map((link) => (
+                  <Link key={link.name} href={link.href} style={{
+                    fontFamily: 'var(--font-dm-sans)',
+                    fontSize: '14px',
+                    color: 'var(--text-3)',
+                    textDecoration: 'none',
+                    transition: 'color 0.2s ease',
+                  }}>
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Locations — spans 2 cols on sm for breathing room */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <span style={{
-              fontFamily: 'var(--font-syne)',
-              fontWeight: 700,
-              fontSize: '14px',
-              color: 'var(--text-1)',
-              display: 'block',
-              marginBottom: '16px',
-            }}>
-              Locations
-            </span>
-            {/* On sm+, show HQ and Manufacturing side by side */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4" style={{ marginBottom: '16px' }}>
-              <div>
-                <span style={{
-                  fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
-                  letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-                  display: 'block', marginBottom: '4px',
-                }}>
-                  HQ & R&D
+            {/* Locations */}
+            <div>
+              <span style={{
+                fontFamily: 'var(--font-syne)',
+                fontWeight: 700,
+                fontSize: '14px',
+                color: 'var(--text-1)',
+                display: 'block',
+                marginBottom: '16px',
+              }}>
+                Locations
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px' }}>
+                <div>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
+                    letterSpacing: '0.1em', textTransform: 'uppercase' as const,
+                    display: 'block', marginBottom: '4px',
+                  }}>
+                    HQ & R&D
+                  </span>
+                  <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
+                    {BRAND.hq}
+                  </span>
+                </div>
+                <div>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
+                    letterSpacing: '0.1em', textTransform: 'uppercase' as const,
+                    display: 'block', marginBottom: '4px',
+                  }}>
+                    Manufacturing
+                  </span>
+                  <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
+                    {BRAND.factory}
+                  </span>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
+                  Patent {BRAND.patent1.number}
                 </span>
-                <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
-                  {BRAND.hq}
+                <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
+                  Patent {BRAND.patent2.number}
+                </span>
+                <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
+                  Application 202631019343
+                </span>
+                <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
+                  Application 202631015926
                 </span>
               </div>
-              <div>
-                <span style={{
-                  fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
-                  letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-                  display: 'block', marginBottom: '4px',
-                }}>
-                  Manufacturing
-                </span>
-                <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
-                  {BRAND.factory}
-                </span>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
-                Patent {BRAND.patent1.number}
-              </span>
-              <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
-                Patent {BRAND.patent2.number}
-              </span>
-              <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
-                Application 202631019343
-              </span>
-              <span className="stat-pill" style={{ fontSize: '10px', padding: '5px 10px' }}>
-                Application 202631015926
-              </span>
             </div>
           </div>
         </div>

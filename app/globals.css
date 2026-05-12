@@ -905,6 +905,36 @@
   opacity: 0.4;
 }
 
+/* ── Footer Grid Layout ── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+.footer-right {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+/* sm (640px+): Brand full width, Company + Locations side by side */
+@media (min-width: 640px) {
+  .footer-right {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+/* lg (1024px+): Brand left, right section with Company + Locations */
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1.2fr 1.8fr;
+    gap: 64px;
+  }
+  .footer-right {
+    grid-template-columns: auto 1fr;
+    gap: 56px;
+  }
+}
+
 /* ── Section divider ── */
 .section-divider {
   height: 1px;
