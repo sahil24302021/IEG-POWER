@@ -38,7 +38,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div ref={ref}>
+    <div ref={ref} id="main-content">
       {/* HERO */}
       <section className="relative overflow-hidden" style={{ padding: '120px 0 60px' }}>
         <GradientMesh />
@@ -146,8 +146,9 @@ export default function ContactPage() {
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                     <div>
-                      <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Full Name</label>
+                      <label htmlFor="contact-name" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Full Name</label>
                       <input
+                        id="contact-name"
                         className="form-input"
                         type="text"
                         placeholder="Your name"
@@ -158,8 +159,9 @@ export default function ContactPage() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Email</label>
+                        <label htmlFor="contact-email" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Email</label>
                         <input
+                          id="contact-email"
                           className="form-input"
                           type="email"
                           placeholder="email@example.com"
@@ -169,8 +171,9 @@ export default function ContactPage() {
                         />
                       </div>
                       <div>
-                        <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Phone</label>
+                        <label htmlFor="contact-phone" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Phone</label>
                         <input
+                          id="contact-phone"
                           className="form-input"
                           type="tel"
                           placeholder="+91 XXXXX XXXXX"
@@ -180,8 +183,9 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Subject</label>
+                      <label htmlFor="contact-subject" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Subject</label>
                       <select
+                        id="contact-subject"
                         className="form-input"
                         value={form.subject}
                         onChange={(e) => setForm(f => ({ ...f, subject: e.target.value }))}
@@ -193,8 +197,9 @@ export default function ContactPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Message</label>
+                      <label htmlFor="contact-message" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Message</label>
                       <textarea
+                        id="contact-message"
                         className="form-input"
                         rows={5}
                         placeholder="Your message..."

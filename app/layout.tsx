@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import LenisProvider from "@/components/layout/LenisProvider";
 import LoadingScreen from "@/components/layout/LoadingScreen";
+import SkipToContent from "@/components/layout/SkipToContent";
 
 
 const syne = Syne({
@@ -100,6 +101,7 @@ export default function RootLayout({
         suppressHydrationWarning is added as an extra safeguard.
       */}
       <body className="noise-overlay" suppressHydrationWarning>
+        <SkipToContent />
         <LoadingScreen />
 
         <LenisProvider>

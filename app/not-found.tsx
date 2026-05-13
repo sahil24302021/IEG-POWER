@@ -7,60 +7,13 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        textAlign: 'center',
-        padding: '40px 20px',
-        background: 'var(--bg-primary)',
-      }}
-    >
-      <div
-        style={{
-          fontFamily: 'var(--font-syne)',
-          fontWeight: 800,
-          fontSize: 'clamp(80px, 15vw, 160px)',
-          lineHeight: 1,
-          color: 'var(--gold)',
-          opacity: 0.15,
-          marginBottom: '-20px',
-          letterSpacing: '-0.05em',
-        }}
-      >
-        404
-      </div>
-      <h1
-        style={{
-          fontFamily: 'var(--font-syne)',
-          fontWeight: 700,
-          fontSize: 'clamp(22px, 4vw, 36px)',
-          color: 'var(--text-1)',
-          marginBottom: '16px',
-        }}
-      >
-        Page Not Found
-      </h1>
-      <p
-        style={{
-          fontFamily: 'var(--font-dm-sans)',
-          fontSize: '16px',
-          color: 'var(--text-2)',
-          maxWidth: '400px',
-          marginBottom: '36px',
-          lineHeight: 1.7,
-        }}
-      >
+    <main className="error-page" id="main-content">
+      <div className="error-code">404</div>
+      <h1 className="error-title">Page Not Found</h1>
+      <p className="error-desc">
         The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </p>
-      <Link
-        href="/"
-        className="btn-orange"
-        style={{ fontSize: '14px', padding: '14px 28px' }}
-      >
+      <Link href="/" className="btn-orange" style={{ fontSize: '14px', padding: '14px 28px' }}>
         Back to Home
         <svg
           width="14"

@@ -10,7 +10,17 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* ── Design Tokens ── */
+/* ── Modular Imports (extracted for maintainability) ── */
+@import './styles/tokens.css';
+@import './styles/animations.css';
+@import './styles/responsive.css';
+
+/* ── Skip-to-Content (accessibility) ── */
+.skip-to-content:focus {
+  top: 0 !important;
+}
+
+/* ── Design Tokens (kept here as canonical source, also in tokens.css for reference) ── */
 :root {
   /* Backgrounds — rich deep navy-blue for premium depth */
   --bg-primary:    #0B1526;
@@ -1048,6 +1058,197 @@
 .reveal {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── Inline Style Replacements — reusable classes ── */
+.font-syne       { font-family: var(--font-display); }
+.font-dm         { font-family: var(--font-body); }
+.font-jb         { font-family: var(--font-mono); }
+
+.fw-400 { font-weight: 400; }
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+
+.text-1 { color: var(--text-1); }
+.text-2 { color: var(--text-2); }
+.text-3 { color: var(--text-3); }
+.text-gold { color: var(--gold); }
+.text-blue { color: var(--blue); }
+
+/* ── Footer Styles ── */
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text-1);
+}
+.footer-desc {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.6vw, 14px);
+  line-height: 1.7;
+  color: var(--text-3);
+  max-width: 340px;
+  margin-bottom: 18px;
+}
+.footer-contact {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+}
+.footer-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-1);
+  display: block;
+  margin-bottom: 16px;
+}
+.footer-link {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-3);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer-link:hover { color: var(--text-2); }
+.footer-location-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.footer-location-value {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-3);
+}
+.footer-copyright {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+}
+.footer-cin {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+}
+
+/* ── Navbar Styles ── */
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+}
+.nav-desktop-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  letter-spacing: 0.01em;
+}
+.nav-active-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  border-radius: 2px;
+}
+
+/* ── Hero Section Styles ── */
+.hero-title-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 8vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+.hero-sub-text {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.7;
+  color: var(--text-2);
+  max-width: 480px;
+}
+
+/* ── Page Hero (subpages) ── */
+.page-hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--text-1);
+  max-width: 700px;
+}
+
+/* ── Section Heading ── */
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.5vw, 28px);
+  color: var(--text-1);
+}
+
+/* ── Card Heading ── */
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--text-1);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+/* ── 404 Page ── */
+.error-code {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(80px, 15vw, 160px);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.15;
+  margin-bottom: -20px;
+  letter-spacing: -0.05em;
+}
+.error-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 4vw, 36px);
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.error-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-2);
+  max-width: 400px;
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--bg-primary);
 }
 
 /* ========================================

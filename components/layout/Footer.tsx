@@ -22,33 +22,15 @@ export default function Footer() {
               <div className="relative w-[48px] h-[48px]">
                 <Image src="/ieg-logo.png" alt="IEG" fill sizes="48px" className="object-contain" loading="lazy" />
               </div>
-              <span style={{
-                fontFamily: 'var(--font-syne)',
-                fontWeight: 800,
-                fontSize: '16px',
-                color: '#F5F5F0',
-              }}>
-                IEG Auto Powers Ltd
-              </span>
+              <span className="footer-brand-name">IEG Auto Powers Ltd</span>
             </Link>
-            <p style={{
-              fontFamily: 'var(--font-dm-sans)',
-              fontSize: 'clamp(13px, 1.6vw, 14px)',
-              lineHeight: 1.7,
-              color: 'var(--text-3)',
-              maxWidth: '340px',
-              marginBottom: '18px',
-            }}>
+            <p className="footer-desc">
               Patented internal energy generation technology. Clean, continuous
               electricity without fuel. Thirty years of R&D. Two government patents.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)', letterSpacing: '0.05em' }}>
-                {BRAND.phone}
-              </span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-3)', letterSpacing: '0.05em' }}>
-                {BRAND.email}
-              </span>
+              <span className="footer-contact">{BRAND.phone}</span>
+              <span className="footer-contact">{BRAND.email}</span>
             </div>
           </div>
 
@@ -56,25 +38,10 @@ export default function Footer() {
           <div className="footer-right">
             {/* Company links */}
             <div>
-              <span style={{
-                fontFamily: 'var(--font-syne)',
-                fontWeight: 700,
-                fontSize: '14px',
-                color: 'var(--text-1)',
-                display: 'block',
-                marginBottom: '16px',
-              }}>
-                Company
-              </span>
+              <span className="footer-heading">Company</span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {NAV_LINKS.filter(l => l.name !== 'Home').map((link) => (
-                  <Link key={link.name} href={link.href} style={{
-                    fontFamily: 'var(--font-dm-sans)',
-                    fontSize: '14px',
-                    color: 'var(--text-3)',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s ease',
-                  }}>
+                  <Link key={link.name} href={link.href} className="footer-link">
                     {link.name}
                   </Link>
                 ))}
@@ -83,40 +50,15 @@ export default function Footer() {
 
             {/* Locations */}
             <div>
-              <span style={{
-                fontFamily: 'var(--font-syne)',
-                fontWeight: 700,
-                fontSize: '14px',
-                color: 'var(--text-1)',
-                display: 'block',
-                marginBottom: '16px',
-              }}>
-                Locations
-              </span>
+              <span className="footer-heading">Locations</span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px' }}>
                 <div>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
-                    letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-                    display: 'block', marginBottom: '4px',
-                  }}>
-                    HQ & R&D
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
-                    {BRAND.hq}
-                  </span>
+                  <span className="footer-location-label">HQ & R&D</span>
+                  <span className="footer-location-value">{BRAND.hq}</span>
                 </div>
                 <div>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)',
-                    letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-                    display: 'block', marginBottom: '4px',
-                  }}>
-                    Manufacturing
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-dm-sans)', fontSize: '13px', color: 'var(--text-3)' }}>
-                    {BRAND.factory}
-                  </span>
+                  <span className="footer-location-label">Manufacturing</span>
+                  <span className="footer-location-value">{BRAND.factory}</span>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -140,20 +82,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="orange-line" />
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 py-5">
-          <span style={{
-            fontFamily: 'var(--font-dm-sans)',
-            fontSize: '12px',
-            color: 'var(--text-3)',
-            textAlign: 'center',
-          }}>
+          <span className="footer-copyright">
             © 2025 IEG Auto Powers Limited. All Rights Reserved.
           </span>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '10px',
-            color: 'var(--text-3)',
-            letterSpacing: '0.08em',
-          }}>
+          <span className="footer-cin">
             CIN: {BRAND.cin}
           </span>
         </div>

@@ -1,0 +1,56 @@
+/* ============================================================
+   IEG AUTO POWERS LTD — Design Tokens
+   Centralized CSS custom properties for the entire design system
+   ============================================================ */
+
+:root {
+  /* Backgrounds — rich deep navy-blue for premium depth */
+  --bg-primary:    #0B1526;
+  --bg-secondary:  #101E36;
+  --bg-card:       rgba(16,30,54,0.75);
+  --bg-card-solid: #101E36;
+
+  /* Premium Gold — champagne/metallic gold */
+  --gold:          #D4AF37;
+  --gold-dim:      rgba(212,175,55,0.12);
+  --gold-glow:     rgba(212,175,55,0.40);
+  --gold-ultra:    rgba(212,175,55,0.06);
+
+  /* Premium Blue — deep sapphire */
+  --blue:          #1B6FA8;
+  --blue-deep:     #1B4F72;
+  --blue-dim:      rgba(27,111,168,0.12);
+  --blue-glow:     rgba(27,111,168,0.35);
+  --blue-ultra:    rgba(27,111,168,0.06);
+
+  /* Premium Green — rich emerald */
+  --green:         #1A7A4C;
+  --green-dim:     rgba(26,122,76,0.10);
+  --green-glow:    rgba(26,122,76,0.30);
+
+  /* Legacy aliases */
+  --orange:        var(--gold);
+  --orange-dim:    var(--gold-dim);
+  --orange-glow:   var(--gold-glow);
+  --orange-ultra:  var(--gold-ultra);
+
+  /* Text — warm whites */
+  --text-1:        #F5F5F0;
+  --text-2:        #94A3B8;
+  --text-3:        #5E7A99;
+
+  /* Borders — subtle, clean */
+  --border:        rgba(255,255,255,0.07);
+  --border-hover:  rgba(255,255,255,0.16);
+  --border-orange: rgba(212,175,55,0.16);
+  --border-gold:   rgba(212,175,55,0.16);
+  --border-blue:   rgba(27,111,168,0.16);
+
+  /* Fonts */
+  --font-display:  var(--font-syne);
+  --font-body:     var(--font-dm-sans);
+  --font-mono:     var(--font-jetbrains-mono);
+
+  /* Glow radii */
+  --blur-glass: 28px;
+}

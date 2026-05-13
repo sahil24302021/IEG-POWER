@@ -1,0 +1,119 @@
+/* ============================================================
+   IEG AUTO POWERS LTD — Keyframe Animations
+   All @keyframes and animation utility classes
+   ============================================================ */
+
+/* ── Blur-Up Reveal Animation ── */
+@keyframes blur-up-reveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+.blur-up {
+  animation: blur-up-reveal 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Shimmer Sweep on Cards (subtle) ── */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+
+/* ── Pulsing Ring around CTA ── */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(201,162,39,0.4); }
+  70% { box-shadow: 0 0 0 16px rgba(201,162,39,0); }
+  100% { box-shadow: 0 0 0 0 rgba(201,162,39,0); }
+}
+.pulse-ring {
+  animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* ── Counter Blur-In ── */
+@keyframes counter-blur-in {
+  from { filter: blur(12px); opacity: 0; transform: scale(0.85); }
+  to { filter: blur(0); opacity: 1; transform: scale(1); }
+}
+.counter-blur-in {
+  animation: counter-blur-in 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Loading Screen Logo ── */
+@keyframes pulse-logo {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+/* ── Loading Bar Fill ── */
+@keyframes loading-fill {
+  0%   { width: 0%; }
+  50%  { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* ── Marquee Scroll ── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Page Wipe Transition ── */
+@keyframes page-wipe {
+  0%   { transform: translateX(-100%); }
+  45%  { transform: translateX(0); }
+  55%  { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+@keyframes page-transition-fade {
+  0%   { opacity: 1; }
+  60%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ── Energy Flow SVG paths ── */
+@keyframes energy-flow {
+  to { stroke-dashoffset: -16; }
+}
+
+/* ── Scroll indicator bounce ── */
+@keyframes bounce-down {
+  0%, 100% { transform: translateX(-50%) translateY(0);   opacity: 0.5; }
+  50%       { transform: translateX(-50%) translateY(10px); opacity: 1; }
+}
+
+/* ── Hero glow pulse ── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 1.0; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+/* ── Orbiting dot ── */
+@keyframes orbit-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ── Clip-path reveal ── */
+@keyframes clip-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+.clip-reveal {
+  animation: clip-reveal 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* ── Floating animation for orb elements ── */
+@keyframes float-up-down {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-20px); }
+}
+.float-anim {
+  animation: float-up-down 8s ease-in-out infinite;
+}

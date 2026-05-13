@@ -84,7 +84,7 @@ export const PRODUCTS_READY = [
     description: 'Self-powered charging system for e-rickshaws. Battery life extends 2-2.5x. No external charging required. Unlimited range for drivers.',
     specs: { batteryLife: '2-2.5x Extended', charging: 'Self-Powered', mileage: 'Unlimited' },
     badge: 'ISO 9001:2015 Certified',
-    image: '/assets/1-procudt.png',
+    image: '/assets/1-procudt.jpg',
   },
   {
     id: 'scooty',
@@ -100,7 +100,7 @@ export const PRODUCTS_READY = [
     category: 'Energy Storage',
     description: 'Models BC48 (600W) to BC360 (5000W). 96% efficiency across all models. 24 hours backup time. Portable, clean, zero carbon.',
     specs: { efficiency: '96%', backup: '24hr Backup', models: '600W to 5000W' },
-    image: '/assets/Battery-Charger.png',
+    image: '/assets/Battery-Charger.jpg',
   },
   {
     id: 'chula',
@@ -108,7 +108,7 @@ export const PRODUCTS_READY = [
     category: 'Home Appliance',
     description: 'Self-powered electric cooking stove. Rural electrification use case. No grid required. Clean cooking for every household.',
     specs: { power: 'Self-Sustained', fuel: 'None', use: 'Cooking' },
-    image: '/assets/IEG-Electric-Chullah.png'
+    image: '/assets/IEG-Electric-Chullah.jpg'
   },
   {
     id: 'generator',
@@ -116,7 +116,7 @@ export const PRODUCTS_READY = [
     category: 'Power Generation',
     description: 'Fuelless power station. Models: 600W Solar, 3KVA, 5KVA. 18 hrs/day operation. Rural, urban backup, disaster relief.',
     specs: { models: '600W – 5KVA', runtime: '18 hrs/day', noise: '68-72 DB' },
-    image: '/assets/IEG-Generator.png',
+    image: '/assets/IEG-Generator.jpg',
   },
 ];
 
@@ -230,7 +230,7 @@ export const CERTIFICATES = [
     subtitle: 'Internal Energy Generating System',
     details: 'Patentee: Ajay Choudhary | Date of Grant: 03/03/2022 | Filed: 13/12/2011',
     authority: 'Intellectual Property India — Government of India',
-    image: '/assets/pdf_page5_img2.png',
+    image: '/assets/pdf_page5_img2.jpg',
   },
   {
     id: 'patent-2',
@@ -238,7 +238,7 @@ export const CERTIFICATES = [
     subtitle: 'A System for Regeneration of Internal Energy',
     details: 'Patentee: Ajay Choudhary | Date of Grant: 13/01/2025 | Filed: 08/06/2022',
     authority: 'Intellectual Property India — Government of India',
-    image: '/assets/patentno-557845.png',
+    image: '/assets/patentno-557845.jpg',
   },
   {
     id: 'iim-nagpur',
@@ -255,7 +255,7 @@ export const CERTIFICATES = [
     subtitle: 'Dr. APJ Abdul Kalam Recognition',
     details: 'Communication from President\'s office, 2004-2005',
     authority: 'Office of the President of India',
-    image: '/assets/pdf_page4_img1.png',
+    image: '/assets/pdf_page4_img1.jpg',
   },
   {
     id: 'incorporation',

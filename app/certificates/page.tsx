@@ -34,7 +34,7 @@ export default function CertificatesPage() {
   }, []);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} id="main-content">
       {/* HERO */}
       <section className="relative overflow-hidden" style={{ paddingTop: 'clamp(90px, 12vw, 120px)', paddingBottom: 'clamp(50px, 8vw, 80px)' }}>
         <GradientMesh />

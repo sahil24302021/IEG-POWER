@@ -18,7 +18,7 @@ const nextConfig = {
 
   /* ── Bundle optimization ── */
   experimental: {
-    optimizePackageImports: ['gsap', 'framer-motion', 'lucide-react'],
+    optimizePackageImports: ['gsap', 'lucide-react'],
   },
 
   /* ── Redirects ── */
