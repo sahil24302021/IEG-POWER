@@ -172,7 +172,7 @@ export const ROADMAP_STEPS = [
   { day: 'Day 0–30', title: 'MoU Signing & DPR', desc: 'Formal MoU signed. Detailed Project Report delivered within 30 days.' },
   { day: 'Day 30–60', title: 'SPV Formation', desc: 'Private Limited subsidiary incorporated. Corporate office secured in Mumbai CBD.' },
   { day: 'Within 120 days', title: 'Product Delivery', desc: 'Products delivered within 120 days of order confirmation. Samples deployed for testing.' },
-  { day: 'Within 180 days', title: 'Manufacturing Live', desc: 'Large-scale manufacturing facility operational in Vapi, Gujarat.' },
+  { day: 'Within 180 days', title: 'Manufacturing Live', desc: 'Large-scale manufacturing facility operational in India.' },
   { day: '12 months', title: 'Full Commissioning', desc: 'Complete commissioning within 12 months of 100% funding. Full-scale operations begin.' },
 ];
 
