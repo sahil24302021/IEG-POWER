@@ -42,14 +42,21 @@ export default function ContactPage() {
     setStatus('sending');
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: JSON.stringify({
+          access_key: 'c8e8cba8-cd28-4425-bc5f-336f096d0ee1',
+          subject: `New ${form.subject} Inquiry — ${form.name}`,
+          from_name: `${form.name} via IEG Website`,
+          replyto: form.email,
           name: form.name,
           email: form.email,
-          phone: form.phone,
-          subject: form.subject,
+          phone: form.phone || 'Not provided',
+          inquiry_type: form.subject,
           message: form.message,
         }),
       });
@@ -61,7 +68,8 @@ export default function ContactPage() {
       } else {
         setStatus('error');
       }
-    } catch {
+    } catch (err) {
+      console.error(err);
       setStatus('error');
     }
   };
