@@ -1,7 +1,8 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Force dynamic — never pre-render this route
+export const dynamic = 'force-dynamic';
 
 /**
  * POST /api/contact
@@ -24,6 +25,8 @@ export async function POST(request: Request) {
       hour: '2-digit', minute: '2-digit', hour12: true,
       timeZone: 'Asia/Kolkata',
     });
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { error } = await resend.emails.send({
       from: 'IEG Website <onboarding@resend.dev>',
