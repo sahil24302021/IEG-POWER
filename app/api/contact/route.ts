@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     const { error } = await resend.emails.send({
       from: 'IEG Website <onboarding@resend.dev>',
-      to: ['legautopowerltd@gmail.com'],
+      to: ['lilaajay07@gmail.com'], // TODO: Change to legautopowerltd@gmail.com after domain verification
       replyTo: email,
       subject: `🔔 New ${subject} Inquiry — ${name}`,
       html: `
