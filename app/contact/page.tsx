@@ -47,15 +47,61 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           access_key: 'c8e8cba8-cd28-4425-bc5f-336f096d0ee1',
-          subject: `🔔 New Inquiry: ${form.subject} — from ${form.name}`,
+          subject: `🔔 New ${form.subject} Inquiry — ${form.name}`,
           from_name: `${form.name} via IEG Website`,
-          name: form.name,
-          email: form.email,
-          phone: form.phone || 'Not provided',
-          inquiry_type: form.subject,
-          message: form.message,
-          // Web3Forms custom replyto so you can reply directly
           replyto: form.email,
+          // Custom premium HTML email
+          message: `
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: #0B1526; border-radius: 16px; overflow: hidden; border: 1px solid rgba(212,175,55,0.15);">
+  
+  <!-- Header -->
+  <div style="background: linear-gradient(135deg, #101E36 0%, #0B1526 100%); padding: 32px 36px; border-bottom: 1px solid rgba(212,175,55,0.12);">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.15); display: flex; align-items: center; justify-content: center;">
+        <span style="font-size: 20px;">⚡</span>
+      </div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #F5F5F0; letter-spacing: -0.01em;">IEG Auto Powers Ltd</div>
+        <div style="font-size: 11px; color: #5E7A99; letter-spacing: 0.05em; margin-top: 2px;">NEW WEBSITE INQUIRY</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div style="padding: 32px 36px;">
+    
+    <!-- Inquiry Type Badge -->
+    <div style="margin-bottom: 28px;">
+      <span style="display: inline-block; padding: 6px 16px; border-radius: 20px; background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.15); color: #D4AF37; font-size: 12px; font-weight: 600; letter-spacing: 0.05em;">${form.subject.toUpperCase()}</span>
+    </div>
+
+    <!-- Contact Info Cards -->
+    <div style="margin-bottom: 24px; padding: 20px 24px; background: rgba(16,30,54,0.8); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
+      <div style="font-size: 10px; color: #5E7A99; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">FROM</div>
+      <div style="font-size: 18px; font-weight: 700; color: #F5F5F0; margin-bottom: 4px;">${form.name}</div>
+      <div style="font-size: 14px; color: #94A3B8;">${form.email}</div>
+      ${form.phone ? `<div style="font-size: 14px; color: #94A3B8; margin-top: 2px;">📱 ${form.phone}</div>` : ''}
+    </div>
+
+    <!-- Message -->
+    <div style="margin-bottom: 24px; padding: 20px 24px; background: rgba(16,30,54,0.8); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
+      <div style="font-size: 10px; color: #5E7A99; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px;">MESSAGE</div>
+      <div style="font-size: 15px; color: #F5F5F0; line-height: 1.7;">${form.message.replace(/\n/g, '<br/>')}</div>
+    </div>
+
+    <!-- Quick Reply Button -->
+    <a href="mailto:${form.email}?subject=Re: Your ${form.subject} inquiry to IEG Auto Powers" style="display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, #D4AF37, #B8941E); color: #0B1526; font-weight: 700; font-size: 14px; text-decoration: none; border-radius: 10px; letter-spacing: 0.01em;">
+      ↩ Reply to ${form.name.split(' ')[0]}
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div style="padding: 20px 36px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.04);">
+    <div style="font-size: 11px; color: #3D5A73; line-height: 1.6;">
+      Sent via <span style="color: #5E7A99;">iegautopower.com</span> contact form · ${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })} at ${new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}
+    </div>
+  </div>
+</div>`,
         }),
       });
 
