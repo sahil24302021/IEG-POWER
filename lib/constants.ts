@@ -17,7 +17,7 @@ export const BRAND = {
   founderEmail: 'legautopowerltd@gmail.com',
   // phone removed for privacy
   website: 'www.iegautopower.com',
-  websiteStatus: 'Coming Soon',
+  websiteStatus: 'Live',
   hq: 'Dahisar East, Mumbai, Maharashtra, India',
   factory: 'India',
   cin: 'U35106MH2024PLC418794',

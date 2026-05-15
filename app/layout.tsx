@@ -48,11 +48,11 @@ export const metadata: Metadata = {
   },
   description: "IEG Auto Powers Ltd: Patented self-sustaining energy systems (Patent No. 391051 & 557845). Zero fuel, zero grid, zero emissions. 30+ years of R&D.",
   keywords: "IEG, Internal Energy Generate, clean energy, patent 391051, self-sustaining power, electric vehicle charger, IEG Auto Powers, renewable energy India, zero emission technology",
-  metadataBase: new URL('https://ieg-power.vercel.app'),
+  metadataBase: new URL('https://www.iegautopower.com'),
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://ieg-power.vercel.app',
+    url: 'https://www.iegautopower.com',
     siteName: 'IEG Auto Powers Ltd',
     title: 'IEG Auto Powers Ltd — The Power Within',
     description: 'Patented self-sustaining energy systems. Zero fuel, zero grid, zero emissions.',

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/_next/'],
       },
     ],
-    sitemap: 'https://ieg-power.vercel.app/sitemap.xml',
+    sitemap: 'https://www.iegautopower.com/sitemap.xml',
   };
 }
