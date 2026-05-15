@@ -29,7 +29,6 @@ export default function Footer() {
               electricity without fuel. Thirty years of R&D. Two government patents.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <span className="footer-contact">{BRAND.phone}</span>
               <span className="footer-contact">{BRAND.email}</span>
             </div>
           </div>

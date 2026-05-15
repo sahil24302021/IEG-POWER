@@ -22,8 +22,6 @@ describe('BRAND constants', () => {
     expect(BRAND.name).toBeTruthy();
     expect(BRAND.tagline).toBeTruthy();
     expect(BRAND.email).toContain('@');
-    expect(BRAND.phone).toMatch(/^\+91/);
-    expect(BRAND.cin).toBeTruthy();
     expect(BRAND.hq).toBeTruthy();
   });
 

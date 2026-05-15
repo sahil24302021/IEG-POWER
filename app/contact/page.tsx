@@ -9,10 +9,15 @@ import { BRAND } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * ContactPage — Form submissions are sent via Web3Forms (free service).
+ * All form data is delivered to the company email (legautopowerltd@gmail.com).
+ * Web3Forms: 250 free submissions/month, no backend required.
+ */
 export default function ContactPage() {
   const ref = useRef<HTMLDivElement>(null);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: 'Investment', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', subject: 'Investment', message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   useEffect(() => {
     if (!ref.current) return;
@@ -32,9 +37,35 @@ export default function ContactPage() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setStatus('sending');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'c8e8cba8-cd28-4425-bc5f-336f096d0ee1',
+          subject: `IEG Website Inquiry: ${form.subject}`,
+          from_name: form.name,
+          name: form.name,
+          email: form.email,
+          inquiry_type: form.subject,
+          message: form.message,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setStatus('sent');
+        setForm({ name: '', email: '', subject: 'Investment', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -68,9 +99,8 @@ export default function ContactPage() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   {[
-                    ['Contact No', BRAND.phone, `tel:${BRAND.phone}`],
                     ['Email', BRAND.email, `mailto:${BRAND.email}`],
-                    ['Website', `${BRAND.website} — ${BRAND.websiteStatus}`, ''],
+                    ['Website', `${BRAND.website}`, ''],
                   ].map(([label, value, href]) => (
                     <div key={label}>
                       <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>{label}</span>
@@ -128,7 +158,7 @@ export default function ContactPage() {
 
             {/* RIGHT — Contact Form */}
             <div className="reveal">
-              {submitted ? (
+              {status === 'sent' ? (
                 <div className="glass-card text-center" style={{ padding: '70px 40px' }}>
                   <div style={{ fontSize: '56px', marginBottom: '24px', color: 'var(--green)' }}>✓</div>
                   <h3 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '26px', color: 'var(--text-1)', marginBottom: '14px' }}>
@@ -137,6 +167,13 @@ export default function ContactPage() {
                   <p className="body-md">
                     Thank you for reaching out. Our team will respond within 24 hours.
                   </p>
+                  <button
+                    onClick={() => setStatus('idle')}
+                    className="btn-ghost"
+                    style={{ marginTop: '24px', fontSize: '14px' }}
+                  >
+                    Send Another Message
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="glass-card" style={{ padding: '40px' }}>
@@ -157,30 +194,17 @@ export default function ContactPage() {
                         onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
                       />
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="contact-email" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Email</label>
-                        <input
-                          id="contact-email"
-                          className="form-input"
-                          type="email"
-                          placeholder="email@example.com"
-                          required
-                          value={form.email}
-                          onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="contact-phone" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Phone</label>
-                        <input
-                          id="contact-phone"
-                          className="form-input"
-                          type="tel"
-                          placeholder="+91 XXXXX XXXXX"
-                          value={form.phone}
-                          onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
-                        />
-                      </div>
+                    <div>
+                      <label htmlFor="contact-email" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Email</label>
+                      <input
+                        id="contact-email"
+                        className="form-input"
+                        type="email"
+                        placeholder="email@example.com"
+                        required
+                        value={form.email}
+                        onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                      />
                     </div>
                     <div>
                       <label htmlFor="contact-subject" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Subject</label>
@@ -208,9 +232,43 @@ export default function ContactPage() {
                         onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))}
                       />
                     </div>
-                    <button type="submit" className="btn-orange w-full justify-center" style={{ marginTop: '8px' }}>
-                      Send Message
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+
+                    {status === 'error' && (
+                      <div style={{
+                        padding: '12px 16px',
+                        borderRadius: '10px',
+                        background: 'rgba(220,38,38,0.08)',
+                        border: '1px solid rgba(220,38,38,0.2)',
+                        color: '#ef4444',
+                        fontSize: '13px',
+                      }}>
+                        Something went wrong. Please try again or email us directly.
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      className="btn-orange w-full justify-center"
+                      style={{ marginTop: '8px' }}
+                      disabled={status === 'sending'}
+                    >
+                      {status === 'sending' ? (
+                        <>
+                          Sending...
+                          <div style={{
+                            width: '14px', height: '14px',
+                            border: '2px solid rgba(255,255,255,0.3)',
+                            borderTop: '2px solid white',
+                            borderRadius: '50%',
+                            animation: 'spin 0.8s linear infinite',
+                          }} />
+                        </>
+                      ) : (
+                        <>
+                          Send Message
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -219,6 +277,8 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }

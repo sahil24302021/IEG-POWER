@@ -15,7 +15,7 @@ export const BRAND = {
   vision: 'Making the globe more ecologically sustainable for future generations',
   email: 'legautopowerltd@gmail.com',
   founderEmail: 'legautopowerltd@gmail.com',
-  phone: '+91 76000 13556',
+  // phone removed for privacy
   website: 'www.iegautopower.com',
   websiteStatus: 'Coming Soon',
   hq: 'Dahisar East, Mumbai, Maharashtra, India',
@@ -328,3 +328,5 @@ export const GENERATOR_SPECS = {
 
 // ---- MARQUEE TICKER ----
 export const MARQUEE_TEXT = 'PATENT NO. 391051  ·  ZERO CARBON FOOTPRINT  ·  GRID INDEPENDENT  ·  PATENT NO. 557845  ·  RECOGNIZED BY DR. APJ ABDUL KALAM  ·  IIM NAGPUR APPRECIATED  ·  ';
+
+
