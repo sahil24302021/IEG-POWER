@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/_next/'],
       },
     ],
-    sitemap: 'https://www.iegautopower.com/sitemap.xml',
+    sitemap: 'https://iegautopower.com/sitemap.xml',
   };
 }
