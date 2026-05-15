@@ -29,7 +29,12 @@ export default function Footer() {
               electricity without fuel. Thirty years of R&D. Two government patents.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <span className="footer-contact">{BRAND.email}</span>
+              <a href={`mailto:${BRAND.email}`} className="footer-contact" style={{ textDecoration: 'none', transition: 'color 0.2s ease' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '')}
+              >
+                ✉ {BRAND.email}
+              </a>
             </div>
           </div>
 

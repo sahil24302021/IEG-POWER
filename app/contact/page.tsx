@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
  */
 export default function ContactPage() {
   const ref = useRef<HTMLDivElement>(null);
-  const [form, setForm] = useState({ name: '', email: '', subject: 'Investment', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: 'Investment', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   useEffect(() => {
@@ -47,19 +47,22 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           access_key: 'c8e8cba8-cd28-4425-bc5f-336f096d0ee1',
-          subject: `IEG Website Inquiry: ${form.subject}`,
-          from_name: form.name,
+          subject: `🔔 New Inquiry: ${form.subject} — from ${form.name}`,
+          from_name: `${form.name} via IEG Website`,
           name: form.name,
           email: form.email,
+          phone: form.phone || 'Not provided',
           inquiry_type: form.subject,
           message: form.message,
+          // Web3Forms custom replyto so you can reply directly
+          replyto: form.email,
         }),
       });
 
       const data = await response.json();
       if (data.success) {
         setStatus('sent');
-        setForm({ name: '', email: '', subject: 'Investment', message: '' });
+        setForm({ name: '', email: '', phone: '', subject: 'Investment', message: '' });
       } else {
         setStatus('error');
       }
@@ -204,6 +207,17 @@ export default function ContactPage() {
                         required
                         value={form.email}
                         onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-phone" className="mono-label" style={{ display: 'block', marginBottom: '8px' }}>Mobile Number</label>
+                      <input
+                        id="contact-phone"
+                        className="form-input"
+                        type="tel"
+                        placeholder="+91 XXXXX XXXXX"
+                        value={form.phone}
+                        onChange={(e) => setForm(f => ({ ...f, phone: e.target.value }))}
                       />
                     </div>
                     <div>
