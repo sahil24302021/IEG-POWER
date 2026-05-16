@@ -92,22 +92,33 @@ export default function ContactPage() {
             <div>
               <div className="reveal" style={{ marginBottom: '48px' }}>
                 <h2 style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '26px', color: 'var(--text-1)', marginBottom: '6px' }}>
-                  Ajay Choudhary
+                  IEG Auto Powers Ltd.
                 </h2>
-                <p className="body-md" style={{ color: 'var(--gold)', marginBottom: '28px' }}>Founder & Managing Director</p>
+                <a 
+                  href="https://maps.google.com/?q=201B+Krishna+SH+Center+Bharucha+Road+Dahisar+East+Mumbai+Maharashtra+India+400068"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="body-md" 
+                  style={{ color: 'var(--gold)', marginBottom: '28px', display: 'block', textDecoration: 'none', lineHeight: 1.6, transition: 'opacity 0.2s' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.8')}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+                >
+                  201B, Krishna SH Center, Bharucha Road,<br />
+                  Dahisar East, Mumbai, Maharashtra,<br />
+                  India — 400068
+                </a>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   {[
                     ['Email', BRAND.email, `mailto:${BRAND.email}`],
-                    ['Website', `${BRAND.website}`, ''],
+                    ['Website', `${BRAND.website}`, `https://${BRAND.website}`],
                   ].map(([label, value, href]) => (
                     <div key={label}>
                       <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>{label}</span>
-                      {href ? (
-                        <a href={href} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none' }}>{value}</a>
-                      ) : (
-                        <span className="body-md" style={{ color: 'var(--text-1)' }}>{value}</span>
-                      )}
+                      <a href={href} target={label === 'Website' ? '_blank' : undefined} rel={label === 'Website' ? 'noopener noreferrer' : undefined} className="body-md" style={{ color: 'var(--text-1)', textDecoration: 'none', transition: 'color 0.2s' }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-1)')}
+                      >{value}</a>
                     </div>
                   ))}
                 </div>
@@ -117,13 +128,15 @@ export default function ContactPage() {
                 <span className="mono-label" style={{ display: 'block', marginBottom: '14px', color: 'var(--gold)' }}>Locations</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {[
-                    ['HQ & R&D', BRAND.hq],
-                    ['Manufacturing', BRAND.factory],
-                  ].map(([label, value]) => (
-                    <div key={label} className="glass-card" style={{ padding: '18px 22px' }}>
+                    ['HQ & R&D', BRAND.hq, 'https://maps.google.com/?q=Dahisar+East+Mumbai+Maharashtra+India'],
+                    ['Manufacturing', BRAND.factory, 'https://maps.google.com/?q=India'],
+                  ].map(([label, value, mapUrl]) => (
+                    <a key={label} href={mapUrl} target="_blank" rel="noopener noreferrer" className="glass-card hover-lift" style={{ padding: '18px 22px', textDecoration: 'none', display: 'block', transition: 'border-color 0.2s' }}>
                       <span className="mono-label" style={{ display: 'block', marginBottom: '4px' }}>{label}</span>
-                      <p className="body-sm" style={{ color: 'var(--text-2)' }}>{value}</p>
-                    </div>
+                      <p className="body-sm" style={{ color: 'var(--text-2)' }}>
+                        {value}
+                      </p>
+                    </a>
                   ))}
                 </div>
               </div>
