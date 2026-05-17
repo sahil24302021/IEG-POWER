@@ -55,6 +55,9 @@ export default function LoadingScreen() {
   return (
     <div
       className="loading-screen-root"
+      aria-hidden="true"
+      role="presentation"
+      data-nosnippet=""
       style={{
         position: 'fixed',
         inset: 0,

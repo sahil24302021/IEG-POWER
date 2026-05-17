@@ -192,6 +192,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
         <SkipToContent />
+        {/* Hide loading screen from crawlers/bots that don't run JS */}
+        <noscript>
+          <style>{`.loading-screen-root { display: none !important; }`}</style>
+        </noscript>
         <LoadingScreen />
 
         <LenisProvider>
