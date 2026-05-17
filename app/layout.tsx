@@ -107,20 +107,28 @@ export const metadata: Metadata = {
     'google-site-verification': '', // Add your Google Search Console verification code here
   },
   icons: {
-    icon: '/icon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
     apple: '/apple-icon.png',
+    shortcut: '/favicon.ico',
   },
+  manifest: '/manifest.json',
 };
 
-// JSON-LD Organization structured data for Google rich results
-const jsonLd = {
+// JSON-LD structured data for Google rich results
+const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'IEG Auto Powers Ltd',
-  alternateName: ['IEG', 'IEG Auto Power', 'Internal Energy Generate'],
+  legalName: 'IEG Auto Power Limited',
+  alternateName: ['IEG', 'IEG Auto Power', 'IEG Auto Power Ltd', 'IEG Auto Powers', 'Internal Energy Generate', 'Ieg Auto Power Limited'],
   url: 'https://iegautopower.com',
   logo: 'https://iegautopower.com/ieg-logo.png',
-  description: 'Patented internal energy generation technology. Self-sustaining power systems with zero fuel, zero grid, zero emissions. 30+ years of R&D.',
+  image: 'https://iegautopower.com/ieg-logo.png',
+  description: 'IEG Auto Powers Ltd — Patented internal energy generation technology. Self-sustaining power systems with zero fuel, zero grid, zero emissions. 30+ years of R&D by inventor Ajay Choudhary.',
   foundingDate: '2024',
   founder: {
     '@type': 'Person',
@@ -129,18 +137,37 @@ const jsonLd = {
   },
   address: {
     '@type': 'PostalAddress',
+    streetAddress: '201B, Krishna SH Center, Bharucha Road',
     addressLocality: 'Dahisar East, Mumbai',
     addressRegion: 'Maharashtra',
+    postalCode: '400068',
     addressCountry: 'IN',
   },
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'legautopowerltd@gmail.com',
     contactType: 'customer service',
+    availableLanguage: ['English', 'Hindi'],
   },
   sameAs: [],
   numberOfEmployees: { '@type': 'QuantitativeValue', value: '50+' },
-  keywords: 'IEG, Internal Energy Generate, clean energy, self-sustaining power, e-rickshaw charger, battery charger, fuelless generator, patent 391051, patent 557845',
+  taxID: 'U27104MH2025PLC454386',
+  naics: '335999',
+  keywords: 'IEG, IEG Auto Powers, IEG Auto Power Ltd, Internal Energy Generate, clean energy, self-sustaining power, e-rickshaw charger, battery charger, fuelless generator, patent 391051, patent 557845, Ajay Choudhary',
+};
+
+// WebSite schema — enables Google sitelinks search box
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'IEG Auto Powers Ltd',
+  alternateName: ['IEG', 'IEG Auto Power'],
+  url: 'https://iegautopower.com',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://iegautopower.com/?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 export default function RootLayout({
@@ -158,7 +185,11 @@ export default function RootLayout({
         {/* JSON-LD structured data for Google Search */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
         <SkipToContent />
         <LoadingScreen />
